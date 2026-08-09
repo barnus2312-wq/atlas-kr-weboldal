@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jelentkezés - Atlas Roleplay KR</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <div class="crest"><span>ARP<br>KR</span></div>
+      <div class="brand-text">
+        <div class="name">Készenléti Rendőrség</div>
+        <div class="unit">Atlas Roleplay</div>
+      </div>
+    </a>
+    <nav class="links">
+      <a href="index.html">Kezdőlap</a>
+      <a href="rolunk.html">Rólunk</a>
+      <a href="ranglista.html">Ranglista</a>
+      <a href="hirek.html">Hírek</a>
+    </nav>
+    <a href="jelentkezes.html" class="nav-cta">Jelentkezés</a>
+  </div>
+</header>
+
+<section style="padding-top:72px;padding-bottom:48px;">
+  <div class="wrap">
+    <p class="kicker">Jelentkezés</p>
+    <h1>Csatlakozz a KR-hez</h1>
+    <p class="lead" style="margin-top:16px;">
+      Töltsd ki az űrlapot. A parancsnokság 48 órán belül visszajelez Discordon
+      az írásbeli teszt és a beszélgetés időpontjával kapcsolatban.
+    </p>
+  </div>
+</section>
+
+<section class="tight bg-1">
+  <div class="wrap" style="max-width:640px;">
+    <form id="jelentkezesForm">
+      <div class="field">
+        <label>Karakter neve</label>
+        <input type="text" required placeholder="Vezetéknév Keresztnév">
+      </div>
+      <div class="field">
+        <label>Discord felhasználónév</label>
+        <input type="text" required placeholder="pl. nev#0000 vagy @nev">
+      </div>
+      <div class="field">
+        <label>Karakter kora (RP)</label>
+        <input type="text" placeholder="pl. 24">
+      </div>
+      <div class="field">
+        <label>Korábbi RP / rendvédelmi tapasztalat</label>
+        <textarea placeholder="Milyen frakcióban voltál korábban, mennyi ideig, milyen rendfokozatig jutottál..."></textarea>
+      </div>
+      <div class="field">
+        <label>Miért a Készenléti Rendőrség?</label>
+        <textarea required placeholder="Néhány mondatban indokold, miért minket választanál..."></textarea>
+      </div>
+      <div class="field">
+        <label>Heti elérhető óraszám</label>
+        <select>
+          <option>5 óra alatt</option>
+          <option>5-10 óra</option>
+          <option>10-20 óra</option>
+          <option>20 óra felett</option>
+        </select>
+      </div>
+      <div class="field">
+        <label style="display:flex;align-items:flex-start;gap:10px;text-transform:none;font-family:'Source Serif 4',serif;font-size:14.5px;color:var(--ink-soft);">
+          <input type="checkbox" required style="width:auto;margin-top:3px;">
+          Elolvastam és elfogadom a szerver és a KR szabályzatát.
+        </label>
+      </div>
+      <button type="submit" class="btn primary" style="border:none;cursor:pointer;">Jelentkezés elküldése</button>
+      <p class="hint" style="margin-top:14px;">
+        Ez az űrlap jelenleg demonstrációs célú - a beküldés nem kerül automatikusan feldolgozásra.
+        Éles használathoz egy Discord-webhookot vagy egy egyszerű backendet kell mögé kötni.
+      </p>
+    </form>
+    <div id="confirmMsg" style="display:none;">
+      <div class="card" style="border-color:var(--gold);">
+        <h3 style="color:var(--gold-bright);">Jelentkezés rögzítve</h3>
+        <p style="margin-top:10px;">Köszönjük a jelentkezést. A parancsnokság hamarosan felveszi veled a kapcsolatot Discordon.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <p>Atlas Roleplay - Készenléti Rendőrség. Fiktív szerepjáték-tartalom, nem valós hatósági szerv.</p>
+    <p>Discord: discord.gg/atlasroleplay</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('jelentkezesForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('confirmMsg').style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
