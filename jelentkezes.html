@@ -43,27 +43,27 @@
     <form id="jelentkezesForm">
       <div class="field">
         <label>Karakter neve</label>
-        <input type="text" required placeholder="Vezetéknév Keresztnév">
+        <input type="text" name="nev" required placeholder="Vezetéknév Keresztnév">
       </div>
       <div class="field">
         <label>Discord felhasználónév</label>
-        <input type="text" required placeholder="pl. nev#0000 vagy @nev">
+        <input type="text" name="discord" required placeholder="pl. nev#0000 vagy @nev">
       </div>
       <div class="field">
         <label>Karakter kora (RP)</label>
-        <input type="text" placeholder="pl. 24">
+        <input type="text" name="kor" placeholder="pl. 24">
       </div>
       <div class="field">
         <label>Korábbi RP / rendvédelmi tapasztalat</label>
-        <textarea placeholder="Milyen frakcióban voltál korábban, mennyi ideig, milyen rendfokozatig jutottál..."></textarea>
+        <textarea name="tapasztalat" placeholder="Milyen frakcióban voltál korábban, mennyi ideig, milyen rendfokozatig jutottál..."></textarea>
       </div>
       <div class="field">
         <label>Miért a Készenléti Rendőrség?</label>
-        <textarea required placeholder="Néhány mondatban indokold, miért minket választanál..."></textarea>
+        <textarea name="indoklas" required placeholder="Néhány mondatban indokold, miért minket választanál..."></textarea>
       </div>
       <div class="field">
         <label>Heti elérhető óraszám</label>
-        <select>
+        <select name="oraszam">
           <option>5 óra alatt</option>
           <option>5-10 óra</option>
           <option>10-20 óra</option>
@@ -76,11 +76,8 @@
           Elolvastam és elfogadom a szerver és a KR szabályzatát.
         </label>
       </div>
-      <button type="submit" class="btn primary" style="border:none;cursor:pointer;">Jelentkezés elküldése</button>
-      <p class="hint" style="margin-top:14px;">
-        Ez az űrlap jelenleg demonstrációs célú - a beküldés nem kerül automatikusan feldolgozásra.
-        Éles használathoz egy Discord-webhookot vagy egy egyszerű backendet kell mögé kötni.
-      </p>
+      <button type="submit" id="submitBtn" class="btn primary" style="border:none;cursor:pointer;">Jelentkezés elküldése</button>
+      <p id="errorMsg" style="display:none;color:var(--red-bright);font-size:13.5px;margin-top:14px;"></p>
     </form>
     <div id="confirmMsg" style="display:none;">
       <div class="card" style="border-color:var(--gold);">
@@ -99,10 +96,37 @@
 </footer>
 
 <script>
-  document.getElementById('jelentkezesForm').addEventListener('submit', function(e){
+  // Cseréld le a saját Worker URL-edre, miután telepítetted (lásd worker.js + README)
+  const WORKER_URL = "https://atlas-kr-jelentkezes.barnus2312.workers.dev";
+
+  const form = document.getElementById('jelentkezesForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const errorMsg = document.getElementById('errorMsg');
+
+  form.addEventListener('submit', async function(e){
     e.preventDefault();
-    this.style.display = 'none';
-    document.getElementById('confirmMsg').style.display = 'block';
+    errorMsg.style.display = 'none';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Küldés...';
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error('Nem sikerült elküldeni');
+
+      form.style.display = 'none';
+      document.getElementById('confirmMsg').style.display = 'block';
+    } catch (err) {
+      errorMsg.textContent = 'Hiba történt a küldés során. Próbáld újra, vagy jelezd a hibát a Discordon.';
+      errorMsg.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Jelentkezés elküldése';
+    }
   });
 </script>
 
