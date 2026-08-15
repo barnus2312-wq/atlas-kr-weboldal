@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eljárási űrlapok - Atlas Roleplay KR</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .site-header-wrap{background:var(--bg-0);}
+  @media print{ .site-header-wrap, .site-footer-wrap { display:none !important; } }
+  :root{
+    --paper:#F7F5F0;
+    --ink:#1B2A44;
+    --ink-soft:#3E4C63;
+    --line:#C9C3B4;
+    --line-strong:#8B8471;
+    --red:#8C1F28;
+    --gold:#8C7A4B;
+    --field-bg:#FFFFFF;
+    --muted:#6B6F76;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:#E9E5DA;
+    font-family:'Source Serif 4','Georgia',serif;
+    color:var(--ink);
+    padding:32px 16px 64px;
+  }
+  @media print{
+    body{background:#fff;padding:0;}
+    .no-print{display:none !important;}
+    .sheet{box-shadow:none !important;margin:0 !important;}
+  }
+  .toolbar{
+    max-width:900px;
+    margin:0 auto 20px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+    font-family:'IBM Plex Sans','Segoe UI',sans-serif;
+  }
+  .tab{
+    padding:9px 16px;
+    border:1px solid var(--line-strong);
+    background:var(--field-bg);
+    color:var(--ink-soft);
+    font-size:13px;
+    letter-spacing:.02em;
+    cursor:pointer;
+    border-radius:2px;
+  }
+  .tab.active{
+    background:var(--ink);
+    color:#F7F5F0;
+    border-color:var(--ink);
+  }
+  .spacer{flex:1;}
+  .printbtn{
+    padding:9px 18px;
+    border:1px solid var(--red);
+    background:var(--red);
+    color:#fff;
+    font-size:13px;
+    cursor:pointer;
+    border-radius:2px;
+  }
+  .sheet{
+    max-width:900px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    border:1px solid var(--line-strong);
+    box-shadow:0 4px 18px rgba(27,42,68,.12);
+    padding:0;
+    display:none;
+  }
+  .sheet.active{display:block;}
+  .masthead{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:26px 36px 20px;
+    border-bottom:2px solid var(--ink);
+  }
+  .seal{
+    width:56px;height:56px;flex:none;
+    border:2px solid var(--gold);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+  }
+  .seal::before{
+    content:"";
+    position:absolute;inset:5px;
+    border:1px solid var(--gold);
+    border-radius:50%;
+  }
+  .seal span{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:9px;
+    letter-spacing:.05em;
+    color:var(--gold);
+    text-align:center;
+    line-height:1.2;
+  }
+  .mast-text .kicker{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--red);
+    margin:0 0 4px;
+  }
+  .mast-text h1{
+    font-size:22px;
+    font-weight:600;
+    margin:0 0 4px;
+    letter-spacing:.01em;
+  }
+  .mast-text .sub{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .ugyszam{
+    margin-left:auto;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    text-align:right;
+  }
+  .ugyszam input{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    width:150px;
+    text-align:right;
+  }
+  .body-pad{padding:26px 36px 36px;}
+  fieldset{
+    border:none;
+    border-top:1px solid var(--line);
+    margin:0 0 22px;
+    padding:16px 0 0;
+  }
+  legend{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--red);
+    padding:0 2px 0 0;
+    margin-left:-2px;
+  }
+  .row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-bottom:12px;
+  }
+  .row.three{grid-template-columns:1fr 1fr 1fr;}
+  .field label{
+    display:block;
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:11.5px;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  input[type=text],input[type=date],input[type=time],textarea,select{
+    width:100%;
+    background:var(--field-bg);
+    border:1px solid var(--line-strong);
+    border-radius:2px;
+    padding:8px 10px;
+    font-family:'Source Serif 4',serif;
+    font-size:14px;
+    color:var(--ink);
+  }
+  textarea{resize:vertical;min-height:70px;font-family:'Source Serif 4',serif;line-height:1.55;}
+  .legal-text{
+    font-size:14px;
+    line-height:1.7;
+    color:var(--ink-soft);
+    background:rgba(140,122,75,.06);
+    border-left:2px solid var(--gold);
+    padding:14px 18px;
+    margin:0 0 16px;
+  }
+  .legal-text p{margin:0 0 10px;}
+  .legal-text p:last-child{margin-bottom:0;}
+  .checks{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:13px;
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+  }
+  .checks label{
+    display:flex;align-items:flex-start;gap:8px;
+    color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .checks input{margin-top:2px;}
+  .sig-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin-top:28px;
+  }
+  .sig-block{
+    border-top:1px solid var(--ink);
+    padding-top:6px;
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:11.5px;
+    color:var(--muted);
+  }
+  .note{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:11.5px;
+    color:var(--muted);
+    margin-top:2px;
+  }
+  .timer-line{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--red);
+    background:rgba(140,31,40,.06);
+    border:1px dashed var(--red);
+    padding:8px 12px;
+    margin-bottom:18px;
+    display:inline-block;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header-wrap">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <div class="crest"><span>ARP<br>KR</span></div>
+      <div class="brand-text">
+        <div class="name">Készenléti Rendőrség</div>
+        <div class="unit">Atlas Roleplay</div>
+      </div>
+    </a>
+    <nav class="links">
+      <a href="index.html">Kezdőlap</a>
+      <a href="rolunk.html">Rólunk</a>
+      <a href="ranglista.html">Ranglista</a>
+      <a href="dokumentumok.html" class="active">Dokumentumok</a>
+      <a href="hirek.html">Hírek</a>
+    </nav>
+    <a href="jelentkezes.html" class="nav-cta">Jelentkezés</a>
+  </div>
+</header>
+
+<div class="toolbar no-print">
+  <button class="tab active" data-t="eloallitas">Előállítási tájékoztató</button>
+  <button class="tab" data-t="kihallgatas">Kihallgatási jegyzőkönyv</button>
+  <button class="tab" data-t="orizet">Őrizetbe vételi határozat</button>
+  <div class="spacer"></div>
+  <button class="printbtn" onclick="window.print()">Nyomtatás / mentés PDF-ként</button>
+</div>
+
+<!-- ELŐÁLLÍTÁS -->
+<div class="sheet active" id="sheet-eloallitas">
+  <div class="masthead">
+    <div class="seal"><span>KR<br>KÉSZ.<br>REND.</span></div>
+    <div class="mast-text">
+      <p class="kicker">Készenléti Rendőrség</p>
+      <h1>Tájékoztató fogvatartott jogairól</h1>
+      <p class="sub">Rtv. 33. § szerinti előállítás</p>
+    </div>
+    <div class="ugyszam">
+      Ügyszám<br>
+      <input type="text" placeholder="___-___/2026.">
+    </div>
+  </div>
+  <div class="body-pad">
+
+    <div class="timer-line">Fogvatartás kezdete: <span contenteditable="true">__:__</span> · maximum 8 óra, egy alkalommal +4 óra hosszabbítható</div>
+
+    <fieldset>
+      <legend>Előállított adatai</legend>
+      <div class="row three">
+        <div class="field"><label>Név</label><input type="text"></div>
+        <div class="field"><label>Születési hely, idő</label><input type="text"></div>
+        <div class="field"><label>Lakcím</label><input type="text"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Az intézkedés adatai</legend>
+      <div class="row">
+        <div class="field"><label>Szervezeti egység</label><input type="text"></div>
+        <div class="field"><label>Jogalap</label>
+          <select>
+            <option>Rtv. 33. § - előállítás</option>
+            <option>Rtv. 34. § - elővezetés</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>Az előállítás oka</label><textarea></textarea></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Jogi tájékoztatás szövege</legend>
+      <div class="legal-text">
+        <p>Tájékoztatom, hogy Önt a fenti szervezeti egység előállító helyiségébe az Rtv. 33. §-a alapján előállították. Ezáltal Ön az Rtv. 97. § (1) bekezdés h) pontja alapján fogvatartottnak minősül.</p>
+        <p>A személyi szabadságát csak a szükséges ideig, de legfeljebb 8 órán át korlátozhatjuk. Indokolt esetben a szerv vezetője egy alkalommal, legfeljebb 4 órával meghosszabbíthatja - erről és időtartamáról Önt tájékoztatjuk.</p>
+      </div>
+      <div class="checks">
+        <label><input type="checkbox"> Hozzátartozó / megjelölt személy értesítéséhez való jogról tájékoztatva</label>
+        <label><input type="checkbox"> Panasz benyújtásának jogáról tájékoztatva</label>
+        <label><input type="checkbox"> Orvosi ellátás igénybevételének jogáról tájékoztatva</label>
+        <label><input type="checkbox"> Tolmács igénybevételének jogáról tájékoztatva (szükség esetén)</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Megjegyzés</legend>
+      <textarea placeholder="Egyéb körülmény, hosszabbítás indoka, stb."></textarea>
+    </fieldset>
+
+    <div class="sig-row">
+      <div class="sig-block">Előállított aláírása</div>
+      <div class="sig-block">Intézkedő rendőr aláírása, azonosító</div>
+    </div>
+  </div>
+</div>
+
+<!-- KIHALLGATÁS -->
+<div class="sheet" id="sheet-kihallgatas">
+  <div class="masthead">
+    <div class="seal"><span>KR<br>KÉSZ.<br>REND.</span></div>
+    <div class="mast-text">
+      <p class="kicker">Készenléti Rendőrség</p>
+      <h1>Gyanúsítotti kihallgatás jegyzőkönyve</h1>
+      <p class="sub">Be. szerinti kihallgatás</p>
+    </div>
+    <div class="ugyszam">
+      Ügyszám<br>
+      <input type="text" placeholder="___-___/2026.">
+    </div>
+  </div>
+  <div class="body-pad">
+
+    <fieldset>
+      <legend>Kihallgatás adatai</legend>
+      <div class="row three">
+        <div class="field"><label>Dátum</label><input type="date"></div>
+        <div class="field"><label>Kezdés ideje</label><input type="time"></div>
+        <div class="field"><label>Befejezés ideje</label><input type="time"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Kihallgatást végzi</label><input type="text"></div>
+        <div class="field"><label>Jegyzőkönyvvezető</label><input type="text"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Védő</label><input type="text" placeholder="Név, vagy: nincs jelen"></div>
+        <div class="field"><label>Rögzítés módja</label>
+          <select>
+            <option>Írásos jegyzőkönyv</option>
+            <option>Kép- és hangfelvétel</option>
+            <option>Mindkettő</option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Gyanúsított adatai</legend>
+      <div class="row three">
+        <div class="field"><label>Név</label><input type="text"></div>
+        <div class="field"><label>Születési hely, idő</label><input type="text"></div>
+        <div class="field"><label>Anyja neve</label><input type="text"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Lakcím</label><input type="text"></div>
+        <div class="field"><label>Okmányszám</label><input type="text"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>A gyanú közlése</legend>
+      <div class="field"><label>Btk. szerinti megnevezés és szakaszszám</label><input type="text" placeholder="pl. Btk. 370. § (1) bek. - lopás vétsége"></div>
+      <div class="field" style="margin-top:12px;"><label>Tényállás</label><textarea placeholder="Idő, hely, elkövetési mód rövid, tárgyilagos leírása"></textarea></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Jogi tájékoztatás szövege</legend>
+      <div class="legal-text">
+        <p>Ön nem köteles vallomást tenni. Ha vallomást tesz, azt bármikor megtagadhatja, akár egy-egy kérdés megválaszolását is. A hallgatás nem értékelhető az Ön terhére.</p>
+        <p>Önt megilleti a védő igénybevételének joga - választhat védőt, vagy kirendelt védőt kap. Ha nem érti a magyar nyelvet, díjmentesen tolmácsot vehet igénybe.</p>
+        <p>Joga van hozzátartozóját értesíttetni, külföldi állampolgárként a konzuli hatóság értesítését kérni, panasszal élni, és orvosi ellátást igényelni.</p>
+      </div>
+      <div class="checks">
+        <label><input type="checkbox"> A tájékoztatást megértette</label>
+        <label><input type="checkbox"> Védőt kíván igénybe venni</label>
+        <label><input type="checkbox"> Vallomást kíván tenni</label>
+        <label><input type="checkbox"> Él a hallgatás jogával</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Vallomás / kérdés-válasz</legend>
+      <textarea style="min-height:160px;" placeholder="Kérdés: ...&#10;Válasz: ..."></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>Záradék</legend>
+      <textarea placeholder="A jegyzőkönyvvel egyetért / a következő észrevételt teszi: ..."></textarea>
+    </fieldset>
+
+    <div class="sig-row">
+      <div class="sig-block">Gyanúsított aláírása</div>
+      <div class="sig-block">Kihallgatást végző rendőr aláírása</div>
+    </div>
+    <div class="sig-row">
+      <div class="sig-block">Védő aláírása (ha jelen volt)</div>
+      <div class="sig-block">Jegyzőkönyvvezető aláírása</div>
+    </div>
+  </div>
+</div>
+
+<!-- ŐRIZET -->
+<div class="sheet" id="sheet-orizet">
+  <div class="masthead">
+    <div class="seal"><span>KR<br>KÉSZ.<br>REND.</span></div>
+    <div class="mast-text">
+      <p class="kicker">Készenléti Rendőrség</p>
+      <h1>Őrizetbe vételi határozat</h1>
+      <p class="sub">Be. 271-275. § szerinti kényszerintézkedés</p>
+    </div>
+    <div class="ugyszam">
+      Ügyszám<br>
+      <input type="text" placeholder="___-___/2026.">
+    </div>
+  </div>
+  <div class="body-pad">
+
+    <div class="timer-line">Kezdete: <span contenteditable="true">__:__</span> · legfeljebb 72 óra, nem hosszabbítható. Beleszámít a korábbi fogvatartás (előállítás) ideje.</div>
+
+    <fieldset>
+      <legend>Terhelt adatai</legend>
+      <div class="row three">
+        <div class="field"><label>Név</label><input type="text"></div>
+        <div class="field"><label>Születési hely, idő</label><input type="text"></div>
+        <div class="field"><label>Lakcím</label><input type="text"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Elrendelés adatai</legend>
+      <div class="row">
+        <div class="field"><label>Elrendelő</label>
+          <select>
+            <option>Nyomozó hatóság</option>
+            <option>Ügyész</option>
+          </select>
+        </div>
+        <div class="field"><label>Ügyész értesítésének időpontja</label><input type="time" placeholder="24 órán belül kötelező, ha a nyomozó hatóság rendelte el"></div>
+      </div>
+      <div class="field"><label>Btk. szerinti megnevezés és szakaszszám</label><input type="text"></div>
+      <div class="field" style="margin-top:12px;"><label>Alapos gyanú tényállása</label><textarea></textarea></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Elrendelés indoka</legend>
+      <div class="checks">
+        <label><input type="checkbox"> Szökés, elrejtőzés veszélye, vagy erre utaló körülmény</label>
+        <label><input type="checkbox"> Bizonyítás meghiúsításának, megnehezítésének veszélye (tanúbefolyásolás, bizonyíték eltüntetése)</label>
+        <label><input type="checkbox"> Megalapozottan feltehető újabb szabadságvesztéssel fenyegetett bűncselekmény elkövetése</label>
+        <label><input type="checkbox"> Bíróság elé állítás céljából</label>
+        <label><input type="checkbox"> Tetten érés / elfogás alapján</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>A várható folytatás</legend>
+      <div class="legal-text">
+        <p>A 72 óra lejártakor a terheltet szabadlábra kell helyezni, kivéve, ha időközben elrendelik az előzetes letartóztatását - ez már bírói döntés, és ügyészi indítványt igényel.</p>
+        <p>Az őrizetbe vett a határozat közlésétől számított 8 napon belül panasszal élhet. Ha erre 3 napon belül nem adnak helyt, az ügy tovább vihető.</p>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Megjegyzés</legend>
+      <textarea placeholder="Korábbi fogvatartás (előállítás) beszámított ideje, egyéb körülmény"></textarea>
+    </fieldset>
+
+    <div class="sig-row">
+      <div class="sig-block">Terhelt aláírása (a határozat kézhezvételét igazolja)</div>
+      <div class="sig-block">Elrendelő aláírása, azonosító</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('active');});
+      document.querySelectorAll('.sheet').forEach(function(s){s.classList.remove('active');});
+      btn.classList.add('active');
+      document.getElementById('sheet-'+btn.dataset.t).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
