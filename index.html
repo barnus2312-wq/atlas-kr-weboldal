@@ -49,7 +49,7 @@
 <section class="tight bg-1">
   <div class="wrap">
     <div class="grid cols-3">
-      <div class="stat"><div class="n">N/A</div><div class="l">Szolgálatban álló tag</div></div>
+      <div class="stat"><div class="n" id="liveCount">—</div><div class="l">Szolgálatban álló tag</div></div>
       <div class="stat"><div class="n">15</div><div class="l">Rendfokozati szint</div></div>
       <div class="stat"><div class="n">3</div><div class="l">Igazgatoságok</div></div>
     </div>
@@ -98,5 +98,17 @@
   </div>
 </footer>
 
+<script>
+  const COUNTER_WORKER_URL = "atlas-kr-counter.barnus2312.workers.dev";
+  fetch(COUNTER_WORKER_URL)
+    .then(res => res.json())
+    .then(data => {
+      if (typeof data.count === "number") {
+        document.getElementById('liveCount').textContent = data.count;
+      }
+    })
+    .catch(() => {});
+</script>
+  
 </body>
 </html>
