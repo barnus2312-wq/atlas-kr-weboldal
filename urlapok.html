@@ -8,21 +8,37 @@
 <style>
   .site-header-wrap{background:var(--bg-0);}
   @media print{ .site-header-wrap, .site-footer-wrap { display:none !important; } }
+
+  /* Képernyőn a site sötét témáját használjuk */
   :root{
-    --paper:#F7F5F0;
-    --ink:#1B2A44;
-    --ink-soft:#3E4C63;
-    --line:#C9C3B4;
-    --line-strong:#8B8471;
-    --red:#8C1F28;
-    --gold:#8C7A4B;
-    --field-bg:#FFFFFF;
-    --muted:#6B6F76;
+    --paper:#171F29;
+    --ink:#E8E5DC;
+    --ink-soft:#B7BEC7;
+    --line:#283442;
+    --line-strong:#3A4855;
+    --red:#B4303F;
+    --gold:#D4AF6A;
+    --field-bg:#1E2833;
+    --muted:#7C8794;
+  }
+  /* Nyomtatáskor / PDF-mentéskor visszaáll a fehér papír-nézet */
+  @media print{
+    :root{
+      --paper:#F7F5F0;
+      --ink:#1B2A44;
+      --ink-soft:#3E4C63;
+      --line:#C9C3B4;
+      --line-strong:#8B8471;
+      --red:#8C1F28;
+      --gold:#8C7A4B;
+      --field-bg:#FFFFFF;
+      --muted:#6B6F76;
+    }
   }
   *{box-sizing:border-box;}
   body{
     margin:0;
-    background:#E9E5DA;
+    background:var(--bg-0);
     font-family:'Source Serif 4','Georgia',serif;
     color:var(--ink);
     padding:32px 16px 64px;
@@ -52,9 +68,9 @@
     border-radius:2px;
   }
   .tab.active{
-    background:var(--ink);
-    color:#F7F5F0;
-    border-color:var(--ink);
+    background:var(--gold);
+    color:var(--bg-0);
+    border-color:var(--gold);
   }
   .spacer{flex:1;}
   .printbtn{
