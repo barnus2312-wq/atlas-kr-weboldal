@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Állománylista - Atlas Roleplay KR</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .roster-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+    gap:20px;
+  }
+  .roster-card{
+    background:var(--bg-2);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .roster-photo{
+    width:100%;
+    aspect-ratio:1/1;
+    background:var(--bg-3);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .roster-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .roster-photo .placeholder{
+    font-family:'Oswald',sans-serif;font-size:28px;color:var(--ink-muted);
+  }
+  .roster-info{padding:16px 18px 18px;}
+  .roster-name{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;color:var(--ink);}
+  .roster-rank{font-size:12.5px;color:var(--gold-bright);margin-top:3px;}
+  .roster-badge{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-muted);
+    margin-top:8px;padding-top:8px;border-top:1px solid var(--line);
+  }
+  .no-photo-note{
+    font-size:12px;color:var(--ink-muted);text-align:center;padding-top:8px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <div class="crest"><span>ARP<br>KR</span></div>
+      <div class="brand-text">
+        <div class="name">Készenléti Rendőrség</div>
+        <div class="unit">Atlas Roleplay</div>
+      </div>
+    </a>
+    <nav class="links">
+      <a href="index.html">Kezdőlap</a>
+      <a href="rolunk.html">Rólunk</a>
+      <a href="ranglista.html">Ranglista</a>
+      <a href="dokumentumok.html">Dokumentumok</a>
+      <a href="hirek.html">Hírek</a>
+    </nav>
+    <a href="jelentkezes.html" class="nav-cta">Jelentkezés</a>
+  </div>
+</header>
+
+<section style="padding-top:72px;padding-bottom:48px;">
+  <div class="wrap">
+    <p class="kicker">Állomány</p>
+    <h1>Állománylista</h1>
+    <p class="lead" style="margin-top:16px;">A Készenléti Rendőrség jelenlegi, szolgálatban álló tagjai.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="roster-grid" id="rosterGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <p>Atlas Roleplay - Készenléti Rendőrség. Fiktív szerepjáték-tartalom, nem valós hatósági szerv.</p>
+    <p>Discord: discord.gg/atlasroleplay</p>
+  </div>
+</footer>
+
+<script>
+  // ÁLLOMÁNY ADATOK
+  // Új tag hozzáadásához másolj egy blokkot, és írd át az adatokat.
+  // kep: a kép elérési útja a repóban (pl. "images/allomany/nev.jpg").
+  //      Ha nincs feltöltött kép, hagyd üresen (""), és automatikusan
+  //      egy egyszerű monogram-jelölő jelenik meg helyette.
+  const allomany = [
+    {
+      nev: "Példa Elemér",
+      rendfokozat: "Altábornagy",
+      jelvenyszam: "KR-0001",
+      kep: ""
+    },
+    {
+      nev: "Minta Katalin",
+      rendfokozat: "Ezredes",
+      jelvenyszam: "KR-0002",
+      kep: ""
+    }
+  ];
+
+  const grid = document.getElementById('rosterGrid');
+
+  allomany.forEach(function(tag){
+    const card = document.createElement('div');
+    card.className = 'roster-card';
+
+    const initials = tag.nev.split(' ').map(function(w){ return w[0]; }).join('').slice(0,2).toUpperCase();
+
+    const photoHtml = tag.kep
+      ? '<img src="' + tag.kep + '" alt="' + tag.nev + '">'
+      : '<span class="placeholder">' + initials + '</span>';
+
+    card.innerHTML =
+      '<div class="roster-photo">' + photoHtml + '</div>' +
+      '<div class="roster-info">' +
+        '<div class="roster-name">' + tag.nev + '</div>' +
+        '<div class="roster-rank">' + tag.rendfokozat + '</div>' +
+        '<div class="roster-badge">' + tag.jelvenyszam + '</div>' +
+      '</div>';
+
+    grid.appendChild(card);
+  });
+
+  if (allomany.length === 0) {
+    grid.innerHTML = '<p style="color:var(--ink-muted);">Még nincs feltöltött tag.</p>';
+  }
+</script>
+
+</body>
+</html>
