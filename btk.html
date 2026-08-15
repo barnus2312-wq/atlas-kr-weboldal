@@ -49,6 +49,44 @@
     padding:16px 20px;margin-bottom:8px;font-size:13.5px;color:var(--ink-soft);
   }
   .top-banner strong{color:var(--red-bright);}
+
+  /* Halmazati számológép */
+  #calcSearch{margin-top:18px;}
+  .calc-list{
+    max-height:280px;overflow-y:auto;margin-top:12px;
+    border:1px solid var(--line);border-radius:6px;background:var(--bg-1);
+  }
+  .calc-item{
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+    padding:10px 14px;border-bottom:1px solid var(--line);
+    font-size:13.5px;color:var(--ink-soft);cursor:pointer;
+  }
+  .calc-item:last-child{border-bottom:none;}
+  .calc-item:hover{background:var(--bg-2);}
+  .calc-item .vals{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--gold-bright);
+    white-space:nowrap;
+  }
+  .calc-item.added{opacity:.35;cursor:default;}
+  .calc-selected-item{
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+    padding:10px 14px;background:var(--bg-2);border:1px solid var(--line-strong);
+    border-radius:4px;margin-bottom:8px;font-size:13.5px;color:var(--ink);
+  }
+  .calc-selected-item button{
+    background:none;border:1px solid var(--red);color:var(--red-bright);
+    border-radius:3px;padding:3px 9px;font-size:11.5px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;
+  }
+  .calc-result{
+    margin-top:24px;background:var(--bg-2);border:1px solid var(--gold);border-radius:6px;padding:24px 26px;
+  }
+  .calc-result h3{font-size:16px;color:var(--gold-bright);margin-bottom:16px;}
+  .calc-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink-soft);}
+  .calc-row:last-child{border-bottom:none;}
+  .calc-row .label{color:var(--ink-muted);}
+  .calc-row.final{margin-top:6px;padding-top:14px;border-top:2px solid var(--gold);}
+  .calc-row.final .label{color:var(--ink);font-family:'Oswald',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.04em;}
+  .calc-row.final .value{color:var(--gold-bright);font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:600;}
 </style>
 </head>
 <body>
@@ -56,9 +94,7 @@
 <header>
   <div class="nav-inner">
     <a href="index.html" class="brand">
-      <div class="crest">
-    <img src="images/logo.png" alt="KR jelvény" class="crest-img">
-</div>
+      <div class="crest"><span>ARP<br>KR</span></div>
       <div class="brand-text">
         <div class="name">Készenléti Rendőrség</div>
         <div class="unit">Atlas Roleplay</div>
@@ -69,8 +105,8 @@
       <a href="rolunk.html">Rólunk</a>
       <a href="ranglista.html">Ranglista</a>
       <a href="allomany.html">Állomány</a>
-      <a href="btk.html">BTK</a>
-      <a href="dokumentumok.html" class="active">Dokumentumok</a>
+      <a href="btk.html" class="active">BTK</a>
+      <a href="dokumentumok.html">Dokumentumok</a>
       <a href="hirek.html">Hírek</a>
     </nav>
     <a href="jelentkezes.html" class="nav-cta">Jelentkezés</a>
@@ -96,6 +132,7 @@
     <a href="#adocsalas">Adócsalás</a>
     <a href="#mellekbuntetesek">Mellékbüntetések</a>
     <a href="#katonai">Katonai</a>
+    <a href="#szamologep">Számológép</a>
 </div>
   </div>
 
@@ -456,6 +493,29 @@
   <div class="desc-block"><p class="desc-block-title">Törvényi szövegek (eredeti PDF sorrendben — párosítsd a fenti táblázat soraihoz)</p><ul><li>Aki abból a célból, hogy katonai szolgálatának teljesítése alól végleg kivonja magát, szolgálati helyét önkényesen elhagyja vagy attól távol marad — bűntett. (101. §(1))</li><li>a) fegyveresen, b) csoportosan, c) fontos szolgálat közben, d) erőszakkal, e) külföldre történő elkövetés. (101. §(2))</li><li>Aki a (2) bekezdés a)–c) pontja szerint külföldre szökik, illetve aki a szökést háború idején követi el. (101. §(3))</li><li>A (2) bekezdés szerinti szökésre irányuló előkészület vétség; a (3) bekezdés szerinti eset bűntett. Büntetése: 15 nap (vétség) / 25 nap (bűntett). (101. §(4))</li><li>Korlátlanul enyhíthető az elkövető büntetése, ha a hatóságnál 30 napon belül önként jelentkezik. A határidőbe a szökés napja nem számít bele. (101. §(5))</li><li>Aki szolgálati helyéről önkényesen eltávozik vagy attól távol marad, és távolléte a 2 napot meghaladja — vétség. (102. §(1))</li><li>Ha az önkényes távollét tartama meghaladja a 9 napot — bűntett. (102. §(2))</li><li>Ha az önkényes eltávozást háború idején, külföldi hadműveleti területen végzett humanitárius tevékenység vagy békefenntartás során követik el: a) az (1) bek. esetén bűntett miatt felfüggesztett vagy szabadságvesztés, b) a (2) bek. esetén szabadságvesztés. (102. §(3))</li><li>Aki abból a célból, hogy a katonai szolgálat teljesítése alól végleg kivonja magát, testét megcsonkítja, egészségét károsítja, vagy megtévesztő magatartást tanúsít — bűntett. (103. §(1))</li><li>Aki az (1) bekezdés szerinti cselekményt azért követi el, hogy a szolgálat alól ideiglenesen vonja ki magát — vétség. (103. §(2))</li><li>Ha az ideiglenes kivonás tartama meghaladja a 6 napot. (103. §(3))</li><li>a) az (1) bek. esetén szabadságvesztés, b) a (2) bek. esetén bűntett esetén pénzbüntetés és szabadságvesztés, c) a (3) bek. esetén felfüggesztett vagy szabadságvesztés. (103. §(4))</li><li>Aki a katonai szolgálat teljesítését kifejezetten megtagadja — bűntett. (104. §(1)–(3))</li><li>Aki rendőr, NAV-, büntetés-végrehajtási vagy más rendvédelmi szerv tagjaként szolgálatban — a szolgálati intézkedés rendelkezéseit megszegve — elalszik, szeszes italt, kábítószert vagy bódító hatású anyagot fogyaszt, szolgálati helyét engedély nélkül elhagyja, vagy a szolgálati kötelezettséget más módon súlyosan megszegi — vétség. (105/A. §)</li><li>Ha a cselekmény a szolgálatra jelentős hátrány veszélyével jár — bűntett. (105/A. §(2))</li><li>Aki tűzoltói, polgári védelmi vagy más katasztrófavédelmi szolgálatban — a szolgálati előírásokat megszegve — elalszik, ittas/bódult állapotban teljesít szolgálatot, szolgálati helyét engedély nélkül elhagyja, vagy kötelezettségét más módon súlyosan megszegi — vétség. Bűntett miatt pénzbüntetés, felfüggesztés, elbocsátás hivatali úton, vagy szabadságvesztés. (105/B. §)</li><li>Aki egészségügyi/mentési szolgálatban — az előírásokat megszegve — elalszik, szeszes italt, kábítószert vagy bódító hatású szert fogyaszt, szolgálati helyét engedély nélkül elhagyja, vagy más módon súlyosan megszegi mentési kötelezettségét — vétség. Bűntett miatt pénzbüntetés, felfüggesztés, elbocsátás hivatali úton, vagy szabadságvesztés. (105/C. §)</li><li>Aki fontos szolgálati feladat alól megtévesztéssel vagy távolmaradással kivonja magát, vagy annak teljesítésére képtelenné teszi magát — vétség. (106/C. §(1))</li><li>Ha a cselekmény a szolgálatra jelentős hátrány veszélyével jár, vagy külföldi hadműveleti területen végzett humanitárius/békefenntartó tevékenység során követik el — bűntett. (106/C. §(2))</li></ul></div>
 </section>
 
+<section id="szamologep">
+  <h2><span class="sec-num">§</span> Halmazati büntetés-számológép</h2>
+  <p class="section-note">
+    A valós Btk. 81. §-a szerinti logikát követi: a halmazati büntetés alapja a legsúlyosabb
+    (legnagyobb) egyedi tétel. Ez a legsúlyosabb tétel felére felemelhető (azaz max. 1,5×-ösére),
+    de <strong>nem érheti el</strong> az összes kiválasztott tétel együttes összegét, és nem
+    lépheti át a szerver büntetési plafonját (50 000 000 Ft / 60 nap). Egyetlen kiválasztott
+    tételnél nincs emelés, csak annak saját értéke érvényes. Az életfogytiglant vagy
+    halálbüntetést tartalmazó tételeknél a napalapú számítás nem alkalmazható - ezeket egyedileg,
+    bírói/vezérkari mérlegeléssel kell kezelni.
+  </p>
+
+  <input type="text" id="calcSearch" placeholder="Keress cselekményt a hozzáadáshoz — pl. lopás, garázdaság, 46. §...">
+  <div id="calcList" class="calc-list"></div>
+
+  <div id="calcSelectedWrap" style="margin-top:24px;display:none;">
+    <p class="desc-block-title" style="margin-bottom:10px;">Kiválasztott cselekmények</p>
+    <div id="calcSelected"></div>
+  </div>
+
+  <div id="calcResult" class="calc-result" style="display:none;"></div>
+</section>
+
 </div>
 
 <footer>
@@ -475,6 +535,135 @@
       tr.classList.toggle('hidden-row', !text.includes(q));
     });
   });
+
+  // ============== HALMAZATI BÜNTETÉS-SZÁMOLÓGÉP ==============
+  const calcItems = [["2. §  Állami szervezet tulajdonának megrongálása", 2000000, null], ["3. §  Bukósisak nélküli motorvezetés", 450000, null], ["4. §  Kanyarodási szabályok megszegése", 450000, null], ["5. §  Fényszóró használatának elmulasztása RLVK/SU", 350000, null], ["6. §  Közlekedési jelzőlámpa tilos jelzésén való áthaladás", 200000, null], ["7. § (1) Behajtási tilalom megsértése", 500000, null], ["7. § (2) Kötelező haladási irány megsértése", 500000, null], ["8. §  STOP tábla figyelmen kívül hagyása", 500000, null], ["9. §  Tilosban parkolás", 85000, null], ["10. § (1) Neoncső", 55000, null], ["10. § (2) Színes tompított fényszóró", 75000, null], ["11. § (1) 80 km/h", 60000, 0], ["11. § (2) 90 km/h", 75000, 0], ["11. § (3) 110 km/h", 80000, 0], ["11. § (4) 150 km/h+", 95000, 0], ["12. § (1) 110 km/h", 95000, 0], ["12. § (2) 120 km/h", 100000, 0], ["12. § (3) 140 km/h", 130000, 0], ["12. § (4) 180 km/h+", 160000, 0], ["13. § (1) 150 km/h", 100000, 0], ["13. § (2) 160 km/h", 120000, 0], ["13. § (3) 180 km/h", 150000, 0], ["13. § (4) 220 km/h+", 170000, 0], ["15. §  Közrend megzavarása", 800000, 0], ["16. §  Rendőrrel szembeni tiszteletlenség", 150000, 0], ["17. §  Közvagyon megrongálása", 750000, 15], ["18. § (1) Magánszemély részéről", 100000, 0], ["18. § (2) Cég részéről", 500000, 0], ["19. § 2. Lejárt forgalmi engedély", 500000, 0], ["20. § (1) Személyi sérülés nélkül", 500000, 0], ["20. § (2) Személyi sérülés esetén", 800000, 10], ["20. § (3) Haláleset esetén", 1250000, 25], ["20. § (4) Több haláleset esetén", 1500000, 35], ["21. § (1) Személyi sérülés nélkül", 800000, 0], ["21. § (2) Személyi sérülés esetén", 1250000, 10], ["21. § (3) Súlyos testi sértés esetén", 1500000, 25], ["21. § (4) Haláleset esetén", 2000000, 35], ["21. § (5) Több haláleset esetén", 3000000, 45], ["22. § (1) Magányosan", 500000, 10], ["22. § (2) Csoportosan", 800000, 20], ["22. § (4) Fegyveresen", 1000000, 25], ["22. § (5) Felfegyverkezve", 1500000, 40], ["22. § (6) Nyilvános rendezvényen", 2000000, 45], ["23. § (1) Személyi sérülés nélkül", 200000, null], ["23. § (2) Személyi sérüléssel", 500000, 30], ["23. § (3) Haláleset esetén", 1000000, 40], ["24. §  Hatóság félrevezetése", 1200000, 60], ["25. § (1) Gyalogosan", 250000, 20], ["25. § (2) Járművel", 500000, 35], ["26. §  Rendőri utasítás megszegése", 500000, 35], ["27. § (1) Magányosan", 1000000, 30], ["27. § (2) Csoportosan", 1500000, 40], ["27. § (3) Fegyveresen", 2000000, 50], ["27. § (4) Felfegyverkezve", 2500000, 55], ["27. § (5) Súlyos testi sértés esetén", 3000000, 60], ["28. § (1) Kis érték (20 000 Ft-ig)", 100000, 20], ["28. § (2) Nagy érték (20 000 Ft felett)", 200000, 30], ["28. § (3) Jelentős érték (60 000 Ft felett)", 250000, 35], ["28. § (4) Különösen nagy érték (500 000 Ft felett)", 300000, 40], ["28. § (5) Különösen jelentős érték (1 000 000 Ft felett)", 350000, 50], ["29. § (1) Kisebb kárt okoz (20 000 Ft-ig)", 100000, 10], ["29. § (2) Nagyobb kárt okoz (20 000 Ft felett)", 150000, 20], ["29. § (3) Jelentős kárt okoz (60 000 Ft felett)", 200000, 30], ["29. § (4) Különösen nagy kárt okoz (500 000 Ft felett)", 250000, 40], ["29. § (5) Különösen jelentős kárt okoz (1 000 000 Ft felett)", 300000, 50], ["29. § (6) Üzletszerűen", 350000, 60], ["29. § (7) Jótékony célú adománygyűjtést színlelve", 400000, 50], ["30. § (1) Magányosan", 100000, 20], ["30. § (2) Fegyveresen", 150000, 25], ["30. § (3) Felfegyverkezve", 350000, 35], ["30. § (4) Csoportosan", 400000, 45], ["31. § (1) Enyhe", 100000, 20], ["31. § (2) Súlyos", 200000, 45], ["32. § (1) Állami területre", 750000, 45], ["32. § (2) Rendvédelmi területre", 1250000, 60], ["33. §  Pirotechnikai eszköz forgalmazása / jogosulatlan felhasználása", 600000, 40], ["34. § (1) Súlyosabb bűncselekmény nem következik be", 450000, 25], ["34. § (2) Hozzátartozó fenyegetésével", 500000, 35], ["34. § (3) Más ember sérelmét színlelve", 510000, 45], ["34. § (4) Házastárs/élettárs sérelmére", 530000, 50], ["34. § (5) Hatalmi/befolyási helyzettel visszaélve", 550000, 55], ["35. § (1) Magányosan", 500, 20], ["35. § (2) Aljas célból", 750, 35], ["35. § (3) Nagy nyilvánosság előtt", 1000, 45], ["35. § (4) Jelentős érdeksérelmet okozva", 1500, 60], ["36. § (1) Gondatlanságból", 150000, 25], ["36. § (2) Ha büntetőeljárás indul a sértett ellen", 200000, 35], ["36. § (3) Ha elítélik a sértettet", 300000, 40], ["36. § (4) Ha a sértettet bűncselekményért ítélik el", 500000, 50], ["37. §  Hatósági eljárás megzavarása", 400000, 45], ["38. §  Hamis ügyvédkedés", 1000000, 50], ["39. §  Segítségnyújtás elmulasztása", 1500000, 25], ["40. § (1) Magányosan", 500000, 20], ["40. § (2) Csoportosan", 750000, 25], ["40. § (3) Fegyveresen", 1000000, 30], ["40. § (4) Felfegyverkezve vagy különös visszaesőként", 1300000, 40], ["41. § (1) Kisebb kárt okoz (20 000 Ft-ig)", 50000, 20], ["41. § (2) Nagyobb kárt okoz (20 000 Ft felett)", 100000, 30], ["41. § (3) Jelentős kárt okoz (60 000 Ft felett)", 200000, 40], ["41. § (4) Különösen nagy kárt okoz (500 000 Ft felett)", 250000, 50], ["41. § (5) Különösen jelentős kárt okoz (1 000 000 Ft felett)", 450000, 55], ["41. § (6) Képi, grafikus vagy szöveges felületbevonat (falfirka)", 1000000, 50], ["42. §  Illegális anyagok gyártásának előkészülete", 450000, 45], ["43. §  Kiszolgáltatott személy megalázása", 1500000, 30], ["44. §  Okirattal visszaélés", 500000, 45], ["46. § (1) Személyi sérülés nélkül", 400000, 0], ["46. § (2) Személyi sérülés esetén", 800000, 10], ["46. § (3) Súlyos testi sértés esetén", 850000, 25], ["46. § (4) Haláleset esetén", 900000, 50], ["47. § (1) 9 mm-es töltény esetében", 250000, 10], ["47. § (2) Egyéb töltény esetében", 500000, 10], ["48. § (1) 9 mm-es töltény esetében", 1000000, 15], ["48. § (2) Egyéb töltény esetében", 1500000, 15], ["49. § (1) Kiskaliber pisztoly esetében", 1000000, 15], ["49. § (2) Egyéb fegyver esetében (engedély nélkül)", 1500000, 20], ["50. § (1) Kiskaliber pisztoly esetében", 1650000, 20], ["50. § (2) Egyéb fegyver esetében (nagykaliber)", 2000000, 25], ["51. § (1) Birtoklása", 350000, 20], ["51. § (2) Árusítása", 500000, 25], ["52. § (1) Illegális fegyvergyártás", 750000, 30], ["52. § (2) Illegális kábítószer-gyártás", 850000, 30], ["53. § (1) Kis tétel (5 g-ig)", 600000, 20], ["53. § (2) Nagy tétel (5 g felett)", 700000, 25], ["54. §  Kábítószer árusítás", null, 40], ["55. §  Kábítószer termesztés", 2000000, 40], ["56. § (1) Birtoklása", 250000, 30], ["56. § (2) Árusítása", 500000, 40], ["57. § (1) Magányosan", 100000, 20], ["57. § (2) Szervezetben", 150000, 30], ["57. § (3) Fegyveresen", 200000, 40], ["57. § (4) Felfegyverkezve", 300000, 40], ["57. § (5) Hivatalos személyt érintően", 400000, 40], ["57. § (6) Személyi sérülés esetén", 230000, 45], ["57. § (7) Súlyos testi sértés esetén", 390000, 55], ["57. § (8) Előkészülete", 50000, 20], ["57. § (9) Feljelentésének elmulasztása", 30000, 25], ["58. § (1) Magányosan", 1000000, 20], ["58. § (2) Csoportosan", 1250000, 25], ["58. § (3) Bűnszövetségben", 1500000, 35], ["58. § (4) Jelentős értékre (100 000 Ft felett)", 250000, 40], ["58. § (5) Különösen nagy értékre (500 000 Ft felett)", 550000, 45], ["58. § (6) Különösen jelentős értékre (1 000 000 Ft felett)", 1100000, 60], ["58. § (7) Hivatalos/közfeladatot ellátó személy sérelmére", 1300000, 60], ["59. § (1) Magányosan", 600000, 20], ["59. § (2) Bűnszövetségben", 700000, 45], ["59. § (3) Élet vagy testi épség elleni súlyos fenyegetéssel", 720000, 45], ["59. § (4) Hivatalos megbízás/minőség színlelésével", 750000, 50], ["59. § (5) Hivatalos személyként", 1000000, 60], ["60. § (1) Magányosan", 200000, 20], ["60. § (2) Csoportosan", 500000, 30], ["60. § (3) Fegyveresen", 750000, 35], ["60. § (4) Felfegyverkezve", 850000, 40], ["61. § (1) Határzár megsértése", 100000, 30], ["61. § (2) Határzár megrongálása / jogosulatlan feloldása", 200000, 30], ["62. § (1) Jogtalan előnyt kér", 520000, 55], ["62. § (2) Jogtalan előnyt ad", 600000, 45], ["62. § (3) Azt a látszatot kelti, hogy hivatalos személyt veszteget", 750000, 30], ["62. § (4) Üzletszerűen", 900000, 40], ["63. §  Okirathamisítás", 500000, 50], ["64. §  Hivatali személy megvesztegetése", 600000, 50], ["65. §  Szexuális erőszak", 400000, 40], ["66. § (1) Magányosan", 100000, 30], ["66. § (2) Mást prostitúcióra rábír", 150000, 30], ["66. § (3) Kényszerítése", 250000, 30], ["66. § (4) Épületet/helyet prostitúció céljából rendelkezésre bocsát", 260000, 40], ["66. § (5) Bordélyház fenntartása vagy abban való részvétel, vezetés", 270000, 50], ["67. § (1) Emberölési kísérlet", 1000000, 45], ["67. § (2) Emberölési kísérlet hivatalos személlyel szemben", 3000000, null], ["67. § (3) Gyilkosság", 1250000, null], ["67. § (4) Hivatalos személy meggyilkolása", 3500000, null], ["68. § (1) Magányosan", 10000000, 35], ["68. § (2) Korrupció feljelentésének elmulasztása", 5000000, 40], ["69. §  Kötelezettségmulasztás", 500000, 45], ["70. §  Pénz-/fegyverszállító eltulajdonítása", 500000, 60], ["71. §  ATM kifosztása", 750000, 25], ["72. § (1) Magányosan", 600000, 30], ["72. § (2) Szervezetben", 750000, 40], ["72. § (3) Fegyveresen", 800000, 45], ["72. § (4) Felfegyverkezve", 810000, 50], ["73. § (1) Magányosan", 900000, 40], ["73. § (2) Szervezetben", 950000, 50], ["73. § (3) Fegyveresen", 1000000, 60], ["73. § (4) Felfegyverkezve", 1100000, 60], ["73. § (5) Pénzszállító konvoj megtámadása", 1600000, 60], ["73. § (6) Jogosulatlan behatolás", 1650000, 40], ["73. § (7) Jogosulatlan behatolás kísérlete", 1150000, 40], ["74. §  Hatósági rendelkezés elleni uszítás", 725000, 40], ["75. §  Tiltott szerencsejáték szervezése", 420000, 40], ["76. §  Bűnszövetkezetben való részvétel", 780000, 30], ["77. §  Tanúvallomás jogosulatlan megtagadása", 450000, 30], ["78. §  Nyomozás hátráltatása / akadályoztatása", 720000, 45], ["79. §  Öngyilkosságban közreműködés", 345000, 35], ["80. §  Kényszerítés", 340000, 50], ["81. §  Bántalmazás hivatalos eljárásban", 2000000, 30], ["82. §  Hivatali visszaélés", 2500000, 30], ["83. §  Minősített adattal való visszaélés", 1350000, 45], ["84. §  Ügyvédi visszaélés", 1450000, 50], ["85. §  Fogolyszökés", 1500000, 30], ["86. §  Fogolyszöktetés", 1650000, 55], ["87. §  Fogolyzendülés", 1310000, 30], ["90. § (1) Illegális rendezvény szervezése", 280000, 30], ["90. § (2) Illegális rendezvényen való részvétel", 250000, 20], ["91. §  ÁFÁ-s számla kiállításának elmulasztása", 850000, 0], ["92. §  Bejegyzetlen cég működtetése", 1000000, 40], ["93. §  Illegális munkavállalás", 540000, 20], ["94. §  Árréstörvény megsértése", 325000, 35], ["95. §  Sikkasztás", 350000, 50], ["96. §  Gazdasági csalás", 600000, 30], ["97. §  Költségvetési csalás", 750000, 20], ["98. §  Pénzmosás", 1200000, 40], ["99. §  Érvénytelen forgalmi engedély kiállítása", 450000, 30], ["100. §  Egyedi azonosító jellel visszaélés", 670000, 30], ["101. § (1) Végleges kivonás a katonai szolgálat alól", null, 15], ["101. § (2) Súlyosabb eset", null, 30], ["101. § (3) Háború idején / (2) a), b), e) pont", null, 35], ["102. § (1) 2 napnál hosszabb távollét", null, 15], ["102. § (2) 9 napnál hosszabb távollét", null, 20], ["102. § (3) Háborúban / külföldi hadművelet/békefenntartás közben", null, 35], ["103. § (1) Végleges kibúvás (öncsonkítás, egészségkárosítás, megtévesztés)", null, 25], ["103. § (2) Ideiglenes kibúvás", 2500000, 30], ["103. § (3) Ideiglenes kibúvás 6 napnál hosszabb ideig", 3000000, 30], ["103. § (4) Háború idején", null, 40], ["104. § (1) A katonai szolgálat kifejezett megtagadása", null, 10], ["104. § (2) Honvédelmi válsághelyzet idején", null, 15], ["104. § (3) Háború idején", null, 20], ["105/A. § (1) Alapeset", 5000000, 25], ["105/A. § (2) Súlyosabb eset (jelentős hátrány veszélye)", 6000000, 30], ["105/A. § (3) Legsúlyosabb eset (harchelyzet / válsághelyzet)", null, 35], ["105/A. § (4) Gondatlanságból elkövetve", null, 20], ["105/B. § (1) Alapeset", 3500000, 20], ["105/B. § (2) Súlyosabb eset (jelentős hátrány veszélye)", 3000000, 30], ["105/B. § (3) Katasztrófa- vagy veszélyhelyzet idején", null, 40], ["105/B. § (4) Gondatlanságból elkövetve", null, 25], ["105/C. § (1) Alapeset", 3500000, 20], ["105/C. § (2) Súlyosabb eset (jelentős hátrány veszélye)", 3000000, 30], ["105/C. § (3) Kiemelt járványügyi/egészségügyi veszélyhelyzet idején", null, 40], ["105/C. § (4) Gondatlanságból elkövetve", null, 25], ["106/C. § (1) Fontos szolgálati feladat alóli kivonás", 2500000, 10], ["106/C. § (2) Jelentős hátrány veszélye / külföldi hadműveleti-humanitárius-békefenntartó szolgálat", null, 15], ["106/C. § (3) Háború idején", null, 20], ["M2 Vezetői engedéllyel való visszaélés", 1000000, null], ["M3 Vadászengedéllyel való visszaélés", 1450000, null]]; // [[label, birsag_ft|null, borton_nap|null], ...]
+  const PLAFON_FT = 50000000;
+  const PLAFON_NAP = 60;
+
+  let selected = []; // indexek a calcItems tömbből
+
+  const calcListEl = document.getElementById('calcList');
+  const calcSearchEl = document.getElementById('calcSearch');
+  const calcSelectedWrapEl = document.getElementById('calcSelectedWrap');
+  const calcSelectedEl = document.getElementById('calcSelected');
+  const calcResultEl = document.getElementById('calcResult');
+
+  function fmtFt(n){
+    return n === null ? '—' : n.toLocaleString('hu-HU') + ' Ft';
+  }
+  function fmtNap(n){
+    return n === null ? '—' : n + ' nap';
+  }
+
+  function renderList(){
+    const q = calcSearchEl.value.trim().toLowerCase();
+    let items = calcItems
+      .map(function(item, idx){ return { item: item, idx: idx }; })
+      .filter(function(o){ return !q || o.item[0].toLowerCase().includes(q); })
+      .slice(0, 60);
+
+    calcListEl.innerHTML = '';
+    items.forEach(function(o){
+      const isAdded = selected.includes(o.idx);
+      const row = document.createElement('div');
+      row.className = 'calc-item' + (isAdded ? ' added' : '');
+      row.innerHTML =
+        '<span>' + o.item[0] + '</span>' +
+        '<span class="vals">' + fmtFt(o.item[1]) + ' · ' + fmtNap(o.item[2]) + '</span>';
+      if (!isAdded) {
+        row.addEventListener('click', function(){
+          selected.push(o.idx);
+          renderAll();
+        });
+      }
+      calcListEl.appendChild(row);
+    });
+
+    if (items.length === 0) {
+      calcListEl.innerHTML = '<div class="calc-item" style="cursor:default;">Nincs találat.</div>';
+    }
+  }
+
+  function combine(vals, absoluteCap){
+    if (vals.length === 0) return null;
+    if (vals.length === 1) return vals[0];
+    const maxVal = Math.max.apply(null, vals);
+    const sumVal = vals.reduce(function(a,b){ return a+b; }, 0);
+    const raised = maxVal * 1.5;
+    const sumCap = sumVal - 1; // "nem érheti el" -> szigorúan az összeg alatt
+    let combined = Math.min(raised, sumCap, absoluteCap);
+    combined = Math.max(combined, maxVal);
+    return Math.round(combined);
+  }
+
+  function renderSelected(){
+    if (selected.length === 0) {
+      calcSelectedWrapEl.style.display = 'none';
+      calcResultEl.style.display = 'none';
+      return;
+    }
+    calcSelectedWrapEl.style.display = 'block';
+    calcSelectedEl.innerHTML = '';
+
+    selected.forEach(function(idx){
+      const item = calcItems[idx];
+      const row = document.createElement('div');
+      row.className = 'calc-selected-item';
+      row.innerHTML =
+        '<span>' + item[0] + ' <span style="color:var(--ink-muted);font-family:\'IBM Plex Mono\',monospace;font-size:11.5px;">(' + fmtFt(item[1]) + ' · ' + fmtNap(item[2]) + ')</span></span>' +
+        '<button data-idx="' + idx + '">Eltávolítás</button>';
+      row.querySelector('button').addEventListener('click', function(){
+        selected = selected.filter(function(i){ return i !== idx; });
+        renderAll();
+      });
+      calcSelectedEl.appendChild(row);
+    });
+
+    const birsagVals = selected.map(function(i){ return calcItems[i][1]; }).filter(function(v){ return v !== null; });
+    const bortonVals = selected.map(function(i){ return calcItems[i][2]; }).filter(function(v){ return v !== null; });
+
+    const birsagCombined = combine(birsagVals, PLAFON_FT);
+    const bortonCombined = combine(bortonVals, PLAFON_NAP);
+
+    let html = '<h3>Halmazati eredmény</h3>';
+
+    if (birsagVals.length > 0) {
+      const maxB = Math.max.apply(null, birsagVals);
+      const sumB = birsagVals.reduce(function(a,b){ return a+b; }, 0);
+      html += '<div class="calc-row"><span class="label">Legsúlyosabb bírságtétel</span><span>' + fmtFt(maxB) + '</span></div>';
+      if (birsagVals.length > 1) {
+        html += '<div class="calc-row"><span class="label">1,5×-ösre emelve</span><span>' + fmtFt(Math.round(maxB*1.5)) + '</span></div>';
+        html += '<div class="calc-row"><span class="label">Összes tétel együtt (ezt nem érheti el)</span><span>' + fmtFt(sumB) + '</span></div>';
+      }
+      html += '<div class="calc-row"><span class="label">Szerver plafon</span><span>' + fmtFt(PLAFON_FT) + '</span></div>';
+      html += '<div class="calc-row final"><span class="label">Kiszabható halmazati bírság</span><span class="value">' + fmtFt(birsagCombined) + '</span></div>';
+    }
+
+    if (bortonVals.length > 0) {
+      const maxD = Math.max.apply(null, bortonVals);
+      const sumD = bortonVals.reduce(function(a,b){ return a+b; }, 0);
+      html += '<h3 style="margin-top:22px;">Halmazati börtönidő</h3>';
+      html += '<div class="calc-row"><span class="label">Legsúlyosabb börtöntétel</span><span>' + fmtNap(maxD) + '</span></div>';
+      if (bortonVals.length > 1) {
+        html += '<div class="calc-row"><span class="label">1,5×-ösre emelve</span><span>' + fmtNap(Math.round(maxD*1.5)) + '</span></div>';
+        html += '<div class="calc-row"><span class="label">Összes tétel együtt (ezt nem érheti el)</span><span>' + fmtNap(sumD) + '</span></div>';
+      }
+      html += '<div class="calc-row"><span class="label">Szerver plafon</span><span>' + fmtNap(PLAFON_NAP) + '</span></div>';
+      html += '<div class="calc-row final"><span class="label">Kiszabható halmazati börtönidő</span><span class="value">' + fmtNap(bortonCombined) + '</span></div>';
+    }
+
+    calcResultEl.innerHTML = html;
+    calcResultEl.style.display = 'block';
+  }
+
+  function renderAll(){
+    renderList();
+    renderSelected();
+  }
+
+  calcSearchEl.addEventListener('input', renderList);
+  renderAll();
 </script>
 
 </body>
