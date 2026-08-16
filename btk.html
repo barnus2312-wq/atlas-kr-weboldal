@@ -552,10 +552,40 @@
   const searchInput = document.getElementById('btkSearch');
   searchInput.addEventListener('input', function(){
     const q = this.value.trim().toLowerCase();
-    document.querySelectorAll('.btk-wrap table tbody tr').forEach(function(tr){
-      if (!q) { tr.classList.remove('hidden-row'); return; }
-      const text = tr.textContent.toLowerCase();
-      tr.classList.toggle('hidden-row', !text.includes(q));
+
+    document.querySelectorAll('.btk-wrap table').forEach(function(table){
+      const rows = Array.from(table.querySelectorAll('tbody tr'));
+      if (!q) {
+        rows.forEach(function(tr){ tr.classList.remove('hidden-row'); });
+        return;
+      }
+
+      // 1. lépés: minden sorhoz eltároljuk, melyik §-hoz tartozik
+      // (az első cella tartalma öröklődik lefelé az alpont-soroknál, ahol az üres)
+      let currentPar = '';
+      rows.forEach(function(tr){
+        const firstCell = tr.querySelector('td');
+        const firstText = firstCell ? firstCell.textContent.trim() : '';
+        if (firstText) { currentPar = firstText; }
+        tr.dataset.parNum = currentPar;
+      });
+
+      // 2. lépés: melyik § csoportokban van egyáltalán találat?
+      const matchingParagraphs = new Set();
+      rows.forEach(function(tr){
+        const text = tr.textContent.toLowerCase();
+        if (text.includes(q)) {
+          matchingParagraphs.add(tr.dataset.parNum);
+        }
+      });
+
+      // 3. lépés: látszik a sor, ha saját maga vagy a §-csoportja találatot ad
+      rows.forEach(function(tr){
+        const text = tr.textContent.toLowerCase();
+        const ownMatch = text.includes(q);
+        const groupMatch = matchingParagraphs.has(tr.dataset.parNum);
+        tr.classList.toggle('hidden-row', !(ownMatch || groupMatch));
+      });
     });
   });
 
