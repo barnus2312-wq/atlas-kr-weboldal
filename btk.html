@@ -51,10 +51,12 @@
   .top-banner strong{color:var(--red-bright);}
 
   /* Halmazati számológép */
+  .calc-top{background:var(--bg-1);border-radius:8px;padding-left:26px;padding-right:26px;}
   #calcSearch{margin-top:18px;}
+  .calc-count{font-size:12px;color:var(--ink-muted);margin:10px 0 0;}
   .calc-list{
-    max-height:280px;overflow-y:auto;margin-top:12px;
-    border:1px solid var(--line);border-radius:6px;background:var(--bg-1);
+    max-height:420px;overflow-y:auto;margin-top:8px;
+    border:1px solid var(--line);border-radius:6px;background:var(--bg-0);
   }
   .calc-item{
     display:flex;justify-content:space-between;align-items:center;gap:12px;
@@ -94,7 +96,9 @@
 <header>
   <div class="nav-inner">
     <a href="index.html" class="brand">
-      <div class="crest"><span>ARP<br>KR</span></div>
+      <div class="crest">
+    <img src="images/logo.png" alt="KR jelvény" class="crest-img">
+</div>
       <div class="brand-text">
         <div class="name">Készenléti Rendőrség</div>
         <div class="unit">Atlas Roleplay</div>
@@ -124,6 +128,7 @@
   <div class="btk-search">
     <input type="text" id="btkSearch" placeholder="Keresés — pl. lopás, GRF, 500 000, garázdaság...">
     <div class="btk-subnav">
+    <a href="#szamologep">Számológép</a>
     <a href="#altalanos">Általános</a>
     <a href="#kozlekedes">Közlekedési</a>
     <a href="#szabalysertesek">Szabálysértések</a>
@@ -132,7 +137,6 @@
     <a href="#adocsalas">Adócsalás</a>
     <a href="#mellekbuntetesek">Mellékbüntetések</a>
     <a href="#katonai">Katonai</a>
-    <a href="#szamologep">Számológép</a>
 </div>
   </div>
 
@@ -141,6 +145,30 @@
   </div>
 
   
+<section id="szamologep" class="calc-top">
+  <h2><span class="sec-num">§</span> Halmazati büntetés-számológép</h2>
+  <p class="section-note">
+    A valós Btk. 81. §-a szerinti logikát követi: a halmazati büntetés alapja a legsúlyosabb
+    (legnagyobb) egyedi tétel. Ez a legsúlyosabb tétel felére felemelhető (azaz max. 1,5×-ösére),
+    de <strong>nem érheti el</strong> az összes kiválasztott tétel együttes összegét, és nem
+    lépheti át a szerver büntetési plafonját (50 000 000 Ft / 60 nap). Egyetlen kiválasztott
+    tételnél nincs emelés, csak annak saját értéke érvényes. Az életfogytiglant vagy
+    halálbüntetést tartalmazó tételeknél a napalapú számítás nem alkalmazható - ezeket egyedileg,
+    bírói/vezérkari mérlegeléssel kell kezelni.
+  </p>
+
+  <input type="text" id="calcSearch" placeholder="Keress cselekményt a hozzáadáshoz — pl. lopás, garázdaság, 46. §...">
+  <p id="calcCount" class="calc-count"></p>
+  <div id="calcList" class="calc-list"></div>
+
+  <div id="calcSelectedWrap" style="margin-top:24px;display:none;">
+    <p class="desc-block-title" style="margin-bottom:10px;">Kiválasztott cselekmények</p>
+    <div id="calcSelected"></div>
+  </div>
+
+  <div id="calcResult" class="calc-result" style="display:none;"></div>
+</section>
+
 <section id="altalanos">
   <h2><span class="sec-num">§0</span> Általános rendelkezések</h2>
   <table><thead><tr><th>Téma</th><th>Szabály</th></tr></thead><tbody><tr><td>Csökkentési kulcs rang szerint</td><td>Járőr: 10% | Tiszthelyettesek: 20% | Tisztek: 30% | Főtisztek: 40% | Vezérkar: 50%</td></tr>
@@ -493,29 +521,6 @@
   <div class="desc-block"><p class="desc-block-title">Törvényi szövegek (eredeti PDF sorrendben — párosítsd a fenti táblázat soraihoz)</p><ul><li>Aki abból a célból, hogy katonai szolgálatának teljesítése alól végleg kivonja magát, szolgálati helyét önkényesen elhagyja vagy attól távol marad — bűntett. (101. §(1))</li><li>a) fegyveresen, b) csoportosan, c) fontos szolgálat közben, d) erőszakkal, e) külföldre történő elkövetés. (101. §(2))</li><li>Aki a (2) bekezdés a)–c) pontja szerint külföldre szökik, illetve aki a szökést háború idején követi el. (101. §(3))</li><li>A (2) bekezdés szerinti szökésre irányuló előkészület vétség; a (3) bekezdés szerinti eset bűntett. Büntetése: 15 nap (vétség) / 25 nap (bűntett). (101. §(4))</li><li>Korlátlanul enyhíthető az elkövető büntetése, ha a hatóságnál 30 napon belül önként jelentkezik. A határidőbe a szökés napja nem számít bele. (101. §(5))</li><li>Aki szolgálati helyéről önkényesen eltávozik vagy attól távol marad, és távolléte a 2 napot meghaladja — vétség. (102. §(1))</li><li>Ha az önkényes távollét tartama meghaladja a 9 napot — bűntett. (102. §(2))</li><li>Ha az önkényes eltávozást háború idején, külföldi hadműveleti területen végzett humanitárius tevékenység vagy békefenntartás során követik el: a) az (1) bek. esetén bűntett miatt felfüggesztett vagy szabadságvesztés, b) a (2) bek. esetén szabadságvesztés. (102. §(3))</li><li>Aki abból a célból, hogy a katonai szolgálat teljesítése alól végleg kivonja magát, testét megcsonkítja, egészségét károsítja, vagy megtévesztő magatartást tanúsít — bűntett. (103. §(1))</li><li>Aki az (1) bekezdés szerinti cselekményt azért követi el, hogy a szolgálat alól ideiglenesen vonja ki magát — vétség. (103. §(2))</li><li>Ha az ideiglenes kivonás tartama meghaladja a 6 napot. (103. §(3))</li><li>a) az (1) bek. esetén szabadságvesztés, b) a (2) bek. esetén bűntett esetén pénzbüntetés és szabadságvesztés, c) a (3) bek. esetén felfüggesztett vagy szabadságvesztés. (103. §(4))</li><li>Aki a katonai szolgálat teljesítését kifejezetten megtagadja — bűntett. (104. §(1)–(3))</li><li>Aki rendőr, NAV-, büntetés-végrehajtási vagy más rendvédelmi szerv tagjaként szolgálatban — a szolgálati intézkedés rendelkezéseit megszegve — elalszik, szeszes italt, kábítószert vagy bódító hatású anyagot fogyaszt, szolgálati helyét engedély nélkül elhagyja, vagy a szolgálati kötelezettséget más módon súlyosan megszegi — vétség. (105/A. §)</li><li>Ha a cselekmény a szolgálatra jelentős hátrány veszélyével jár — bűntett. (105/A. §(2))</li><li>Aki tűzoltói, polgári védelmi vagy más katasztrófavédelmi szolgálatban — a szolgálati előírásokat megszegve — elalszik, ittas/bódult állapotban teljesít szolgálatot, szolgálati helyét engedély nélkül elhagyja, vagy kötelezettségét más módon súlyosan megszegi — vétség. Bűntett miatt pénzbüntetés, felfüggesztés, elbocsátás hivatali úton, vagy szabadságvesztés. (105/B. §)</li><li>Aki egészségügyi/mentési szolgálatban — az előírásokat megszegve — elalszik, szeszes italt, kábítószert vagy bódító hatású szert fogyaszt, szolgálati helyét engedély nélkül elhagyja, vagy más módon súlyosan megszegi mentési kötelezettségét — vétség. Bűntett miatt pénzbüntetés, felfüggesztés, elbocsátás hivatali úton, vagy szabadságvesztés. (105/C. §)</li><li>Aki fontos szolgálati feladat alól megtévesztéssel vagy távolmaradással kivonja magát, vagy annak teljesítésére képtelenné teszi magát — vétség. (106/C. §(1))</li><li>Ha a cselekmény a szolgálatra jelentős hátrány veszélyével jár, vagy külföldi hadműveleti területen végzett humanitárius/békefenntartó tevékenység során követik el — bűntett. (106/C. §(2))</li></ul></div>
 </section>
 
-<section id="szamologep">
-  <h2><span class="sec-num">§</span> Halmazati büntetés-számológép</h2>
-  <p class="section-note">
-    A valós Btk. 81. §-a szerinti logikát követi: a halmazati büntetés alapja a legsúlyosabb
-    (legnagyobb) egyedi tétel. Ez a legsúlyosabb tétel felére felemelhető (azaz max. 1,5×-ösére),
-    de <strong>nem érheti el</strong> az összes kiválasztott tétel együttes összegét, és nem
-    lépheti át a szerver büntetési plafonját (50 000 000 Ft / 60 nap). Egyetlen kiválasztott
-    tételnél nincs emelés, csak annak saját értéke érvényes. Az életfogytiglant vagy
-    halálbüntetést tartalmazó tételeknél a napalapú számítás nem alkalmazható - ezeket egyedileg,
-    bírói/vezérkari mérlegeléssel kell kezelni.
-  </p>
-
-  <input type="text" id="calcSearch" placeholder="Keress cselekményt a hozzáadáshoz — pl. lopás, garázdaság, 46. §...">
-  <div id="calcList" class="calc-list"></div>
-
-  <div id="calcSelectedWrap" style="margin-top:24px;display:none;">
-    <p class="desc-block-title" style="margin-bottom:10px;">Kiválasztott cselekmények</p>
-    <div id="calcSelected"></div>
-  </div>
-
-  <div id="calcResult" class="calc-result" style="display:none;"></div>
-</section>
-
 </div>
 
 <footer>
@@ -545,6 +550,7 @@
 
   const calcListEl = document.getElementById('calcList');
   const calcSearchEl = document.getElementById('calcSearch');
+  const calcCountEl = document.getElementById('calcCount');
   const calcSelectedWrapEl = document.getElementById('calcSelectedWrap');
   const calcSelectedEl = document.getElementById('calcSelected');
   const calcResultEl = document.getElementById('calcResult');
@@ -558,10 +564,17 @@
 
   function renderList(){
     const q = calcSearchEl.value.trim().toLowerCase();
-    let items = calcItems
+    let matches = calcItems
       .map(function(item, idx){ return { item: item, idx: idx }; })
-      .filter(function(o){ return !q || o.item[0].toLowerCase().includes(q); })
-      .slice(0, 60);
+      .filter(function(o){ return !q || o.item[0].toLowerCase().includes(q); });
+
+    const totalCount = calcItems.length;
+    const matchCount = matches.length;
+    calcCountEl.textContent = q
+      ? matchCount + ' találat (' + totalCount + ' tételből)'
+      : 'Összesen ' + totalCount + ' tétel — kezdj el gépelni a szűkítéshez, vagy görgess a listában';
+
+    let items = matches;
 
     calcListEl.innerHTML = '';
     items.forEach(function(o){
