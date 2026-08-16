@@ -50,45 +50,66 @@
   }
   .top-banner strong{color:var(--red-bright);}
 
-  /* Halmazati számológép */
-  .calc-top{background:var(--bg-1);border-radius:8px;padding-left:26px;padding-right:26px;}
-  #calcSearch{margin-top:18px;}
-  .calc-count{font-size:12px;color:var(--ink-muted);margin:10px 0 0;}
-  .calc-list{
-    max-height:420px;overflow-y:auto;margin-top:8px;
-    border:1px solid var(--line);border-radius:6px;background:var(--bg-0);
+  /* Halmazati számológép - táblázatból kattintható, lebegő panel */
+  tr.calc-clickable{cursor:pointer;}
+  tr.calc-clickable:hover td{background:rgba(212,175,106,.08);}
+  tr.calc-clickable td:first-child{position:relative;}
+  tr.calc-selected td{background:rgba(212,175,106,.14) !important;}
+  tr.calc-selected td:first-child::before{
+    content:"✓";color:var(--gold-bright);font-family:'IBM Plex Mono',monospace;
+    margin-right:6px;
   }
-  .calc-item{
-    display:flex;justify-content:space-between;align-items:center;gap:12px;
-    padding:10px 14px;border-bottom:1px solid var(--line);
-    font-size:13.5px;color:var(--ink-soft);cursor:pointer;
+
+  .calc-widget{
+    position:fixed;right:20px;bottom:20px;z-index:70;
+    width:340px;max-width:calc(100vw - 40px);
+    background:var(--bg-2);border:1px solid var(--gold);border-radius:8px;
+    box-shadow:0 8px 28px rgba(0,0,0,.5);
+    font-family:'Source Serif 4',serif;
   }
-  .calc-item:last-child{border-bottom:none;}
-  .calc-item:hover{background:var(--bg-2);}
-  .calc-item .vals{
-    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--gold-bright);
-    white-space:nowrap;
+  .calc-widget-header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 18px;cursor:pointer;
   }
-  .calc-item.added{opacity:.35;cursor:default;}
+  .calc-widget-header .t{
+    font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);
+  }
+  .calc-widget-header .c{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--gold-bright);
+    border:1px solid var(--gold);border-radius:20px;padding:2px 10px;
+  }
+  .calc-widget-body{
+    border-top:1px solid var(--line);padding:14px 18px 18px;
+    max-height:60vh;overflow-y:auto;
+  }
+  .calc-widget-hint{font-size:12px;color:var(--ink-muted);margin:0 0 12px;line-height:1.5;}
   .calc-selected-item{
-    display:flex;justify-content:space-between;align-items:center;gap:12px;
-    padding:10px 14px;background:var(--bg-2);border:1px solid var(--line-strong);
-    border-radius:4px;margin-bottom:8px;font-size:13.5px;color:var(--ink);
+    display:flex;justify-content:space-between;align-items:center;gap:10px;
+    padding:8px 10px;background:var(--bg-1);border:1px solid var(--line);
+    border-radius:4px;margin-bottom:7px;font-size:12.5px;color:var(--ink);
   }
+  .calc-selected-item .vals{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-muted);white-space:nowrap;}
   .calc-selected-item button{
     background:none;border:1px solid var(--red);color:var(--red-bright);
-    border-radius:3px;padding:3px 9px;font-size:11.5px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;
+    border-radius:3px;padding:2px 8px;font-size:11px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;flex:none;
   }
-  .calc-result{
-    margin-top:24px;background:var(--bg-2);border:1px solid var(--gold);border-radius:6px;padding:24px 26px;
-  }
-  .calc-result h3{font-size:16px;color:var(--gold-bright);margin-bottom:16px;}
-  .calc-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink-soft);}
+  .calc-result{margin-top:14px;background:var(--bg-1);border:1px solid var(--line-strong);border-radius:6px;padding:14px 16px;}
+  .calc-result h3{font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;font-family:'Oswald',sans-serif;color:var(--gold-bright);margin-bottom:10px;}
+  .calc-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--line);font-size:12px;color:var(--ink-soft);}
   .calc-row:last-child{border-bottom:none;}
   .calc-row .label{color:var(--ink-muted);}
-  .calc-row.final{margin-top:6px;padding-top:14px;border-top:2px solid var(--gold);}
-  .calc-row.final .label{color:var(--ink);font-family:'Oswald',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.04em;}
-  .calc-row.final .value{color:var(--gold-bright);font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:600;}
+  .calc-row.final{margin-top:4px;padding-top:10px;border-top:2px solid var(--gold);}
+  .calc-row.final .label{color:var(--ink);font-family:'Oswald',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.04em;}
+  .calc-row.final .value{color:var(--gold-bright);font-family:'IBM Plex Mono',monospace;font-size:14.5px;font-weight:600;}
+  .calc-clear-btn{
+    margin-top:12px;width:100%;background:none;border:1px solid var(--line-strong);color:var(--ink-muted);
+    border-radius:4px;padding:8px;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;
+    font-family:'Oswald',sans-serif;cursor:pointer;
+  }
+  .calc-clear-btn:hover{border-color:var(--red);color:var(--red-bright);}
+  @media (max-width:600px){
+    .calc-widget{right:12px;bottom:12px;left:12px;width:auto;}
+  }
 </style>
 </head>
 <body>
@@ -128,7 +149,6 @@
   <div class="btk-search">
     <input type="text" id="btkSearch" placeholder="Keresés — pl. lopás, GRF, 500 000, garázdaság...">
     <div class="btk-subnav">
-    <a href="#szamologep">Számológép</a>
     <a href="#altalanos">Általános</a>
     <a href="#kozlekedes">Közlekedési</a>
     <a href="#szabalysertesek">Szabálysértések</a>
@@ -144,31 +164,11 @@
     <strong>Fontos:</strong> ez a dokumentum egy PDF-ből lett automatikusan feldolgozva. A Bűncselekmények, Adócsalás és Katonai szakaszoknál a törvényszöveg-leírások külön blokkban szerepelnek a táblázat alatt (nem soronként párosítva), mert a forrásfájlban ezek sorrendje bizonytalan volt. Kérünk, vessétek össze az eredeti Excel-lel, mielőtt élesben, vitás ügyekben hivatkoznátok rá.
   </div>
 
-  
-<section id="szamologep" class="calc-top">
-  <h2><span class="sec-num">§</span> Halmazati büntetés-számológép</h2>
-  <p class="section-note">
-    A valós Btk. 81. §-a szerinti logikát követi: a halmazati büntetés alapja a legsúlyosabb
-    (legnagyobb) egyedi tétel. Ez a legsúlyosabb tétel felére felemelhető (azaz max. 1,5×-ösére),
-    de <strong>nem érheti el</strong> az összes kiválasztott tétel együttes összegét, és nem
-    lépheti át a szerver büntetési plafonját (50 000 000 Ft / 60 nap). Egyetlen kiválasztott
-    tételnél nincs emelés, csak annak saját értéke érvényes. Az életfogytiglant vagy
-    halálbüntetést tartalmazó tételeknél a napalapú számítás nem alkalmazható - ezeket egyedileg,
-    bírói/vezérkari mérlegeléssel kell kezelni.
-  </p>
-
-  <input type="text" id="calcSearch" placeholder="Keress cselekményt a hozzáadáshoz — pl. lopás, garázdaság, 46. §...">
-  <p id="calcCount" class="calc-count"></p>
-  <div id="calcList" class="calc-list"></div>
-
-  <div id="calcSelectedWrap" style="margin-top:24px;display:none;">
-    <p class="desc-block-title" style="margin-bottom:10px;">Kiválasztott cselekmények</p>
-    <div id="calcSelected"></div>
+  <div class="top-banner" style="border-color:var(--gold);background:rgba(212,175,106,.06);">
+    <strong style="color:var(--gold-bright);">Halmazati számológép:</strong> kattints rá bármelyik táblázatsorra (aminek van bírsága vagy börtönideje), hogy hozzáadd a jobb alsó sarokban megjelenő számológéphez.
   </div>
 
-  <div id="calcResult" class="calc-result" style="display:none;"></div>
-</section>
-
+  
 <section id="altalanos">
   <h2><span class="sec-num">§0</span> Általános rendelkezések</h2>
   <table><thead><tr><th>Téma</th><th>Szabály</th></tr></thead><tbody><tr><td>Csökkentési kulcs rang szerint</td><td>Járőr: 10% | Tiszthelyettesek: 20% | Tisztek: 30% | Főtisztek: 40% | Vezérkar: 50%</td></tr>
@@ -186,143 +186,143 @@
 
 <section id="kozlekedes">
   <h2><span class="sec-num">1–13. §</span> Közlekedési szabálysértések</h2>
-  <table><thead><tr><th>§</th><th>Alpont</th><th>Megnevezés</th><th>Leírás / feltétel</th><th>Min. bírság</th><th>Max. bírság</th><th>Rövidítés</th><th>Fórum</th></tr></thead><tbody><tr><td>2. §</td><td></td><td>Állami szervezet tulajdonának megrongálása</td><td>Az a személy, aki szándékosan vagy gondatlanságból állami tulajdont rongál meg.</td><td>1 000 000 Ft</td><td>2 000 000 Ft</td><td>ÁSZTM</td><td></td></tr>
-<tr><td>3. §</td><td></td><td>Bukósisak nélküli motorvezetés</td><td>—</td><td>—</td><td>450 000 Ft</td><td>BNMV</td><td></td></tr>
-<tr><td>4. §</td><td></td><td>Kanyarodási szabályok megszegése</td><td>—</td><td>250 000 Ft</td><td>450 000 Ft</td><td>KSZM</td><td></td></tr>
-<tr><td>5. §</td><td></td><td>Fényszóró használatának elmulasztása RLVK/SU</td><td>RLVK = Rossz látási viszonyok között; SU = Sötétedés után.</td><td>—</td><td>350 000 Ft</td><td>FHERL/FHESU</td><td></td></tr>
-<tr><td>6. §</td><td></td><td>Közlekedési jelzőlámpa tilos jelzésén való áthaladás</td><td>—</td><td>100 000 Ft</td><td>200 000 Ft</td><td>—</td><td></td></tr>
+  <table><thead><tr><th>§</th><th>Alpont</th><th>Megnevezés</th><th>Leírás / feltétel</th><th>Min. bírság</th><th>Max. bírság</th><th>Rövidítés</th><th>Fórum</th></tr></thead><tbody><tr class="calc-clickable" data-calc="1" data-label="2. §  Állami szervezet tulajdonának megrongálása" data-birsag="2000000" data-borton=""><td>2. §</td><td></td><td>Állami szervezet tulajdonának megrongálása</td><td>Az a személy, aki szándékosan vagy gondatlanságból állami tulajdont rongál meg.</td><td>1 000 000 Ft</td><td>2 000 000 Ft</td><td>ÁSZTM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="3. §  Bukósisak nélküli motorvezetés" data-birsag="450000" data-borton=""><td>3. §</td><td></td><td>Bukósisak nélküli motorvezetés</td><td>—</td><td>—</td><td>450 000 Ft</td><td>BNMV</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="4. §  Kanyarodási szabályok megszegése" data-birsag="450000" data-borton=""><td>4. §</td><td></td><td>Kanyarodási szabályok megszegése</td><td>—</td><td>250 000 Ft</td><td>450 000 Ft</td><td>KSZM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="5. §  Fényszóró használatának elmulasztása RLVK/SU" data-birsag="350000" data-borton=""><td>5. §</td><td></td><td>Fényszóró használatának elmulasztása RLVK/SU</td><td>RLVK = Rossz látási viszonyok között; SU = Sötétedés után.</td><td>—</td><td>350 000 Ft</td><td>FHERL/FHESU</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="6. §  Közlekedési jelzőlámpa tilos jelzésén való áthaladás" data-birsag="200000" data-borton=""><td>6. §</td><td></td><td>Közlekedési jelzőlámpa tilos jelzésén való áthaladás</td><td>—</td><td>100 000 Ft</td><td>200 000 Ft</td><td>—</td><td></td></tr>
 <tr><td>7. §</td><td></td><td>Behajtási, kötelező haladási irány megsértése</td><td>—</td><td>—</td><td>—</td><td>BTM</td><td></td></tr>
-<tr><td>7. §</td><td>(1)</td><td>Behajtási tilalom megsértése</td><td>—</td><td>30 000 Ft</td><td>500 000 Ft</td><td>—</td><td></td></tr>
-<tr><td>7. §</td><td>(2)</td><td>Kötelező haladási irány megsértése</td><td>—</td><td>450 000 Ft</td><td>500 000 Ft</td><td>KHIM</td><td></td></tr>
-<tr><td>8. §</td><td></td><td>STOP tábla figyelmen kívül hagyása</td><td>—</td><td>350 000 Ft</td><td>500 000 Ft</td><td>—</td><td></td></tr>
-<tr><td>9. §</td><td></td><td>Tilosban parkolás</td><td>Megállni/várakozni tilos tábla hatálya alatt; úttest menetirányának megsértésével; gyalogos átkelőn vagy attól 15 m-en belül; be nem látható útkanyarulatban; útkereszteződésben és attól 5 m-en belül; hídon, aluljáróban és ezek be-/kijáratánál; ha a jármű a járda felénél többet elfoglal; lakott területen kívül főútvonal úttestjén vagy mentén; kijelölt rakodóhelyen; autópálya/autóút úttestjén és leállósávon nem műszaki ok miatt; tűzcsaptól 5 m-en belül. (1 méter ≈ 1 lépés)</td><td>70 000 Ft</td><td>85 000 Ft</td><td>TP</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="7. § (1) Behajtási tilalom megsértése" data-birsag="500000" data-borton=""><td>7. §</td><td>(1)</td><td>Behajtási tilalom megsértése</td><td>—</td><td>30 000 Ft</td><td>500 000 Ft</td><td>—</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="7. § (2) Kötelező haladási irány megsértése" data-birsag="500000" data-borton=""><td>7. §</td><td>(2)</td><td>Kötelező haladási irány megsértése</td><td>—</td><td>450 000 Ft</td><td>500 000 Ft</td><td>KHIM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="8. §  STOP tábla figyelmen kívül hagyása" data-birsag="500000" data-borton=""><td>8. §</td><td></td><td>STOP tábla figyelmen kívül hagyása</td><td>—</td><td>350 000 Ft</td><td>500 000 Ft</td><td>—</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="9. §  Tilosban parkolás" data-birsag="85000" data-borton=""><td>9. §</td><td></td><td>Tilosban parkolás</td><td>Megállni/várakozni tilos tábla hatálya alatt; úttest menetirányának megsértésével; gyalogos átkelőn vagy attól 15 m-en belül; be nem látható útkanyarulatban; útkereszteződésben és attól 5 m-en belül; hídon, aluljáróban és ezek be-/kijáratánál; ha a jármű a járda felénél többet elfoglal; lakott területen kívül főútvonal úttestjén vagy mentén; kijelölt rakodóhelyen; autópálya/autóút úttestjén és leállósávon nem műszaki ok miatt; tűzcsaptól 5 m-en belül. (1 méter ≈ 1 lépés)</td><td>70 000 Ft</td><td>85 000 Ft</td><td>TP</td><td></td></tr>
 <tr><td>10. §</td><td></td><td>Járműre szerelt illegális alkatrész</td><td>—</td><td>—</td><td>—</td><td>IAGSZ</td><td></td></tr>
-<tr><td>10. §</td><td>(1)</td><td>Neoncső</td><td>Ha a neoncső nincs feltüntetve a forgalmi engedélyen, illegálisnak minősül.</td><td>24 000 Ft</td><td>55 000 Ft</td><td>IAGSZN</td><td></td></tr>
-<tr><td>10. §</td><td>(2)</td><td>Színes tompított fényszóró</td><td>Elöl kizárólag fehér, kadmiumsárga vagy xenon, hátul kizárólag vörös fényszóró engedélyezett. (Kivétel: olyan kocsik, ahol felkapcsolva feketés/szürkés árnyalat is látszik — pl. Angel Eye, Audi mátrix LED.)</td><td>60 000 Ft</td><td>75 000 Ft</td><td>IAGSZF</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="10. § (1) Neoncső" data-birsag="55000" data-borton=""><td>10. §</td><td>(1)</td><td>Neoncső</td><td>Ha a neoncső nincs feltüntetve a forgalmi engedélyen, illegálisnak minősül.</td><td>24 000 Ft</td><td>55 000 Ft</td><td>IAGSZN</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="10. § (2) Színes tompított fényszóró" data-birsag="75000" data-borton=""><td>10. §</td><td>(2)</td><td>Színes tompított fényszóró</td><td>Elöl kizárólag fehér, kadmiumsárga vagy xenon, hátul kizárólag vörös fényszóró engedélyezett. (Kivétel: olyan kocsik, ahol felkapcsolva feketés/szürkés árnyalat is látszik — pl. Angel Eye, Audi mátrix LED.)</td><td>60 000 Ft</td><td>75 000 Ft</td><td>IAGSZF</td><td></td></tr>
 <tr><td>11. §</td><td></td><td>Sebességtúllépés — 70-es zónában (városon belüli utak)</td><td>—</td><td>—</td><td>—</td><td>SP3</td><td></td></tr>
-<tr><td>11. §</td><td>(1)</td><td>80 km/h</td><td>—</td><td>60 000 Ft</td><td>0 nap</td><td>SP32</td><td></td></tr>
-<tr><td>11. §</td><td>(2)</td><td>90 km/h</td><td>—</td><td>75 000 Ft</td><td>0 nap</td><td>SP310</td><td></td></tr>
-<tr><td>11. §</td><td>(3)</td><td>110 km/h</td><td>—</td><td>80 000 Ft</td><td>0 nap</td><td>SP320</td><td></td></tr>
-<tr><td>11. §</td><td>(4)</td><td>150 km/h+</td><td>—</td><td>95 000 Ft</td><td>0 nap</td><td>SP330</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="11. § (1) 80 km/h" data-birsag="60000" data-borton="0"><td>11. §</td><td>(1)</td><td>80 km/h</td><td>—</td><td>60 000 Ft</td><td>0 nap</td><td>SP32</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="11. § (2) 90 km/h" data-birsag="75000" data-borton="0"><td>11. §</td><td>(2)</td><td>90 km/h</td><td>—</td><td>75 000 Ft</td><td>0 nap</td><td>SP310</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="11. § (3) 110 km/h" data-birsag="80000" data-borton="0"><td>11. §</td><td>(3)</td><td>110 km/h</td><td>—</td><td>80 000 Ft</td><td>0 nap</td><td>SP320</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="11. § (4) 150 km/h+" data-birsag="95000" data-borton="0"><td>11. §</td><td>(4)</td><td>150 km/h+</td><td>—</td><td>95 000 Ft</td><td>0 nap</td><td>SP330</td><td></td></tr>
 <tr><td>12. §</td><td></td><td>Sebességtúllépés — 100-as zónában (városokat összekötő utak, nem autópálya)</td><td>—</td><td>—</td><td>—</td><td>SP7</td><td></td></tr>
-<tr><td>12. §</td><td>(1)</td><td>110 km/h</td><td>—</td><td>95 000 Ft</td><td>0 nap</td><td>SP72</td><td></td></tr>
-<tr><td>12. §</td><td>(2)</td><td>120 km/h</td><td>—</td><td>100 000 Ft</td><td>0 nap</td><td>SP710</td><td></td></tr>
-<tr><td>12. §</td><td>(3)</td><td>140 km/h</td><td>—</td><td>130 000 Ft</td><td>0 nap</td><td>SP720</td><td></td></tr>
-<tr><td>12. §</td><td>(4)</td><td>180 km/h+</td><td>—</td><td>160 000 Ft</td><td>0 nap</td><td>SP730</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="12. § (1) 110 km/h" data-birsag="95000" data-borton="0"><td>12. §</td><td>(1)</td><td>110 km/h</td><td>—</td><td>95 000 Ft</td><td>0 nap</td><td>SP72</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="12. § (2) 120 km/h" data-birsag="100000" data-borton="0"><td>12. §</td><td>(2)</td><td>120 km/h</td><td>—</td><td>100 000 Ft</td><td>0 nap</td><td>SP710</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="12. § (3) 140 km/h" data-birsag="130000" data-borton="0"><td>12. §</td><td>(3)</td><td>140 km/h</td><td>—</td><td>130 000 Ft</td><td>0 nap</td><td>SP720</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="12. § (4) 180 km/h+" data-birsag="160000" data-borton="0"><td>12. §</td><td>(4)</td><td>180 km/h+</td><td>—</td><td>160 000 Ft</td><td>0 nap</td><td>SP730</td><td></td></tr>
 <tr><td>13. §</td><td></td><td>Sebességtúllépés — 140-es zónában (autópályán)</td><td>—</td><td>—</td><td>—</td><td>SP8</td><td></td></tr>
-<tr><td>13. §</td><td>(1)</td><td>150 km/h</td><td>—</td><td>100 000 Ft</td><td>0 nap</td><td>SP81</td><td></td></tr>
-<tr><td>13. §</td><td>(2)</td><td>160 km/h</td><td>—</td><td>120 000 Ft</td><td>0 nap</td><td>SP85</td><td></td></tr>
-<tr><td>13. §</td><td>(3)</td><td>180 km/h</td><td>—</td><td>150 000 Ft</td><td>0 nap</td><td>SP810</td><td></td></tr>
-<tr><td>13. §</td><td>(4)</td><td>220 km/h+</td><td>—</td><td>170 000 Ft</td><td>0 nap</td><td>SP815</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="13. § (1) 150 km/h" data-birsag="100000" data-borton="0"><td>13. §</td><td>(1)</td><td>150 km/h</td><td>—</td><td>100 000 Ft</td><td>0 nap</td><td>SP81</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="13. § (2) 160 km/h" data-birsag="120000" data-borton="0"><td>13. §</td><td>(2)</td><td>160 km/h</td><td>—</td><td>120 000 Ft</td><td>0 nap</td><td>SP85</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="13. § (3) 180 km/h" data-birsag="150000" data-borton="0"><td>13. §</td><td>(3)</td><td>180 km/h</td><td>—</td><td>150 000 Ft</td><td>0 nap</td><td>SP810</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="13. § (4) 220 km/h+" data-birsag="170000" data-borton="0"><td>13. §</td><td>(4)</td><td>220 km/h+</td><td>—</td><td>170 000 Ft</td><td>0 nap</td><td>SP815</td><td></td></tr>
 </tbody></table>
 </section>
 
 <section id="szabalysertesek">
   <h2><span class="sec-num">14–18. §</span> Szabálysértések</h2>
-  <table><thead><tr><th>§</th><th>Alpont</th><th>Megnevezés</th><th>Leírás / feltétel</th><th>Min. bírság</th><th>Max. bírság</th><th>Rövidítés</th><th>Fórum</th></tr></thead><tbody><tr><td>15. §</td><td></td><td>Közrend megzavarása</td><td>—</td><td>800 000 Ft</td><td>0</td><td>KM</td><td></td></tr>
-<tr><td>16. §</td><td></td><td>Rendőrrel szembeni tiszteletlenség</td><td>Reális keretek között osztható.</td><td>150 000 Ft</td><td>0</td><td>RSZT</td><td></td></tr>
-<tr><td>17. §</td><td></td><td>Közvagyon megrongálása</td><td>Közvagyonnak számít minden közterületen található tárgy (úttest, villanyoszlop, pózna, közlekedési tábla stb.). A büntetés minden megrongált tárgy után értendő.</td><td>750 000 Ft</td><td>15 nap</td><td>KM</td><td>BÍRÓSÁG</td></tr>
+  <table><thead><tr><th>§</th><th>Alpont</th><th>Megnevezés</th><th>Leírás / feltétel</th><th>Min. bírság</th><th>Max. bírság</th><th>Rövidítés</th><th>Fórum</th></tr></thead><tbody><tr class="calc-clickable" data-calc="1" data-label="15. §  Közrend megzavarása" data-birsag="800000" data-borton=""><td>15. §</td><td></td><td>Közrend megzavarása</td><td>—</td><td>800 000 Ft</td><td>0</td><td>KM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="16. §  Rendőrrel szembeni tiszteletlenség" data-birsag="150000" data-borton=""><td>16. §</td><td></td><td>Rendőrrel szembeni tiszteletlenség</td><td>Reális keretek között osztható.</td><td>150 000 Ft</td><td>0</td><td>RSZT</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="17. §  Közvagyon megrongálása" data-birsag="750000" data-borton=""><td>17. §</td><td></td><td>Közvagyon megrongálása</td><td>Közvagyonnak számít minden közterületen található tárgy (úttest, villanyoszlop, pózna, közlekedési tábla stb.). A büntetés minden megrongált tárgy után értendő.</td><td>750 000 Ft</td><td>15 nap</td><td>KM</td><td>BÍRÓSÁG</td></tr>
 <tr><td>18. §</td><td></td><td>Diszkrimináció</td><td>Az a személy vagy cég, aki más faji, vallási, szexuális vagy bármilyen más hovatartozása miatt hátrányos megkülönböztetést tesz.</td><td>—</td><td>—</td><td>DK</td><td></td></tr>
-<tr><td>18. §</td><td>(1)</td><td>Magánszemély részéről</td><td>—</td><td>100 000 Ft</td><td>0</td><td>DKM</td><td></td></tr>
-<tr><td>18. §</td><td>(2)</td><td>Cég részéről</td><td>—</td><td>500 000 Ft</td><td>0</td><td>DKC</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="18. § (1) Magánszemély részéről" data-birsag="100000" data-borton=""><td>18. §</td><td>(1)</td><td>Magánszemély részéről</td><td>—</td><td>100 000 Ft</td><td>0</td><td>DKM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="18. § (2) Cég részéről" data-birsag="500000" data-borton=""><td>18. §</td><td>(2)</td><td>Cég részéről</td><td>—</td><td>500 000 Ft</td><td>0</td><td>DKC</td><td></td></tr>
 </tbody></table>
 </section>
 
 <section id="vetsegek">
   <h2><span class="sec-num">19–44. §</span> Vétségek</h2>
-  <table><thead><tr><th>§</th><th>Alpont</th><th>Megnevezés</th><th>Leírás / feltétel</th><th>Min. bírság</th><th>Max. bírság</th><th>Rövidítés</th><th>Fórum</th></tr></thead><tbody><tr><td>19. §</td><td>2.</td><td>Lejárt forgalmi engedély</td><td>—</td><td>500 000 Ft</td><td>0</td><td>LFE</td><td></td></tr>
+  <table><thead><tr><th>§</th><th>Alpont</th><th>Megnevezés</th><th>Leírás / feltétel</th><th>Min. bírság</th><th>Max. bírság</th><th>Rövidítés</th><th>Fórum</th></tr></thead><tbody><tr class="calc-clickable" data-calc="1" data-label="19. § 2. Lejárt forgalmi engedély" data-birsag="500000" data-borton=""><td>19. §</td><td>2.</td><td>Lejárt forgalmi engedély</td><td>—</td><td>500 000 Ft</td><td>0</td><td>LFE</td><td></td></tr>
 <tr><td>20. §</td><td></td><td>Járművezetés tiltott átengedése</td><td>Aki a vasúti, légi vagy közúti közlekedésben, illetve közforgalom elől el nem zárt magánúton gépi meghajtású jármű vezetését ittas, bódult vagy egyéb vezetésre alkalmatlan személynek átengedi. Járművezetői engedély elvételre kerül.</td><td>—</td><td>—</td><td>JTÁ</td><td></td></tr>
-<tr><td>20. §</td><td>(1)</td><td>Személyi sérülés nélkül</td><td>—</td><td>500 000 Ft</td><td>0</td><td>JTÁSN</td><td></td></tr>
-<tr><td>20. §</td><td>(2)</td><td>Személyi sérülés esetén</td><td>—</td><td>800 000 Ft</td><td>10 nap</td><td>JTÁSE</td><td>BÍRÓSÁG</td></tr>
-<tr><td>20. §</td><td>(3)</td><td>Haláleset esetén</td><td>—</td><td>1 250 000 Ft</td><td>25 nap</td><td>JTÁH</td><td>BÍRÓSÁG</td></tr>
-<tr><td>20. §</td><td>(4)</td><td>Több haláleset esetén</td><td>—</td><td>1 500 000 Ft</td><td>35 nap</td><td>JTÁTH</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="20. § (1) Személyi sérülés nélkül" data-birsag="500000" data-borton=""><td>20. §</td><td>(1)</td><td>Személyi sérülés nélkül</td><td>—</td><td>500 000 Ft</td><td>0</td><td>JTÁSN</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="20. § (2) Személyi sérülés esetén" data-birsag="800000" data-borton=""><td>20. §</td><td>(2)</td><td>Személyi sérülés esetén</td><td>—</td><td>800 000 Ft</td><td>10 nap</td><td>JTÁSE</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="20. § (3) Haláleset esetén" data-birsag="1250000" data-borton=""><td>20. §</td><td>(3)</td><td>Haláleset esetén</td><td>—</td><td>1 250 000 Ft</td><td>25 nap</td><td>JTÁH</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="20. § (4) Több haláleset esetén" data-birsag="1500000" data-borton=""><td>20. §</td><td>(4)</td><td>Több haláleset esetén</td><td>—</td><td>1 500 000 Ft</td><td>35 nap</td><td>JTÁTH</td><td>BÍRÓSÁG</td></tr>
 <tr><td>21. §</td><td></td><td>Járművezetés ittas állapotban</td><td>Aki járművet alkoholos vagy más kábító hatású szer befolyása alatt közúton, vagy közforgalom elől el nem zárt magánúton vezet. Járművezetői engedély elvételre kerül.</td><td>—</td><td>—</td><td>JIÁ</td><td></td></tr>
-<tr><td>21. §</td><td>(1)</td><td>Személyi sérülés nélkül</td><td>—</td><td>800 000 Ft</td><td>0</td><td>JIÁSN</td><td></td></tr>
-<tr><td>21. §</td><td>(2)</td><td>Személyi sérülés esetén</td><td>—</td><td>1 250 000 Ft</td><td>10 nap</td><td>JIÁSE</td><td>BÍRÓSÁG</td></tr>
-<tr><td>21. §</td><td>(3)</td><td>Súlyos testi sértés esetén</td><td>—</td><td>1 500 000 Ft</td><td>25 nap</td><td>JIÁST</td><td>BÍRÓSÁG</td></tr>
-<tr><td>21. §</td><td>(4)</td><td>Haláleset esetén</td><td>—</td><td>2 000 000 Ft</td><td>35 nap</td><td>JIÁH</td><td>BÍRÓSÁG</td></tr>
-<tr><td>21. §</td><td>(5)</td><td>Több haláleset esetén</td><td>—</td><td>3 000 000 Ft</td><td>45 nap</td><td>JIÁTH</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="21. § (1) Személyi sérülés nélkül" data-birsag="800000" data-borton=""><td>21. §</td><td>(1)</td><td>Személyi sérülés nélkül</td><td>—</td><td>800 000 Ft</td><td>0</td><td>JIÁSN</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="21. § (2) Személyi sérülés esetén" data-birsag="1250000" data-borton=""><td>21. §</td><td>(2)</td><td>Személyi sérülés esetén</td><td>—</td><td>1 250 000 Ft</td><td>10 nap</td><td>JIÁSE</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="21. § (3) Súlyos testi sértés esetén" data-birsag="1500000" data-borton=""><td>21. §</td><td>(3)</td><td>Súlyos testi sértés esetén</td><td>—</td><td>1 500 000 Ft</td><td>25 nap</td><td>JIÁST</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="21. § (4) Haláleset esetén" data-birsag="2000000" data-borton=""><td>21. §</td><td>(4)</td><td>Haláleset esetén</td><td>—</td><td>2 000 000 Ft</td><td>35 nap</td><td>JIÁH</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="21. § (5) Több haláleset esetén" data-birsag="3000000" data-borton=""><td>21. §</td><td>(5)</td><td>Több haláleset esetén</td><td>—</td><td>3 000 000 Ft</td><td>45 nap</td><td>JIÁTH</td><td>BÍRÓSÁG</td></tr>
 <tr><td>22. §</td><td></td><td>Garázdaság</td><td>Aki olyan kihívóan közösségellenes, erőszakos magatartást tanúsít, amely alkalmas arra, hogy másokban megbotránkozást vagy riadalmat keltsen.</td><td>—</td><td>—</td><td>GR</td><td></td></tr>
-<tr><td>22. §</td><td>(1)</td><td>Magányosan</td><td>—</td><td>500 000 Ft</td><td>10 nap</td><td>GRM</td><td></td></tr>
-<tr><td>22. §</td><td>(2)</td><td>Csoportosan</td><td>—</td><td>800 000 Ft</td><td>20 nap</td><td>GRCS</td><td></td></tr>
-<tr><td>22. §</td><td>(4)</td><td>Fegyveresen</td><td>—</td><td>1 000 000 Ft</td><td>25 nap</td><td>GRF</td><td></td></tr>
-<tr><td>22. §</td><td>(5)</td><td>Felfegyverkezve</td><td>—</td><td>1 500 000 Ft</td><td>40 nap</td><td>GRFF</td><td></td></tr>
-<tr><td>22. §</td><td>(6)</td><td>Nyilvános rendezvényen</td><td>—</td><td>2 000 000 Ft</td><td>45 nap</td><td>GRNYR</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="22. § (1) Magányosan" data-birsag="500000" data-borton=""><td>22. §</td><td>(1)</td><td>Magányosan</td><td>—</td><td>500 000 Ft</td><td>10 nap</td><td>GRM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="22. § (2) Csoportosan" data-birsag="800000" data-borton=""><td>22. §</td><td>(2)</td><td>Csoportosan</td><td>—</td><td>800 000 Ft</td><td>20 nap</td><td>GRCS</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="22. § (4) Fegyveresen" data-birsag="1000000" data-borton=""><td>22. §</td><td>(4)</td><td>Fegyveresen</td><td>—</td><td>1 000 000 Ft</td><td>25 nap</td><td>GRF</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="22. § (5) Felfegyverkezve" data-birsag="1500000" data-borton=""><td>22. §</td><td>(5)</td><td>Felfegyverkezve</td><td>—</td><td>1 500 000 Ft</td><td>40 nap</td><td>GRFF</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="22. § (6) Nyilvános rendezvényen" data-birsag="2000000" data-borton=""><td>22. §</td><td>(6)</td><td>Nyilvános rendezvényen</td><td>—</td><td>2 000 000 Ft</td><td>45 nap</td><td>GRNYR</td><td></td></tr>
 <tr><td>23. §</td><td></td><td>Járművezetés eltiltás alatt</td><td>Mindig fel kell vinni az MDT-be, hogy mikor, hol és ki igazoltatta a személyt.</td><td>—</td><td>—</td><td>—</td><td></td></tr>
-<tr><td>23. §</td><td>(1)</td><td>Személyi sérülés nélkül</td><td>—</td><td>200 000 Ft</td><td>—</td><td>—</td><td></td></tr>
-<tr><td>23. §</td><td>(2)</td><td>Személyi sérüléssel</td><td>—</td><td>500 000 Ft</td><td>30 nap</td><td>—</td><td>BÍRÓSÁG</td></tr>
-<tr><td>23. §</td><td>(3)</td><td>Haláleset esetén</td><td>—</td><td>1 000 000 Ft</td><td>40 nap</td><td>—</td><td>BÍRÓSÁG</td></tr>
-<tr><td>24. §</td><td></td><td>Hatóság félrevezetése</td><td>Aki a hatóság irányába olyan bejelentést vagy állítást tesz, melyről tudja, hogy valótlan. Az illetékes hatóság az alapbüntetésen felül a kiszállási díjat is kiszabhatja.</td><td>1 200 000 Ft</td><td>60 nap</td><td>HF</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="23. § (1) Személyi sérülés nélkül" data-birsag="200000" data-borton=""><td>23. §</td><td>(1)</td><td>Személyi sérülés nélkül</td><td>—</td><td>200 000 Ft</td><td>—</td><td>—</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="23. § (2) Személyi sérüléssel" data-birsag="500000" data-borton=""><td>23. §</td><td>(2)</td><td>Személyi sérüléssel</td><td>—</td><td>500 000 Ft</td><td>30 nap</td><td>—</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="23. § (3) Haláleset esetén" data-birsag="1000000" data-borton=""><td>23. §</td><td>(3)</td><td>Haláleset esetén</td><td>—</td><td>1 000 000 Ft</td><td>40 nap</td><td>—</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="24. §  Hatóság félrevezetése" data-birsag="1200000" data-borton=""><td>24. §</td><td></td><td>Hatóság félrevezetése</td><td>Aki a hatóság irányába olyan bejelentést vagy állítást tesz, melyről tudja, hogy valótlan. Az illetékes hatóság az alapbüntetésen felül a kiszállási díjat is kiszabhatja.</td><td>1 200 000 Ft</td><td>60 nap</td><td>HF</td><td></td></tr>
 <tr><td>25. §</td><td></td><td>Rendőr előli menekülés</td><td>Aki a hatóság utasításainak nem tesz eleget, így jogszerű intézkedés alól próbálja kivonni magát.</td><td>—</td><td>—</td><td>REM</td><td></td></tr>
-<tr><td>25. §</td><td>(1)</td><td>Gyalogosan</td><td>—</td><td>250 000 Ft</td><td>20 nap</td><td>REMGY</td><td></td></tr>
-<tr><td>25. §</td><td>(2)</td><td>Járművel</td><td>—</td><td>500 000 Ft</td><td>35 nap</td><td>REMJ</td><td></td></tr>
-<tr><td>26. §</td><td></td><td>Rendőri utasítás megszegése</td><td>Aki a hatóság utasításainak egy intézkedés vagy területbiztosítás során 3 felszólítást követően sem tesz eleget. Területbiztosításnál nem szólítható fel, aki nem lép a lezárt területre. Elegendő egy felszólítás, ha a felszólított a gépjárműre vonatkozó szabályozások miatt kapott figyelmeztetést, és ennek ellenére folytatja (pl. műszaki engedély nélkül közlekedik).</td><td>500 000 Ft</td><td>35 nap</td><td>RUM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="25. § (1) Gyalogosan" data-birsag="250000" data-borton=""><td>25. §</td><td>(1)</td><td>Gyalogosan</td><td>—</td><td>250 000 Ft</td><td>20 nap</td><td>REMGY</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="25. § (2) Járművel" data-birsag="500000" data-borton=""><td>25. §</td><td>(2)</td><td>Járművel</td><td>—</td><td>500 000 Ft</td><td>35 nap</td><td>REMJ</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="26. §  Rendőri utasítás megszegése" data-birsag="500000" data-borton=""><td>26. §</td><td></td><td>Rendőri utasítás megszegése</td><td>Aki a hatóság utasításainak egy intézkedés vagy területbiztosítás során 3 felszólítást követően sem tesz eleget. Területbiztosításnál nem szólítható fel, aki nem lép a lezárt területre. Elegendő egy felszólítás, ha a felszólított a gépjárműre vonatkozó szabályozások miatt kapott figyelmeztetést, és ennek ellenére folytatja (pl. műszaki engedély nélkül közlekedik).</td><td>500 000 Ft</td><td>35 nap</td><td>RUM</td><td></td></tr>
 <tr><td>27. §</td><td></td><td>Hivatali személy elleni erőszak</td><td>—</td><td>—</td><td>—</td><td>HSZEE</td><td>BÍRÓSÁG</td></tr>
-<tr><td>27. §</td><td>(1)</td><td>Magányosan</td><td>—</td><td>1 000 000 Ft</td><td>30 nap</td><td>HSZEM</td><td>BÍRÓSÁG</td></tr>
-<tr><td>27. §</td><td>(2)</td><td>Csoportosan</td><td>—</td><td>1 500 000 Ft</td><td>40 nap</td><td>HSZCS</td><td>BÍRÓSÁG</td></tr>
-<tr><td>27. §</td><td>(3)</td><td>Fegyveresen</td><td>—</td><td>2 000 000 Ft</td><td>50 nap</td><td>HSZF</td><td>BÍRÓSÁG</td></tr>
-<tr><td>27. §</td><td>(4)</td><td>Felfegyverkezve</td><td>—</td><td>2 500 000 Ft</td><td>55 nap</td><td>HSZFF</td><td>BÍRÓSÁG</td></tr>
-<tr><td>27. §</td><td>(5)</td><td>Súlyos testi sértés esetén</td><td>—</td><td>3 000 000 Ft</td><td>60 nap</td><td>HSZST</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="27. § (1) Magányosan" data-birsag="1000000" data-borton=""><td>27. §</td><td>(1)</td><td>Magányosan</td><td>—</td><td>1 000 000 Ft</td><td>30 nap</td><td>HSZEM</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="27. § (2) Csoportosan" data-birsag="1500000" data-borton=""><td>27. §</td><td>(2)</td><td>Csoportosan</td><td>—</td><td>1 500 000 Ft</td><td>40 nap</td><td>HSZCS</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="27. § (3) Fegyveresen" data-birsag="2000000" data-borton=""><td>27. §</td><td>(3)</td><td>Fegyveresen</td><td>—</td><td>2 000 000 Ft</td><td>50 nap</td><td>HSZF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="27. § (4) Felfegyverkezve" data-birsag="2500000" data-borton=""><td>27. §</td><td>(4)</td><td>Felfegyverkezve</td><td>—</td><td>2 500 000 Ft</td><td>55 nap</td><td>HSZFF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="27. § (5) Súlyos testi sértés esetén" data-birsag="3000000" data-borton=""><td>27. §</td><td>(5)</td><td>Súlyos testi sértés esetén</td><td>—</td><td>3 000 000 Ft</td><td>60 nap</td><td>HSZST</td><td>BÍRÓSÁG</td></tr>
 <tr><td>28. §</td><td></td><td>Lopás</td><td>Aki idegen dolgot mástól jogosulatlanul vesz el.</td><td>—</td><td>—</td><td>LP</td><td></td></tr>
-<tr><td>28. §</td><td>(1)</td><td>Kis érték (20 000 Ft-ig)</td><td>—</td><td>100 000 Ft</td><td>20 nap</td><td>LPKÉ</td><td></td></tr>
-<tr><td>28. §</td><td>(2)</td><td>Nagy érték (20 000 Ft felett)</td><td>—</td><td>200 000 Ft</td><td>30 nap</td><td>LPNÉ</td><td></td></tr>
-<tr><td>28. §</td><td>(3)</td><td>Jelentős érték (60 000 Ft felett)</td><td>—</td><td>250 000 Ft</td><td>35 nap</td><td>LPJÉ</td><td></td></tr>
-<tr><td>28. §</td><td>(4)</td><td>Különösen nagy érték (500 000 Ft felett)</td><td>—</td><td>300 000 Ft</td><td>40 nap</td><td>LPKNÉ</td><td></td></tr>
-<tr><td>28. §</td><td>(5)</td><td>Különösen jelentős érték (1 000 000 Ft felett)</td><td>—</td><td>350 000 Ft</td><td>50 nap</td><td>LPKJÉ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="28. § (1) Kis érték (20 000 Ft-ig)" data-birsag="100000" data-borton=""><td>28. §</td><td>(1)</td><td>Kis érték (20 000 Ft-ig)</td><td>—</td><td>100 000 Ft</td><td>20 nap</td><td>LPKÉ</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="28. § (2) Nagy érték (20 000 Ft felett)" data-birsag="200000" data-borton=""><td>28. §</td><td>(2)</td><td>Nagy érték (20 000 Ft felett)</td><td>—</td><td>200 000 Ft</td><td>30 nap</td><td>LPNÉ</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="28. § (3) Jelentős érték (60 000 Ft felett)" data-birsag="250000" data-borton=""><td>28. §</td><td>(3)</td><td>Jelentős érték (60 000 Ft felett)</td><td>—</td><td>250 000 Ft</td><td>35 nap</td><td>LPJÉ</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="28. § (4) Különösen nagy érték (500 000 Ft felett)" data-birsag="300000" data-borton=""><td>28. §</td><td>(4)</td><td>Különösen nagy érték (500 000 Ft felett)</td><td>—</td><td>300 000 Ft</td><td>40 nap</td><td>LPKNÉ</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="28. § (5) Különösen jelentős érték (1 000 000 Ft felett)" data-birsag="350000" data-borton=""><td>28. §</td><td>(5)</td><td>Különösen jelentős érték (1 000 000 Ft felett)</td><td>—</td><td>350 000 Ft</td><td>50 nap</td><td>LPKJÉ</td><td>BÍRÓSÁG</td></tr>
 <tr><td>29. §</td><td></td><td>Csalás</td><td>Aki jogtalan haszonszerzés végett mást tévedésbe ejt vagy tévedésben tart, és ezzel kárt okoz (pl. pénzduplázás).</td><td>—</td><td>—</td><td>CSLS</td><td></td></tr>
-<tr><td>29. §</td><td>(1)</td><td>Kisebb kárt okoz (20 000 Ft-ig)</td><td>—</td><td>100 000 Ft</td><td>10 nap</td><td>CSKK</td><td></td></tr>
-<tr><td>29. §</td><td>(2)</td><td>Nagyobb kárt okoz (20 000 Ft felett)</td><td>—</td><td>150 000 Ft</td><td>20 nap</td><td>CSNK</td><td></td></tr>
-<tr><td>29. §</td><td>(3)</td><td>Jelentős kárt okoz (60 000 Ft felett)</td><td>—</td><td>200 000 Ft</td><td>30 nap</td><td>CSJK</td><td></td></tr>
-<tr><td>29. §</td><td>(4)</td><td>Különösen nagy kárt okoz (500 000 Ft felett)</td><td>—</td><td>250 000 Ft</td><td>40 nap</td><td>CSKN</td><td></td></tr>
-<tr><td>29. §</td><td>(5)</td><td>Különösen jelentős kárt okoz (1 000 000 Ft felett)</td><td>—</td><td>300 000 Ft</td><td>50 nap</td><td>CSKJ</td><td>BÍRÓSÁG</td></tr>
-<tr><td>29. §</td><td>(6)</td><td>Üzletszerűen</td><td>—</td><td>350 000 Ft</td><td>60 nap</td><td>CSÜS</td><td>BÍRÓSÁG</td></tr>
-<tr><td>29. §</td><td>(7)</td><td>Jótékony célú adománygyűjtést színlelve</td><td>—</td><td>400 000 Ft</td><td>50 nap</td><td>CSJC</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="29. § (1) Kisebb kárt okoz (20 000 Ft-ig)" data-birsag="100000" data-borton=""><td>29. §</td><td>(1)</td><td>Kisebb kárt okoz (20 000 Ft-ig)</td><td>—</td><td>100 000 Ft</td><td>10 nap</td><td>CSKK</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="29. § (2) Nagyobb kárt okoz (20 000 Ft felett)" data-birsag="150000" data-borton=""><td>29. §</td><td>(2)</td><td>Nagyobb kárt okoz (20 000 Ft felett)</td><td>—</td><td>150 000 Ft</td><td>20 nap</td><td>CSNK</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="29. § (3) Jelentős kárt okoz (60 000 Ft felett)" data-birsag="200000" data-borton=""><td>29. §</td><td>(3)</td><td>Jelentős kárt okoz (60 000 Ft felett)</td><td>—</td><td>200 000 Ft</td><td>30 nap</td><td>CSJK</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="29. § (4) Különösen nagy kárt okoz (500 000 Ft felett)" data-birsag="250000" data-borton=""><td>29. §</td><td>(4)</td><td>Különösen nagy kárt okoz (500 000 Ft felett)</td><td>—</td><td>250 000 Ft</td><td>40 nap</td><td>CSKN</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="29. § (5) Különösen jelentős kárt okoz (1 000 000 Ft felett)" data-birsag="300000" data-borton=""><td>29. §</td><td>(5)</td><td>Különösen jelentős kárt okoz (1 000 000 Ft felett)</td><td>—</td><td>300 000 Ft</td><td>50 nap</td><td>CSKJ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="29. § (6) Üzletszerűen" data-birsag="350000" data-borton=""><td>29. §</td><td>(6)</td><td>Üzletszerűen</td><td>—</td><td>350 000 Ft</td><td>60 nap</td><td>CSÜS</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="29. § (7) Jótékony célú adománygyűjtést színlelve" data-birsag="400000" data-borton=""><td>29. §</td><td>(7)</td><td>Jótékony célú adománygyűjtést színlelve</td><td>—</td><td>400 000 Ft</td><td>50 nap</td><td>CSJC</td><td>BÍRÓSÁG</td></tr>
 <tr><td>30. §</td><td></td><td>Magánlaksértés</td><td>Aki más lakásába, egyéb helyiségébe vagy ezekhez tartozó bekerített helyre jogosulatlanul bemegy, illetve ott bent marad.</td><td>—</td><td>—</td><td>MLS</td><td></td></tr>
-<tr><td>30. §</td><td>(1)</td><td>Magányosan</td><td>—</td><td>100 000 Ft</td><td>20 nap</td><td>MLSM</td><td></td></tr>
-<tr><td>30. §</td><td>(2)</td><td>Fegyveresen</td><td>—</td><td>150 000 Ft</td><td>25 nap</td><td>MLSF</td><td>BÍRÓSÁG</td></tr>
-<tr><td>30. §</td><td>(3)</td><td>Felfegyverkezve</td><td>—</td><td>350 000 Ft</td><td>35 nap</td><td>MLSFF</td><td>BÍRÓSÁG</td></tr>
-<tr><td>30. §</td><td>(4)</td><td>Csoportosan</td><td>—</td><td>400 000 Ft</td><td>45 nap</td><td>MLSCS</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="30. § (1) Magányosan" data-birsag="100000" data-borton=""><td>30. §</td><td>(1)</td><td>Magányosan</td><td>—</td><td>100 000 Ft</td><td>20 nap</td><td>MLSM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="30. § (2) Fegyveresen" data-birsag="150000" data-borton=""><td>30. §</td><td>(2)</td><td>Fegyveresen</td><td>—</td><td>150 000 Ft</td><td>25 nap</td><td>MLSF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="30. § (3) Felfegyverkezve" data-birsag="350000" data-borton=""><td>30. §</td><td>(3)</td><td>Felfegyverkezve</td><td>—</td><td>350 000 Ft</td><td>35 nap</td><td>MLSFF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="30. § (4) Csoportosan" data-birsag="400000" data-borton=""><td>30. §</td><td>(4)</td><td>Csoportosan</td><td>—</td><td>400 000 Ft</td><td>45 nap</td><td>MLSCS</td><td>BÍRÓSÁG</td></tr>
 <tr><td>31. §</td><td></td><td>Testi sértés</td><td>—</td><td>—</td><td>—</td><td>TS</td><td></td></tr>
-<tr><td>31. §</td><td>(1)</td><td>Enyhe</td><td>8 napon belül gyógyuló sérülések.</td><td>100 000 Ft</td><td>20 nap</td><td>TSK</td><td></td></tr>
-<tr><td>31. §</td><td>(2)</td><td>Súlyos</td><td>8 napon túl gyógyuló sérülések.</td><td>200 000 Ft</td><td>45 nap</td><td>TSS</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="31. § (1) Enyhe" data-birsag="100000" data-borton=""><td>31. §</td><td>(1)</td><td>Enyhe</td><td>8 napon belül gyógyuló sérülések.</td><td>100 000 Ft</td><td>20 nap</td><td>TSK</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="31. § (2) Súlyos" data-birsag="200000" data-borton=""><td>31. §</td><td>(2)</td><td>Súlyos</td><td>8 napon túl gyógyuló sérülések.</td><td>200 000 Ft</td><td>45 nap</td><td>TSS</td><td>BÍRÓSÁG</td></tr>
 <tr><td>32. §</td><td></td><td>Engedély nélküli behatolás</td><td>Aki kormányzati, rendvédelmi vagy honvédelmi területre megy be jogosulatlanul. Az illetékes hatóság az alapbüntetésen felül kiszállási díjat is kiszabhat.</td><td>—</td><td>—</td><td>ENB</td><td>BÍRÓSÁG</td></tr>
-<tr><td>32. §</td><td>(1)</td><td>Állami területre</td><td>—</td><td>750 000 Ft</td><td>45 nap</td><td>ENBE</td><td>BÍRÓSÁG</td></tr>
-<tr><td>32. §</td><td>(2)</td><td>Rendvédelmi területre</td><td>—</td><td>1 250 000 Ft</td><td>60 nap</td><td>ENBH</td><td>BÍRÓSÁG</td></tr>
-<tr><td>33. §</td><td></td><td>Pirotechnikai eszköz forgalmazása / jogosulatlan felhasználása</td><td>Aki engedélyhez kötött pirotechnikai eszközöket (pl. tűzijáték, petárda) jogosulatlanul forgalmaz vagy felhasznál. November 20. és január 20. között engedély nélkül is felhasználhatók/forgalmazhatók.</td><td>600 000 Ft</td><td>40 nap</td><td>PFJ</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="32. § (1) Állami területre" data-birsag="750000" data-borton=""><td>32. §</td><td>(1)</td><td>Állami területre</td><td>—</td><td>750 000 Ft</td><td>45 nap</td><td>ENBE</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="32. § (2) Rendvédelmi területre" data-birsag="1250000" data-borton=""><td>32. §</td><td>(2)</td><td>Rendvédelmi területre</td><td>—</td><td>1 250 000 Ft</td><td>60 nap</td><td>ENBH</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="33. §  Pirotechnikai eszköz forgalmazása / jogosulatlan felhasználása" data-birsag="600000" data-borton=""><td>33. §</td><td></td><td>Pirotechnikai eszköz forgalmazása / jogosulatlan felhasználása</td><td>Aki engedélyhez kötött pirotechnikai eszközöket (pl. tűzijáték, petárda) jogosulatlanul forgalmaz vagy felhasznál. November 20. és január 20. között engedély nélkül is felhasználhatók/forgalmazhatók.</td><td>600 000 Ft</td><td>40 nap</td><td>PFJ</td><td></td></tr>
 <tr><td>34. §</td><td></td><td>Zaklatás</td><td>Aki abból a célból, hogy mást megfélemlítsen, vagy más magánéletébe, mindennapi életvitelébe önkényesen beavatkozzon, őt rendszeresen vagy tartósan háborgatja.</td><td>—</td><td>—</td><td>ZK</td><td></td></tr>
-<tr><td>34. §</td><td>(1)</td><td>Súlyosabb bűncselekmény nem következik be</td><td>—</td><td>450 000 Ft</td><td>25 nap</td><td>ZKBN</td><td></td></tr>
-<tr><td>34. §</td><td>(2)</td><td>Hozzátartozó fenyegetésével</td><td>—</td><td>500 000 Ft</td><td>35 nap</td><td>ZKHF</td><td></td></tr>
-<tr><td>34. §</td><td>(3)</td><td>Más ember sérelmét színlelve</td><td>—</td><td>510 000 Ft</td><td>45 nap</td><td>ZKMS</td><td></td></tr>
-<tr><td>34. §</td><td>(4)</td><td>Házastárs/élettárs sérelmére</td><td>—</td><td>530 000 Ft</td><td>50 nap</td><td>ZKHS</td><td></td></tr>
-<tr><td>34. §</td><td>(5)</td><td>Hatalmi/befolyási helyzettel visszaélve</td><td>—</td><td>550 000 Ft</td><td>55 nap</td><td>ZKHB</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="34. § (1) Súlyosabb bűncselekmény nem következik be" data-birsag="450000" data-borton=""><td>34. §</td><td>(1)</td><td>Súlyosabb bűncselekmény nem következik be</td><td>—</td><td>450 000 Ft</td><td>25 nap</td><td>ZKBN</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="34. § (2) Hozzátartozó fenyegetésével" data-birsag="500000" data-borton=""><td>34. §</td><td>(2)</td><td>Hozzátartozó fenyegetésével</td><td>—</td><td>500 000 Ft</td><td>35 nap</td><td>ZKHF</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="34. § (3) Más ember sérelmét színlelve" data-birsag="510000" data-borton=""><td>34. §</td><td>(3)</td><td>Más ember sérelmét színlelve</td><td>—</td><td>510 000 Ft</td><td>45 nap</td><td>ZKMS</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="34. § (4) Házastárs/élettárs sérelmére" data-birsag="530000" data-borton=""><td>34. §</td><td>(4)</td><td>Házastárs/élettárs sérelmére</td><td>—</td><td>530 000 Ft</td><td>50 nap</td><td>ZKHS</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="34. § (5) Hatalmi/befolyási helyzettel visszaélve" data-birsag="550000" data-borton=""><td>34. §</td><td>(5)</td><td>Hatalmi/befolyási helyzettel visszaélve</td><td>—</td><td>550 000 Ft</td><td>55 nap</td><td>ZKHB</td><td>BÍRÓSÁG</td></tr>
 <tr><td>35. §</td><td></td><td>Rágalmazás</td><td>Aki valakiről más előtt a becsület csorbítására alkalmas tényt állít, híresztel, vagy ilyen tényre közvetlenül utaló kifejezést használ.</td><td>—</td><td>—</td><td>RG</td><td></td></tr>
-<tr><td>35. §</td><td>(1)</td><td>Magányosan</td><td>—</td><td>500 Ft</td><td>20 nap</td><td>RGM</td><td></td></tr>
-<tr><td>35. §</td><td>(2)</td><td>Aljas célból</td><td>—</td><td>750 Ft</td><td>35 nap</td><td>RGAC</td><td></td></tr>
-<tr><td>35. §</td><td>(3)</td><td>Nagy nyilvánosság előtt</td><td>—</td><td>1 000 Ft</td><td>45 nap</td><td>RGNN</td><td>BÍRÓSÁG</td></tr>
-<tr><td>35. §</td><td>(4)</td><td>Jelentős érdeksérelmet okozva</td><td>—</td><td>1 500 Ft</td><td>60 nap</td><td>RGJÉ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="35. § (1) Magányosan" data-birsag="500" data-borton=""><td>35. §</td><td>(1)</td><td>Magányosan</td><td>—</td><td>500 Ft</td><td>20 nap</td><td>RGM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="35. § (2) Aljas célból" data-birsag="750" data-borton=""><td>35. §</td><td>(2)</td><td>Aljas célból</td><td>—</td><td>750 Ft</td><td>35 nap</td><td>RGAC</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="35. § (3) Nagy nyilvánosság előtt" data-birsag="1000" data-borton=""><td>35. §</td><td>(3)</td><td>Nagy nyilvánosság előtt</td><td>—</td><td>1 000 Ft</td><td>45 nap</td><td>RGNN</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="35. § (4) Jelentős érdeksérelmet okozva" data-birsag="1500" data-borton=""><td>35. §</td><td>(4)</td><td>Jelentős érdeksérelmet okozva</td><td>—</td><td>1 500 Ft</td><td>60 nap</td><td>RGJÉ</td><td>BÍRÓSÁG</td></tr>
 <tr><td>36. §</td><td></td><td>Hamis vádaskodás</td><td>Aki mást hatóság előtt vétség vagy bűncselekmény elkövetésével hamisan vádol. KÉTSZER akkora büntetés jár, ha az illető hamis/koholt bizonyítékot is készített.</td><td>—</td><td>—</td><td>HV</td><td></td></tr>
-<tr><td>36. §</td><td>(1)</td><td>Gondatlanságból</td><td>—</td><td>150 000 Ft</td><td>25 nap</td><td>HVG</td><td></td></tr>
-<tr><td>36. §</td><td>(2)</td><td>Ha büntetőeljárás indul a sértett ellen</td><td>—</td><td>200 000 Ft</td><td>35 nap</td><td>HVBI</td><td>BÍRÓSÁG</td></tr>
-<tr><td>36. §</td><td>(3)</td><td>Ha elítélik a sértettet</td><td>—</td><td>300 000 Ft</td><td>40 nap</td><td>HVES</td><td>BÍRÓSÁG</td></tr>
-<tr><td>36. §</td><td>(4)</td><td>Ha a sértettet bűncselekményért ítélik el</td><td>—</td><td>500 000 Ft</td><td>50 nap</td><td>HVBE</td><td>BÍRÓSÁG</td></tr>
-<tr><td>37. §</td><td></td><td>Hatósági eljárás megzavarása</td><td>Aki olyan kihívóan közösségellenes vagy erőszakos magatartást tanúsít, amely a hatóság eljárását megzavarja, akadályozza vagy meghiúsítja.</td><td>400 000 Ft</td><td>45 nap</td><td>HEM</td><td>BÍRÓSÁG</td></tr>
-<tr><td>38. §</td><td></td><td>Hamis ügyvédkedés</td><td>Aki jogosulatlanul és/vagy üzletszerűen ügyvédi, szabadalmi ügyvivői vagy közjegyzői tevékenységet végez. Minden ügyvédi irodát a NAV Adóügyi osztályán be kell jelenteni.</td><td>1 000 000 Ft</td><td>50 nap</td><td>ZÍ</td><td>BÍRÓSÁG</td></tr>
-<tr><td>39. §</td><td></td><td>Segítségnyújtás elmulasztása</td><td>Aki nem nyújt tőle elvárható segítséget sérült vagy olyan személynek, akinek élete/testi épsége közvetlen veszélyben van. Ha az elmulasztás valakinek halálát okozta, a pénzbírság 45 000 Ft.</td><td>1 500 000 Ft</td><td>25 nap</td><td>SNE</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="36. § (1) Gondatlanságból" data-birsag="150000" data-borton=""><td>36. §</td><td>(1)</td><td>Gondatlanságból</td><td>—</td><td>150 000 Ft</td><td>25 nap</td><td>HVG</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="36. § (2) Ha büntetőeljárás indul a sértett ellen" data-birsag="200000" data-borton=""><td>36. §</td><td>(2)</td><td>Ha büntetőeljárás indul a sértett ellen</td><td>—</td><td>200 000 Ft</td><td>35 nap</td><td>HVBI</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="36. § (3) Ha elítélik a sértettet" data-birsag="300000" data-borton=""><td>36. §</td><td>(3)</td><td>Ha elítélik a sértettet</td><td>—</td><td>300 000 Ft</td><td>40 nap</td><td>HVES</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="36. § (4) Ha a sértettet bűncselekményért ítélik el" data-birsag="500000" data-borton=""><td>36. §</td><td>(4)</td><td>Ha a sértettet bűncselekményért ítélik el</td><td>—</td><td>500 000 Ft</td><td>50 nap</td><td>HVBE</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="37. §  Hatósági eljárás megzavarása" data-birsag="400000" data-borton=""><td>37. §</td><td></td><td>Hatósági eljárás megzavarása</td><td>Aki olyan kihívóan közösségellenes vagy erőszakos magatartást tanúsít, amely a hatóság eljárását megzavarja, akadályozza vagy meghiúsítja.</td><td>400 000 Ft</td><td>45 nap</td><td>HEM</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="38. §  Hamis ügyvédkedés" data-birsag="1000000" data-borton=""><td>38. §</td><td></td><td>Hamis ügyvédkedés</td><td>Aki jogosulatlanul és/vagy üzletszerűen ügyvédi, szabadalmi ügyvivői vagy közjegyzői tevékenységet végez. Minden ügyvédi irodát a NAV Adóügyi osztályán be kell jelenteni.</td><td>1 000 000 Ft</td><td>50 nap</td><td>ZÍ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="39. §  Segítségnyújtás elmulasztása" data-birsag="1500000" data-borton=""><td>39. §</td><td></td><td>Segítségnyújtás elmulasztása</td><td>Aki nem nyújt tőle elvárható segítséget sérült vagy olyan személynek, akinek élete/testi épsége közvetlen veszélyben van. Ha az elmulasztás valakinek halálát okozta, a pénzbírság 45 000 Ft.</td><td>1 500 000 Ft</td><td>25 nap</td><td>SNE</td><td></td></tr>
 <tr><td>40. §</td><td></td><td>Rendbontás</td><td>Aki nyilvános rendezvény vagy gyűlés szervezőjének/rendezőjének a rend fenntartása érdekében tett jogszerű intézkedésével szemben erőszakkal vagy fenyegetéssel ellenállást tanúsít.</td><td>—</td><td>—</td><td>RNB</td><td></td></tr>
-<tr><td>40. §</td><td>(1)</td><td>Magányosan</td><td>—</td><td>500 000 Ft</td><td>20 nap</td><td>RNBM</td><td></td></tr>
-<tr><td>40. §</td><td>(2)</td><td>Csoportosan</td><td>—</td><td>750 000 Ft</td><td>25 nap</td><td>RNBCS</td><td>BÍRÓSÁG</td></tr>
-<tr><td>40. §</td><td>(3)</td><td>Fegyveresen</td><td>—</td><td>1 000 000 Ft</td><td>30 nap</td><td>RNBF</td><td>BÍRÓSÁG</td></tr>
-<tr><td>40. §</td><td>(4)</td><td>Felfegyverkezve vagy különös visszaesőként</td><td>—</td><td>1 300 000 Ft</td><td>40 nap</td><td>RNBFF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="40. § (1) Magányosan" data-birsag="500000" data-borton=""><td>40. §</td><td>(1)</td><td>Magányosan</td><td>—</td><td>500 000 Ft</td><td>20 nap</td><td>RNBM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="40. § (2) Csoportosan" data-birsag="750000" data-borton=""><td>40. §</td><td>(2)</td><td>Csoportosan</td><td>—</td><td>750 000 Ft</td><td>25 nap</td><td>RNBCS</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="40. § (3) Fegyveresen" data-birsag="1000000" data-borton=""><td>40. §</td><td>(3)</td><td>Fegyveresen</td><td>—</td><td>1 000 000 Ft</td><td>30 nap</td><td>RNBF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="40. § (4) Felfegyverkezve vagy különös visszaesőként" data-birsag="1300000" data-borton=""><td>40. §</td><td>(4)</td><td>Felfegyverkezve vagy különös visszaesőként</td><td>—</td><td>1 300 000 Ft</td><td>40 nap</td><td>RNBFF</td><td>BÍRÓSÁG</td></tr>
 <tr><td>41. §</td><td></td><td>Rongálás</td><td>Aki idegen vagyontárgy megsemmisítésével vagy megrongálásával kárt okoz.</td><td>—</td><td>—</td><td>RNG</td><td></td></tr>
-<tr><td>41. §</td><td>(1)</td><td>Kisebb kárt okoz (20 000 Ft-ig)</td><td>—</td><td>50 000 Ft</td><td>20 nap</td><td>RNGK</td><td></td></tr>
-<tr><td>41. §</td><td>(2)</td><td>Nagyobb kárt okoz (20 000 Ft felett)</td><td>—</td><td>100 000 Ft</td><td>30 nap</td><td>RNGN</td><td></td></tr>
-<tr><td>41. §</td><td>(3)</td><td>Jelentős kárt okoz (60 000 Ft felett)</td><td>—</td><td>200 000 Ft</td><td>40 nap</td><td>RNGJ</td><td></td></tr>
-<tr><td>41. §</td><td>(4)</td><td>Különösen nagy kárt okoz (500 000 Ft felett)</td><td>—</td><td>250 000 Ft</td><td>50 nap</td><td>RNGKN</td><td>BÍRÓSÁG</td></tr>
-<tr><td>41. §</td><td>(5)</td><td>Különösen jelentős kárt okoz (1 000 000 Ft felett)</td><td>—</td><td>450 000 Ft</td><td>55 nap</td><td>RNGKJ</td><td>BÍRÓSÁG</td></tr>
-<tr><td>41. §</td><td>(6)</td><td>Képi, grafikus vagy szöveges felületbevonat (falfirka)</td><td>—</td><td>1 000 000 Ft</td><td>50 nap</td><td>RNGGK</td><td>BÍRÓSÁG</td></tr>
-<tr><td>42. §</td><td></td><td>Illegális anyagok gyártásának előkészülete</td><td>Aki olyan anyagok gyártására tesz előkészületet, melyet a törvény tilt, vagy amelynek gyártása engedélyköteles (pl. kábítószer, gyógyszer). Ide tartozik ezen anyagok tervrajzainak birtoklása is.</td><td>450 000 Ft</td><td>45 nap</td><td>IAE</td><td></td></tr>
-<tr><td>43. §</td><td></td><td>Kiszolgáltatott személy megalázása</td><td>—</td><td>1 500 000 Ft</td><td>30 nap</td><td>KSZA</td><td>BÍRÓSÁG</td></tr>
-<tr><td>44. §</td><td></td><td>Okirattal visszaélés</td><td>Aki egy vagy több olyan közokiratot, amely nem kizárólag a sajátja, mástól annak beleegyezése nélkül jogtalanul megszerez, megsemmisít, megrongál vagy eltitkol.</td><td>500 000 Ft</td><td>45 nap</td><td>OV</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="41. § (1) Kisebb kárt okoz (20 000 Ft-ig)" data-birsag="50000" data-borton=""><td>41. §</td><td>(1)</td><td>Kisebb kárt okoz (20 000 Ft-ig)</td><td>—</td><td>50 000 Ft</td><td>20 nap</td><td>RNGK</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="41. § (2) Nagyobb kárt okoz (20 000 Ft felett)" data-birsag="100000" data-borton=""><td>41. §</td><td>(2)</td><td>Nagyobb kárt okoz (20 000 Ft felett)</td><td>—</td><td>100 000 Ft</td><td>30 nap</td><td>RNGN</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="41. § (3) Jelentős kárt okoz (60 000 Ft felett)" data-birsag="200000" data-borton=""><td>41. §</td><td>(3)</td><td>Jelentős kárt okoz (60 000 Ft felett)</td><td>—</td><td>200 000 Ft</td><td>40 nap</td><td>RNGJ</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="41. § (4) Különösen nagy kárt okoz (500 000 Ft felett)" data-birsag="250000" data-borton=""><td>41. §</td><td>(4)</td><td>Különösen nagy kárt okoz (500 000 Ft felett)</td><td>—</td><td>250 000 Ft</td><td>50 nap</td><td>RNGKN</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="41. § (5) Különösen jelentős kárt okoz (1 000 000 Ft felett)" data-birsag="450000" data-borton=""><td>41. §</td><td>(5)</td><td>Különösen jelentős kárt okoz (1 000 000 Ft felett)</td><td>—</td><td>450 000 Ft</td><td>55 nap</td><td>RNGKJ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="41. § (6) Képi, grafikus vagy szöveges felületbevonat (falfirka)" data-birsag="1000000" data-borton=""><td>41. §</td><td>(6)</td><td>Képi, grafikus vagy szöveges felületbevonat (falfirka)</td><td>—</td><td>1 000 000 Ft</td><td>50 nap</td><td>RNGGK</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="42. §  Illegális anyagok gyártásának előkészülete" data-birsag="450000" data-borton=""><td>42. §</td><td></td><td>Illegális anyagok gyártásának előkészülete</td><td>Aki olyan anyagok gyártására tesz előkészületet, melyet a törvény tilt, vagy amelynek gyártása engedélyköteles (pl. kábítószer, gyógyszer). Ide tartozik ezen anyagok tervrajzainak birtoklása is.</td><td>450 000 Ft</td><td>45 nap</td><td>IAE</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="43. §  Kiszolgáltatott személy megalázása" data-birsag="1500000" data-borton=""><td>43. §</td><td></td><td>Kiszolgáltatott személy megalázása</td><td>—</td><td>1 500 000 Ft</td><td>30 nap</td><td>KSZA</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="44. §  Okirattal visszaélés" data-birsag="500000" data-borton=""><td>44. §</td><td></td><td>Okirattal visszaélés</td><td>Aki egy vagy több olyan közokiratot, amely nem kizárólag a sajátja, mástól annak beleegyezése nélkül jogtalanul megszerez, megsemmisít, megrongál vagy eltitkol.</td><td>500 000 Ft</td><td>45 nap</td><td>OV</td><td>BÍRÓSÁG</td></tr>
 </tbody></table>
 </section>
 
@@ -330,120 +330,120 @@
   <h2><span class="sec-num">45–88. §</span> Bűncselekmények</h2>
   <p class="section-note">Ennél a szakasznál a PDF-kinyerés összekeverte a leírások sorrendjét a táblázathoz képest — a bírságok, börtönidők és rövidítések 100%-ban pontosak, de a törvényszöveg-leírásokat külön blokkban hagytam alant, hogy ne kockáztassak rossz párosítást.</p>
   <table><thead><tr><th>§</th><th>Alpont</th><th>Megnevezés</th><th>Bírság</th><th>Börtön</th><th>Rövidítés</th><th>Fórum</th></tr></thead><tbody><tr><td>46. §</td><td></td><td>Közúti veszélyeztetés</td><td>—</td><td>—</td><td>KV</td><td></td></tr>
-<tr><td>46. §</td><td>(1)</td><td>Személyi sérülés nélkül</td><td>400 000 Ft</td><td>0</td><td>KVSN</td><td></td></tr>
-<tr><td>46. §</td><td>(2)</td><td>Személyi sérülés esetén</td><td>800 000 Ft</td><td>10 nap</td><td>KVSE</td><td>BÍRÓSÁG</td></tr>
-<tr><td>46. §</td><td>(3)</td><td>Súlyos testi sértés esetén</td><td>850 000 Ft</td><td>25 nap</td><td>KVSTS</td><td>BÍRÓSÁG</td></tr>
-<tr><td>46. §</td><td>(4)</td><td>Haláleset esetén</td><td>900 000 Ft</td><td>50 nap</td><td>KVH</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="46. § (1) Személyi sérülés nélkül" data-birsag="400000" data-borton="0"><td>46. §</td><td>(1)</td><td>Személyi sérülés nélkül</td><td>400 000 Ft</td><td>0</td><td>KVSN</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="46. § (2) Személyi sérülés esetén" data-birsag="800000" data-borton="10"><td>46. §</td><td>(2)</td><td>Személyi sérülés esetén</td><td>800 000 Ft</td><td>10 nap</td><td>KVSE</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="46. § (3) Súlyos testi sértés esetén" data-birsag="850000" data-borton="25"><td>46. §</td><td>(3)</td><td>Súlyos testi sértés esetén</td><td>850 000 Ft</td><td>25 nap</td><td>KVSTS</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="46. § (4) Haláleset esetén" data-birsag="900000" data-borton="50"><td>46. §</td><td>(4)</td><td>Haláleset esetén</td><td>900 000 Ft</td><td>50 nap</td><td>KVH</td><td>BÍRÓSÁG</td></tr>
 <tr><td>47. §</td><td></td><td>Töltény birtoklás</td><td>—</td><td>—</td><td>ITB</td><td></td></tr>
-<tr><td>47. §</td><td>(1)</td><td>9 mm-es töltény esetében</td><td>250 000 Ft</td><td>10 nap</td><td>ITBK</td><td></td></tr>
-<tr><td>47. §</td><td>(2)</td><td>Egyéb töltény esetében</td><td>500 000 Ft</td><td>10 nap</td><td>ITBE</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="47. § (1) 9 mm-es töltény esetében" data-birsag="250000" data-borton="10"><td>47. §</td><td>(1)</td><td>9 mm-es töltény esetében</td><td>250 000 Ft</td><td>10 nap</td><td>ITBK</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="47. § (2) Egyéb töltény esetében" data-birsag="500000" data-borton="10"><td>47. §</td><td>(2)</td><td>Egyéb töltény esetében</td><td>500 000 Ft</td><td>10 nap</td><td>ITBE</td><td></td></tr>
 <tr><td>48. §</td><td></td><td>Töltény árusítás</td><td>—</td><td>—</td><td>ITÁ</td><td></td></tr>
-<tr><td>48. §</td><td>(1)</td><td>9 mm-es töltény esetében</td><td>1 000 000 Ft</td><td>15 nap</td><td>ITÁK</td><td></td></tr>
-<tr><td>48. §</td><td>(2)</td><td>Egyéb töltény esetében</td><td>1 500 000 Ft</td><td>15 nap</td><td>ITÁE</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="48. § (1) 9 mm-es töltény esetében" data-birsag="1000000" data-borton="15"><td>48. §</td><td>(1)</td><td>9 mm-es töltény esetében</td><td>1 000 000 Ft</td><td>15 nap</td><td>ITÁK</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="48. § (2) Egyéb töltény esetében" data-birsag="1500000" data-borton="15"><td>48. §</td><td>(2)</td><td>Egyéb töltény esetében</td><td>1 500 000 Ft</td><td>15 nap</td><td>ITÁE</td><td></td></tr>
 <tr><td>49. §</td><td></td><td>Fegyver birtoklás</td><td>—</td><td>—</td><td>IFB</td><td></td></tr>
-<tr><td>49. §</td><td>(1)</td><td>Kiskaliber pisztoly esetében</td><td>1 000 000 Ft</td><td>15 nap</td><td>IFBK</td><td></td></tr>
-<tr><td>49. §</td><td>(2)</td><td>Egyéb fegyver esetében (engedély nélkül)</td><td>1 500 000 Ft</td><td>20 nap</td><td>IFBE</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="49. § (1) Kiskaliber pisztoly esetében" data-birsag="1000000" data-borton="15"><td>49. §</td><td>(1)</td><td>Kiskaliber pisztoly esetében</td><td>1 000 000 Ft</td><td>15 nap</td><td>IFBK</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="49. § (2) Egyéb fegyver esetében (engedély nélkül)" data-birsag="1500000" data-borton="20"><td>49. §</td><td>(2)</td><td>Egyéb fegyver esetében (engedély nélkül)</td><td>1 500 000 Ft</td><td>20 nap</td><td>IFBE</td><td></td></tr>
 <tr><td>50. §</td><td></td><td>Fegyver árusítás</td><td>—</td><td>—</td><td>IFÁ</td><td></td></tr>
-<tr><td>50. §</td><td>(1)</td><td>Kiskaliber pisztoly esetében</td><td>1 650 000 Ft</td><td>20 nap</td><td>IFÁK</td><td></td></tr>
-<tr><td>50. §</td><td>(2)</td><td>Egyéb fegyver esetében (nagykaliber)</td><td>2 000 000 Ft</td><td>25 nap</td><td>IFÁE</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="50. § (1) Kiskaliber pisztoly esetében" data-birsag="1650000" data-borton="20"><td>50. §</td><td>(1)</td><td>Kiskaliber pisztoly esetében</td><td>1 650 000 Ft</td><td>20 nap</td><td>IFÁK</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="50. § (2) Egyéb fegyver esetében (nagykaliber)" data-birsag="2000000" data-borton="25"><td>50. §</td><td>(2)</td><td>Egyéb fegyver esetében (nagykaliber)</td><td>2 000 000 Ft</td><td>25 nap</td><td>IFÁE</td><td></td></tr>
 <tr><td>51. §</td><td></td><td>Fegyver alkotóelem</td><td>—</td><td>—</td><td>IFA</td><td></td></tr>
-<tr><td>51. §</td><td>(1)</td><td>Birtoklása</td><td>350 000 Ft</td><td>20 nap</td><td>IFAB</td><td></td></tr>
-<tr><td>51. §</td><td>(2)</td><td>Árusítása</td><td>500 000 Ft</td><td>25 nap</td><td>IFAÁ</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="51. § (1) Birtoklása" data-birsag="350000" data-borton="20"><td>51. §</td><td>(1)</td><td>Birtoklása</td><td>350 000 Ft</td><td>20 nap</td><td>IFAB</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="51. § (2) Árusítása" data-birsag="500000" data-borton="25"><td>51. §</td><td>(2)</td><td>Árusítása</td><td>500 000 Ft</td><td>25 nap</td><td>IFAÁ</td><td></td></tr>
 <tr><td>52. §</td><td></td><td>Illegális tárgyak gyártása</td><td>—</td><td>—</td><td>ITGY</td><td></td></tr>
-<tr><td>52. §</td><td>(1)</td><td>Illegális fegyvergyártás</td><td>750 000 Ft</td><td>30 nap</td><td>FGY</td><td></td></tr>
-<tr><td>52. §</td><td>(2)</td><td>Illegális kábítószer-gyártás</td><td>850 000 Ft</td><td>30 nap</td><td>KGY</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="52. § (1) Illegális fegyvergyártás" data-birsag="750000" data-borton="30"><td>52. §</td><td>(1)</td><td>Illegális fegyvergyártás</td><td>750 000 Ft</td><td>30 nap</td><td>FGY</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="52. § (2) Illegális kábítószer-gyártás" data-birsag="850000" data-borton="30"><td>52. §</td><td>(2)</td><td>Illegális kábítószer-gyártás</td><td>850 000 Ft</td><td>30 nap</td><td>KGY</td><td></td></tr>
 <tr><td>53. §</td><td></td><td>Kábítószer birtoklás</td><td>—</td><td>—</td><td>IKB</td><td></td></tr>
-<tr><td>53. §</td><td>(1)</td><td>Kis tétel (5 g-ig)</td><td>600 000 Ft</td><td>20 nap</td><td>IKBK</td><td></td></tr>
-<tr><td>53. §</td><td>(2)</td><td>Nagy tétel (5 g felett)</td><td>700 000 Ft</td><td>25 nap</td><td>IKBN</td><td></td></tr>
-<tr><td>54. §</td><td></td><td>Kábítószer árusítás</td><td>—</td><td>40 nap</td><td>IKÁ</td><td>BÍRÓSÁG</td></tr>
-<tr><td>55. §</td><td></td><td>Kábítószer termesztés</td><td>2 000 000 Ft</td><td>40 nap</td><td>IKT</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="53. § (1) Kis tétel (5 g-ig)" data-birsag="600000" data-borton="20"><td>53. §</td><td>(1)</td><td>Kis tétel (5 g-ig)</td><td>600 000 Ft</td><td>20 nap</td><td>IKBK</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="53. § (2) Nagy tétel (5 g felett)" data-birsag="700000" data-borton="25"><td>53. §</td><td>(2)</td><td>Nagy tétel (5 g felett)</td><td>700 000 Ft</td><td>25 nap</td><td>IKBN</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="54. §  Kábítószer árusítás" data-birsag="" data-borton="40"><td>54. §</td><td></td><td>Kábítószer árusítás</td><td>—</td><td>40 nap</td><td>IKÁ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="55. §  Kábítószer termesztés" data-birsag="2000000" data-borton="40"><td>55. §</td><td></td><td>Kábítószer termesztés</td><td>2 000 000 Ft</td><td>40 nap</td><td>IKT</td><td>BÍRÓSÁG</td></tr>
 <tr><td>56. §</td><td></td><td>Illegális kábítószer-alkotóelem</td><td>—</td><td>—</td><td>IKA</td><td>BÍRÓSÁG</td></tr>
-<tr><td>56. §</td><td>(1)</td><td>Birtoklása</td><td>250 000 Ft</td><td>30 nap</td><td>IKAB</td><td>BÍRÓSÁG</td></tr>
-<tr><td>56. §</td><td>(2)</td><td>Árusítása</td><td>500 000 Ft</td><td>40 nap</td><td>IKAÁ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="56. § (1) Birtoklása" data-birsag="250000" data-borton="30"><td>56. §</td><td>(1)</td><td>Birtoklása</td><td>250 000 Ft</td><td>30 nap</td><td>IKAB</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="56. § (2) Árusítása" data-birsag="500000" data-borton="40"><td>56. §</td><td>(2)</td><td>Árusítása</td><td>500 000 Ft</td><td>40 nap</td><td>IKAÁ</td><td>BÍRÓSÁG</td></tr>
 <tr><td>57. §</td><td></td><td>Emberrablás</td><td>—</td><td>—</td><td>ER</td><td></td></tr>
-<tr><td>57. §</td><td>(1)</td><td>Magányosan</td><td>100 000 Ft</td><td>20 nap</td><td>ERM</td><td></td></tr>
-<tr><td>57. §</td><td>(2)</td><td>Szervezetben</td><td>150 000 Ft</td><td>30 nap</td><td>ERSZ</td><td>BÍRÓSÁG</td></tr>
-<tr><td>57. §</td><td>(3)</td><td>Fegyveresen</td><td>200 000 Ft</td><td>40 nap</td><td>ERF</td><td>BÍRÓSÁG</td></tr>
-<tr><td>57. §</td><td>(4)</td><td>Felfegyverkezve</td><td>300 000 Ft</td><td>40 nap</td><td>ERFF</td><td>BÍRÓSÁG</td></tr>
-<tr><td>57. §</td><td>(5)</td><td>Hivatalos személyt érintően</td><td>400 000 Ft</td><td>40 nap</td><td>ERHSZ</td><td>BÍRÓSÁG</td></tr>
-<tr><td>57. §</td><td>(6)</td><td>Személyi sérülés esetén</td><td>230 000 Ft</td><td>45 nap</td><td>ERSE</td><td>BÍRÓSÁG</td></tr>
-<tr><td>57. §</td><td>(7)</td><td>Súlyos testi sértés esetén</td><td>390 000 Ft</td><td>55 nap</td><td>ERSTS</td><td>BÍRÓSÁG</td></tr>
-<tr><td>57. §</td><td>(8)</td><td>Előkészülete</td><td>50 000 Ft</td><td>20 nap</td><td>EREK</td><td>BÍRÓSÁG</td></tr>
-<tr><td>57. §</td><td>(9)</td><td>Feljelentésének elmulasztása</td><td>30 000 Ft</td><td>25 nap</td><td>ERFE</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="57. § (1) Magányosan" data-birsag="100000" data-borton="20"><td>57. §</td><td>(1)</td><td>Magányosan</td><td>100 000 Ft</td><td>20 nap</td><td>ERM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="57. § (2) Szervezetben" data-birsag="150000" data-borton="30"><td>57. §</td><td>(2)</td><td>Szervezetben</td><td>150 000 Ft</td><td>30 nap</td><td>ERSZ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="57. § (3) Fegyveresen" data-birsag="200000" data-borton="40"><td>57. §</td><td>(3)</td><td>Fegyveresen</td><td>200 000 Ft</td><td>40 nap</td><td>ERF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="57. § (4) Felfegyverkezve" data-birsag="300000" data-borton="40"><td>57. §</td><td>(4)</td><td>Felfegyverkezve</td><td>300 000 Ft</td><td>40 nap</td><td>ERFF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="57. § (5) Hivatalos személyt érintően" data-birsag="400000" data-borton="40"><td>57. §</td><td>(5)</td><td>Hivatalos személyt érintően</td><td>400 000 Ft</td><td>40 nap</td><td>ERHSZ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="57. § (6) Személyi sérülés esetén" data-birsag="230000" data-borton="45"><td>57. §</td><td>(6)</td><td>Személyi sérülés esetén</td><td>230 000 Ft</td><td>45 nap</td><td>ERSE</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="57. § (7) Súlyos testi sértés esetén" data-birsag="390000" data-borton="55"><td>57. §</td><td>(7)</td><td>Súlyos testi sértés esetén</td><td>390 000 Ft</td><td>55 nap</td><td>ERSTS</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="57. § (8) Előkészülete" data-birsag="50000" data-borton="20"><td>57. §</td><td>(8)</td><td>Előkészülete</td><td>50 000 Ft</td><td>20 nap</td><td>EREK</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="57. § (9) Feljelentésének elmulasztása" data-birsag="30000" data-borton="25"><td>57. §</td><td>(9)</td><td>Feljelentésének elmulasztása</td><td>30 000 Ft</td><td>25 nap</td><td>ERFE</td><td></td></tr>
 <tr><td>58. §</td><td></td><td>Rablás</td><td>—</td><td>—</td><td>RB</td><td></td></tr>
-<tr><td>58. §</td><td>(1)</td><td>Magányosan</td><td>1 000 000 Ft</td><td>20 nap</td><td>RBM</td><td></td></tr>
-<tr><td>58. §</td><td>(2)</td><td>Csoportosan</td><td>1 250 000 Ft</td><td>25 nap</td><td>RBCS</td><td>BÍRÓSÁG</td></tr>
-<tr><td>58. §</td><td>(3)</td><td>Bűnszövetségben</td><td>1 500 000 Ft</td><td>35 nap</td><td>RBF</td><td>BÍRÓSÁG</td></tr>
-<tr><td>58. §</td><td>(4)</td><td>Jelentős értékre (100 000 Ft felett)</td><td>250 000 Ft</td><td>40 nap</td><td>RBFF</td><td>BÍRÓSÁG</td></tr>
-<tr><td>58. §</td><td>(5)</td><td>Különösen nagy értékre (500 000 Ft felett)</td><td>550 000 Ft</td><td>45 nap</td><td>RBB</td><td>BÍRÓSÁG</td></tr>
-<tr><td>58. §</td><td>(6)</td><td>Különösen jelentős értékre (1 000 000 Ft felett)</td><td>1 100 000 Ft</td><td>60 nap</td><td>RBJÉ</td><td></td></tr>
-<tr><td>58. §</td><td>(7)</td><td>Hivatalos/közfeladatot ellátó személy sérelmére</td><td>1 300 000 Ft</td><td>60 nap</td><td>RBHK</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="58. § (1) Magányosan" data-birsag="1000000" data-borton="20"><td>58. §</td><td>(1)</td><td>Magányosan</td><td>1 000 000 Ft</td><td>20 nap</td><td>RBM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="58. § (2) Csoportosan" data-birsag="1250000" data-borton="25"><td>58. §</td><td>(2)</td><td>Csoportosan</td><td>1 250 000 Ft</td><td>25 nap</td><td>RBCS</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="58. § (3) Bűnszövetségben" data-birsag="1500000" data-borton="35"><td>58. §</td><td>(3)</td><td>Bűnszövetségben</td><td>1 500 000 Ft</td><td>35 nap</td><td>RBF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="58. § (4) Jelentős értékre (100 000 Ft felett)" data-birsag="250000" data-borton="40"><td>58. §</td><td>(4)</td><td>Jelentős értékre (100 000 Ft felett)</td><td>250 000 Ft</td><td>40 nap</td><td>RBFF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="58. § (5) Különösen nagy értékre (500 000 Ft felett)" data-birsag="550000" data-borton="45"><td>58. §</td><td>(5)</td><td>Különösen nagy értékre (500 000 Ft felett)</td><td>550 000 Ft</td><td>45 nap</td><td>RBB</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="58. § (6) Különösen jelentős értékre (1 000 000 Ft felett)" data-birsag="1100000" data-borton="60"><td>58. §</td><td>(6)</td><td>Különösen jelentős értékre (1 000 000 Ft felett)</td><td>1 100 000 Ft</td><td>60 nap</td><td>RBJÉ</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="58. § (7) Hivatalos/közfeladatot ellátó személy sérelmére" data-birsag="1300000" data-borton="60"><td>58. §</td><td>(7)</td><td>Hivatalos/közfeladatot ellátó személy sérelmére</td><td>1 300 000 Ft</td><td>60 nap</td><td>RBHK</td><td>BÍRÓSÁG</td></tr>
 <tr><td>59. §</td><td></td><td>Zsarolás</td><td>—</td><td>—</td><td>ZSR</td><td></td></tr>
-<tr><td>59. §</td><td>(1)</td><td>Magányosan</td><td>600 000 Ft</td><td>20 nap</td><td>ZSRM</td><td></td></tr>
-<tr><td>59. §</td><td>(2)</td><td>Bűnszövetségben</td><td>700 000 Ft</td><td>45 nap</td><td>ZSRB</td><td>BÍRÓSÁG</td></tr>
-<tr><td>59. §</td><td>(3)</td><td>Élet vagy testi épség elleni súlyos fenyegetéssel</td><td>720 000 Ft</td><td>45 nap</td><td>ZSRÉT</td><td>BÍRÓSÁG</td></tr>
-<tr><td>59. §</td><td>(4)</td><td>Hivatalos megbízás/minőség színlelésével</td><td>750 000 Ft</td><td>50 nap</td><td>ZSRHM</td><td>BÍRÓSÁG</td></tr>
-<tr><td>59. §</td><td>(5)</td><td>Hivatalos személyként</td><td>1 000 000 Ft</td><td>60 nap</td><td>ZSRHS</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="59. § (1) Magányosan" data-birsag="600000" data-borton="20"><td>59. §</td><td>(1)</td><td>Magányosan</td><td>600 000 Ft</td><td>20 nap</td><td>ZSRM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="59. § (2) Bűnszövetségben" data-birsag="700000" data-borton="45"><td>59. §</td><td>(2)</td><td>Bűnszövetségben</td><td>700 000 Ft</td><td>45 nap</td><td>ZSRB</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="59. § (3) Élet vagy testi épség elleni súlyos fenyegetéssel" data-birsag="720000" data-borton="45"><td>59. §</td><td>(3)</td><td>Élet vagy testi épség elleni súlyos fenyegetéssel</td><td>720 000 Ft</td><td>45 nap</td><td>ZSRÉT</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="59. § (4) Hivatalos megbízás/minőség színlelésével" data-birsag="750000" data-borton="50"><td>59. §</td><td>(4)</td><td>Hivatalos megbízás/minőség színlelésével</td><td>750 000 Ft</td><td>50 nap</td><td>ZSRHM</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="59. § (5) Hivatalos személyként" data-birsag="1000000" data-borton="60"><td>59. §</td><td>(5)</td><td>Hivatalos személyként</td><td>1 000 000 Ft</td><td>60 nap</td><td>ZSRHS</td><td>BÍRÓSÁG</td></tr>
 <tr><td>60. §</td><td></td><td>Illegális határátlépés</td><td>—</td><td>—</td><td>IH</td><td></td></tr>
-<tr><td>60. §</td><td>(1)</td><td>Magányosan</td><td>200 000 Ft</td><td>20 nap</td><td>IHM</td><td></td></tr>
-<tr><td>60. §</td><td>(2)</td><td>Csoportosan</td><td>500 000 Ft</td><td>30 nap</td><td>IHCS</td><td>BÍRÓSÁG</td></tr>
-<tr><td>60. §</td><td>(3)</td><td>Fegyveresen</td><td>750 000 Ft</td><td>35 nap</td><td>IHF</td><td>BÍRÓSÁG</td></tr>
-<tr><td>60. §</td><td>(4)</td><td>Felfegyverkezve</td><td>850 000 Ft</td><td>40 nap</td><td>IHFF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="60. § (1) Magányosan" data-birsag="200000" data-borton="20"><td>60. §</td><td>(1)</td><td>Magányosan</td><td>200 000 Ft</td><td>20 nap</td><td>IHM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="60. § (2) Csoportosan" data-birsag="500000" data-borton="30"><td>60. §</td><td>(2)</td><td>Csoportosan</td><td>500 000 Ft</td><td>30 nap</td><td>IHCS</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="60. § (3) Fegyveresen" data-birsag="750000" data-borton="35"><td>60. §</td><td>(3)</td><td>Fegyveresen</td><td>750 000 Ft</td><td>35 nap</td><td>IHF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="60. § (4) Felfegyverkezve" data-birsag="850000" data-borton="40"><td>60. §</td><td>(4)</td><td>Felfegyverkezve</td><td>850 000 Ft</td><td>40 nap</td><td>IHFF</td><td>BÍRÓSÁG</td></tr>
 <tr><td>61. §</td><td></td><td>Határzár megsértése</td><td>—</td><td>—</td><td>HM</td><td>BÍRÓSÁG</td></tr>
-<tr><td>61. §</td><td>(1)</td><td>Határzár megsértése</td><td>100 000 Ft</td><td>30 nap</td><td>—</td><td>BÍRÓSÁG</td></tr>
-<tr><td>61. §</td><td>(2)</td><td>Határzár megrongálása / jogosulatlan feloldása</td><td>200 000 Ft</td><td>30 nap</td><td>HMJF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="61. § (1) Határzár megsértése" data-birsag="100000" data-borton="30"><td>61. §</td><td>(1)</td><td>Határzár megsértése</td><td>100 000 Ft</td><td>30 nap</td><td>—</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="61. § (2) Határzár megrongálása / jogosulatlan feloldása" data-birsag="200000" data-borton="30"><td>61. §</td><td>(2)</td><td>Határzár megrongálása / jogosulatlan feloldása</td><td>200 000 Ft</td><td>30 nap</td><td>HMJF</td><td>BÍRÓSÁG</td></tr>
 <tr><td>62. §</td><td></td><td>Hivatalos személynek való kiadás</td><td>—</td><td>—</td><td>HSZVK</td><td>BÍRÓSÁG</td></tr>
-<tr><td>62. §</td><td>(1)</td><td>Jogtalan előnyt kér</td><td>520 000 Ft</td><td>55 nap</td><td>HSZKE</td><td>BÍRÓSÁG</td></tr>
-<tr><td>62. §</td><td>(2)</td><td>Jogtalan előnyt ad</td><td>600 000 Ft</td><td>45 nap</td><td>HSZKA</td><td>BÍRÓSÁG</td></tr>
-<tr><td>62. §</td><td>(3)</td><td>Azt a látszatot kelti, hogy hivatalos személyt veszteget</td><td>750 000 Ft</td><td>30 nap</td><td>HSZKL</td><td>BÍRÓSÁG</td></tr>
-<tr><td>62. §</td><td>(4)</td><td>Üzletszerűen</td><td>900 000 Ft</td><td>40 nap</td><td>HSZKÜ</td><td>BÍRÓSÁG</td></tr>
-<tr><td>63. §</td><td></td><td>Okirathamisítás</td><td>500 000 Ft</td><td>50 nap</td><td>OH</td><td>BÍRÓSÁG</td></tr>
-<tr><td>64. §</td><td></td><td>Hivatali személy megvesztegetése</td><td>600 000 Ft</td><td>50 nap</td><td>HSZM</td><td>BÍRÓSÁG</td></tr>
-<tr><td>65. §</td><td></td><td>Szexuális erőszak</td><td>400 000 Ft</td><td>40 nap</td><td>SZE</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="62. § (1) Jogtalan előnyt kér" data-birsag="520000" data-borton="55"><td>62. §</td><td>(1)</td><td>Jogtalan előnyt kér</td><td>520 000 Ft</td><td>55 nap</td><td>HSZKE</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="62. § (2) Jogtalan előnyt ad" data-birsag="600000" data-borton="45"><td>62. §</td><td>(2)</td><td>Jogtalan előnyt ad</td><td>600 000 Ft</td><td>45 nap</td><td>HSZKA</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="62. § (3) Azt a látszatot kelti, hogy hivatalos személyt veszteget" data-birsag="750000" data-borton="30"><td>62. §</td><td>(3)</td><td>Azt a látszatot kelti, hogy hivatalos személyt veszteget</td><td>750 000 Ft</td><td>30 nap</td><td>HSZKL</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="62. § (4) Üzletszerűen" data-birsag="900000" data-borton="40"><td>62. §</td><td>(4)</td><td>Üzletszerűen</td><td>900 000 Ft</td><td>40 nap</td><td>HSZKÜ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="63. §  Okirathamisítás" data-birsag="500000" data-borton="50"><td>63. §</td><td></td><td>Okirathamisítás</td><td>500 000 Ft</td><td>50 nap</td><td>OH</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="64. §  Hivatali személy megvesztegetése" data-birsag="600000" data-borton="50"><td>64. §</td><td></td><td>Hivatali személy megvesztegetése</td><td>600 000 Ft</td><td>50 nap</td><td>HSZM</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="65. §  Szexuális erőszak" data-birsag="400000" data-borton="40"><td>65. §</td><td></td><td>Szexuális erőszak</td><td>400 000 Ft</td><td>40 nap</td><td>SZE</td><td>BÍRÓSÁG</td></tr>
 <tr><td>66. §</td><td></td><td>Prostitúció</td><td>—</td><td>—</td><td>PR</td><td></td></tr>
-<tr><td>66. §</td><td>(1)</td><td>Magányosan</td><td>100 000 Ft</td><td>30 nap</td><td>PRM</td><td></td></tr>
-<tr><td>66. §</td><td>(2)</td><td>Mást prostitúcióra rábír</td><td>150 000 Ft</td><td>30 nap</td><td>PRR</td><td>BÍRÓSÁG</td></tr>
-<tr><td>66. §</td><td>(3)</td><td>Kényszerítése</td><td>250 000 Ft</td><td>30 nap</td><td>PRK</td><td>BÍRÓSÁG</td></tr>
-<tr><td>66. §</td><td>(4)</td><td>Épületet/helyet prostitúció céljából rendelkezésre bocsát</td><td>260 000 Ft</td><td>40 nap</td><td>PRÉB</td><td>BÍRÓSÁG</td></tr>
-<tr><td>66. §</td><td>(5)</td><td>Bordélyház fenntartása vagy abban való részvétel, vezetés</td><td>270 000 Ft</td><td>50 nap</td><td>PRBÜ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="66. § (1) Magányosan" data-birsag="100000" data-borton="30"><td>66. §</td><td>(1)</td><td>Magányosan</td><td>100 000 Ft</td><td>30 nap</td><td>PRM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="66. § (2) Mást prostitúcióra rábír" data-birsag="150000" data-borton="30"><td>66. §</td><td>(2)</td><td>Mást prostitúcióra rábír</td><td>150 000 Ft</td><td>30 nap</td><td>PRR</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="66. § (3) Kényszerítése" data-birsag="250000" data-borton="30"><td>66. §</td><td>(3)</td><td>Kényszerítése</td><td>250 000 Ft</td><td>30 nap</td><td>PRK</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="66. § (4) Épületet/helyet prostitúció céljából rendelkezésre bocsát" data-birsag="260000" data-borton="40"><td>66. §</td><td>(4)</td><td>Épületet/helyet prostitúció céljából rendelkezésre bocsát</td><td>260 000 Ft</td><td>40 nap</td><td>PRÉB</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="66. § (5) Bordélyház fenntartása vagy abban való részvétel, vezetés" data-birsag="270000" data-borton="50"><td>66. §</td><td>(5)</td><td>Bordélyház fenntartása vagy abban való részvétel, vezetés</td><td>270 000 Ft</td><td>50 nap</td><td>PRBÜ</td><td>BÍRÓSÁG</td></tr>
 <tr><td>67. §</td><td></td><td>Gyilkosság</td><td>—</td><td>—</td><td>GYK</td><td>BÍRÓSÁG</td></tr>
-<tr><td>67. §</td><td>(1)</td><td>Emberölési kísérlet</td><td>1 000 000 Ft</td><td>45 nap</td><td>EKCSZSZ</td><td>BÍRÓSÁG</td></tr>
-<tr><td>67. §</td><td>(2)</td><td>Emberölési kísérlet hivatalos személlyel szemben</td><td>3 000 000 Ft</td><td>ÉLETFOGYTIGLAN</td><td>EKHSZSZ</td><td>BÍRÓSÁG</td></tr>
-<tr><td>67. §</td><td>(3)</td><td>Gyilkosság</td><td>1 250 000 Ft</td><td>ÉLETFOGYTIGLAN</td><td>GYK</td><td>BÍRÓSÁG</td></tr>
-<tr><td>67. §</td><td>(4)</td><td>Hivatalos személy meggyilkolása</td><td>3 500 000 Ft</td><td>ÉLETFOGYTIGLAN</td><td>GYKH</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="67. § (1) Emberölési kísérlet" data-birsag="1000000" data-borton="45"><td>67. §</td><td>(1)</td><td>Emberölési kísérlet</td><td>1 000 000 Ft</td><td>45 nap</td><td>EKCSZSZ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="67. § (2) Emberölési kísérlet hivatalos személlyel szemben" data-birsag="3000000" data-borton=""><td>67. §</td><td>(2)</td><td>Emberölési kísérlet hivatalos személlyel szemben</td><td>3 000 000 Ft</td><td>ÉLETFOGYTIGLAN</td><td>EKHSZSZ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="67. § (3) Gyilkosság" data-birsag="1250000" data-borton=""><td>67. §</td><td>(3)</td><td>Gyilkosság</td><td>1 250 000 Ft</td><td>ÉLETFOGYTIGLAN</td><td>GYK</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="67. § (4) Hivatalos személy meggyilkolása" data-birsag="3500000" data-borton=""><td>67. §</td><td>(4)</td><td>Hivatalos személy meggyilkolása</td><td>3 500 000 Ft</td><td>ÉLETFOGYTIGLAN</td><td>GYKH</td><td>BÍRÓSÁG</td></tr>
 <tr><td>68. §</td><td></td><td>Korrupció</td><td>—</td><td>—</td><td>KRP</td><td>BÍRÓSÁG</td></tr>
-<tr><td>68. §</td><td>(1)</td><td>Magányosan</td><td>10 000 000 Ft</td><td>35 nap</td><td>—</td><td>BÍRÓSÁG</td></tr>
-<tr><td>68. §</td><td>(2)</td><td>Korrupció feljelentésének elmulasztása</td><td>5 000 000 Ft</td><td>40 nap</td><td>KRPFE</td><td>BÍRÓSÁG</td></tr>
-<tr><td>69. §</td><td></td><td>Kötelezettségmulasztás</td><td>500 000 Ft</td><td>45 nap</td><td>KML</td><td>BÍRÓSÁG</td></tr>
-<tr><td>70. §</td><td></td><td>Pénz-/fegyverszállító eltulajdonítása</td><td>500 000 Ft</td><td>60 nap / ÉLETFOGYTIGLAN</td><td>PFSZE</td><td>BÍRÓSÁG</td></tr>
-<tr><td>71. §</td><td></td><td>ATM kifosztása</td><td>750 000 Ft</td><td>25 nap</td><td>ATMR</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="68. § (1) Magányosan" data-birsag="10000000" data-borton="35"><td>68. §</td><td>(1)</td><td>Magányosan</td><td>10 000 000 Ft</td><td>35 nap</td><td>—</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="68. § (2) Korrupció feljelentésének elmulasztása" data-birsag="5000000" data-borton="40"><td>68. §</td><td>(2)</td><td>Korrupció feljelentésének elmulasztása</td><td>5 000 000 Ft</td><td>40 nap</td><td>KRPFE</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="69. §  Kötelezettségmulasztás" data-birsag="500000" data-borton="45"><td>69. §</td><td></td><td>Kötelezettségmulasztás</td><td>500 000 Ft</td><td>45 nap</td><td>KML</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="70. §  Pénz-/fegyverszállító eltulajdonítása" data-birsag="500000" data-borton="60"><td>70. §</td><td></td><td>Pénz-/fegyverszállító eltulajdonítása</td><td>500 000 Ft</td><td>60 nap / ÉLETFOGYTIGLAN</td><td>PFSZE</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="71. §  ATM kifosztása" data-birsag="750000" data-borton="25"><td>71. §</td><td></td><td>ATM kifosztása</td><td>750 000 Ft</td><td>25 nap</td><td>ATMR</td><td>BÍRÓSÁG</td></tr>
 <tr><td>72. §</td><td></td><td>Boltrablás</td><td>—</td><td>—</td><td>—</td><td></td></tr>
-<tr><td>72. §</td><td>(1)</td><td>Magányosan</td><td>600 000 Ft</td><td>30 nap</td><td>—</td><td></td></tr>
-<tr><td>72. §</td><td>(2)</td><td>Szervezetben</td><td>750 000 Ft</td><td>40 nap</td><td>—</td><td>BÍRÓSÁG</td></tr>
-<tr><td>72. §</td><td>(3)</td><td>Fegyveresen</td><td>800 000 Ft</td><td>45 nap</td><td>—</td><td>BÍRÓSÁG</td></tr>
-<tr><td>72. §</td><td>(4)</td><td>Felfegyverkezve</td><td>810 000 Ft</td><td>50 nap</td><td>—</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="72. § (1) Magányosan" data-birsag="600000" data-borton="30"><td>72. §</td><td>(1)</td><td>Magányosan</td><td>600 000 Ft</td><td>30 nap</td><td>—</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="72. § (2) Szervezetben" data-birsag="750000" data-borton="40"><td>72. §</td><td>(2)</td><td>Szervezetben</td><td>750 000 Ft</td><td>40 nap</td><td>—</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="72. § (3) Fegyveresen" data-birsag="800000" data-borton="45"><td>72. §</td><td>(3)</td><td>Fegyveresen</td><td>800 000 Ft</td><td>45 nap</td><td>—</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="72. § (4) Felfegyverkezve" data-birsag="810000" data-borton="50"><td>72. §</td><td>(4)</td><td>Felfegyverkezve</td><td>810 000 Ft</td><td>50 nap</td><td>—</td><td>BÍRÓSÁG</td></tr>
 <tr><td>73. §</td><td></td><td>Bankrablás</td><td>—</td><td>—</td><td>BAK</td><td></td></tr>
-<tr><td>73. §</td><td>(1)</td><td>Magányosan</td><td>900 000 Ft</td><td>40 nap</td><td>BAKM</td><td></td></tr>
-<tr><td>73. §</td><td>(2)</td><td>Szervezetben</td><td>950 000 Ft</td><td>50 nap</td><td>BAKSZ</td><td>BÍRÓSÁG</td></tr>
-<tr><td>73. §</td><td>(3)</td><td>Fegyveresen</td><td>1 000 000 Ft</td><td>60 nap</td><td>BAKF</td><td>BÍRÓSÁG</td></tr>
-<tr><td>73. §</td><td>(4)</td><td>Felfegyverkezve</td><td>1 100 000 Ft</td><td>60 nap</td><td>BAKFF</td><td>BÍRÓSÁG</td></tr>
-<tr><td>73. §</td><td>(5)</td><td>Pénzszállító konvoj megtámadása</td><td>1 600 000 Ft</td><td>60 nap</td><td>BAKPE</td><td>BÍRÓSÁG</td></tr>
-<tr><td>73. §</td><td>(6)</td><td>Jogosulatlan behatolás</td><td>1 650 000 Ft</td><td>40 nap</td><td>BAKJB</td><td>BÍRÓSÁG</td></tr>
-<tr><td>73. §</td><td>(7)</td><td>Jogosulatlan behatolás kísérlete</td><td>1 150 000 Ft</td><td>40 nap</td><td>BAKJBK</td><td></td></tr>
-<tr><td>74. §</td><td></td><td>Hatósági rendelkezés elleni uszítás</td><td>725 000 Ft</td><td>40 nap</td><td>HREU</td><td></td></tr>
-<tr><td>75. §</td><td></td><td>Tiltott szerencsejáték szervezése</td><td>420 000 Ft</td><td>40 nap</td><td>TSZSZ</td><td></td></tr>
-<tr><td>76. §</td><td></td><td>Bűnszövetkezetben való részvétel</td><td>780 000 Ft</td><td>30 nap</td><td>BVR</td><td>BÍRÓSÁG</td></tr>
-<tr><td>77. §</td><td></td><td>Tanúvallomás jogosulatlan megtagadása</td><td>450 000 Ft</td><td>30 nap</td><td>TJM</td><td></td></tr>
-<tr><td>78. §</td><td></td><td>Nyomozás hátráltatása / akadályoztatása</td><td>720 000 Ft</td><td>45 nap</td><td>NYH</td><td>BÍRÓSÁG</td></tr>
-<tr><td>79. §</td><td></td><td>Öngyilkosságban közreműködés</td><td>345 000 Ft</td><td>35 nap</td><td>ÖNKK</td><td></td></tr>
-<tr><td>80. §</td><td></td><td>Kényszerítés</td><td>340 000 Ft</td><td>50 nap</td><td>KNSZ</td><td>BÍRÓSÁG</td></tr>
-<tr><td>81. §</td><td></td><td>Bántalmazás hivatalos eljárásban</td><td>2 000 000 Ft</td><td>30 nap</td><td>BHE</td><td>BÍRÓSÁG</td></tr>
-<tr><td>82. §</td><td></td><td>Hivatali visszaélés</td><td>2 500 000 Ft</td><td>30 nap</td><td>HV</td><td>BÍRÓSÁG</td></tr>
-<tr><td>83. §</td><td></td><td>Minősített adattal való visszaélés</td><td>1 350 000 Ft</td><td>45 nap</td><td>MAVV</td><td>BÍRÓSÁG</td></tr>
-<tr><td>84. §</td><td></td><td>Ügyvédi visszaélés</td><td>1 450 000 Ft</td><td>50 nap</td><td>ÜVSZ</td><td>BÍRÓSÁG</td></tr>
-<tr><td>85. §</td><td></td><td>Fogolyszökés</td><td>1 500 000 Ft</td><td>30 nap</td><td>FSZ</td><td>BÍRÓSÁG</td></tr>
-<tr><td>86. §</td><td></td><td>Fogolyszöktetés</td><td>1 650 000 Ft</td><td>55 nap</td><td>FSZK</td><td>BÍRÓSÁG</td></tr>
-<tr><td>87. §</td><td></td><td>Fogolyzendülés</td><td>1 310 000 Ft</td><td>30 nap</td><td>FZ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="73. § (1) Magányosan" data-birsag="900000" data-borton="40"><td>73. §</td><td>(1)</td><td>Magányosan</td><td>900 000 Ft</td><td>40 nap</td><td>BAKM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="73. § (2) Szervezetben" data-birsag="950000" data-borton="50"><td>73. §</td><td>(2)</td><td>Szervezetben</td><td>950 000 Ft</td><td>50 nap</td><td>BAKSZ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="73. § (3) Fegyveresen" data-birsag="1000000" data-borton="60"><td>73. §</td><td>(3)</td><td>Fegyveresen</td><td>1 000 000 Ft</td><td>60 nap</td><td>BAKF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="73. § (4) Felfegyverkezve" data-birsag="1100000" data-borton="60"><td>73. §</td><td>(4)</td><td>Felfegyverkezve</td><td>1 100 000 Ft</td><td>60 nap</td><td>BAKFF</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="73. § (5) Pénzszállító konvoj megtámadása" data-birsag="1600000" data-borton="60"><td>73. §</td><td>(5)</td><td>Pénzszállító konvoj megtámadása</td><td>1 600 000 Ft</td><td>60 nap</td><td>BAKPE</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="73. § (6) Jogosulatlan behatolás" data-birsag="1650000" data-borton="40"><td>73. §</td><td>(6)</td><td>Jogosulatlan behatolás</td><td>1 650 000 Ft</td><td>40 nap</td><td>BAKJB</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="73. § (7) Jogosulatlan behatolás kísérlete" data-birsag="1150000" data-borton="40"><td>73. §</td><td>(7)</td><td>Jogosulatlan behatolás kísérlete</td><td>1 150 000 Ft</td><td>40 nap</td><td>BAKJBK</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="74. §  Hatósági rendelkezés elleni uszítás" data-birsag="725000" data-borton="40"><td>74. §</td><td></td><td>Hatósági rendelkezés elleni uszítás</td><td>725 000 Ft</td><td>40 nap</td><td>HREU</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="75. §  Tiltott szerencsejáték szervezése" data-birsag="420000" data-borton="40"><td>75. §</td><td></td><td>Tiltott szerencsejáték szervezése</td><td>420 000 Ft</td><td>40 nap</td><td>TSZSZ</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="76. §  Bűnszövetkezetben való részvétel" data-birsag="780000" data-borton="30"><td>76. §</td><td></td><td>Bűnszövetkezetben való részvétel</td><td>780 000 Ft</td><td>30 nap</td><td>BVR</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="77. §  Tanúvallomás jogosulatlan megtagadása" data-birsag="450000" data-borton="30"><td>77. §</td><td></td><td>Tanúvallomás jogosulatlan megtagadása</td><td>450 000 Ft</td><td>30 nap</td><td>TJM</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="78. §  Nyomozás hátráltatása / akadályoztatása" data-birsag="720000" data-borton="45"><td>78. §</td><td></td><td>Nyomozás hátráltatása / akadályoztatása</td><td>720 000 Ft</td><td>45 nap</td><td>NYH</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="79. §  Öngyilkosságban közreműködés" data-birsag="345000" data-borton="35"><td>79. §</td><td></td><td>Öngyilkosságban közreműködés</td><td>345 000 Ft</td><td>35 nap</td><td>ÖNKK</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="80. §  Kényszerítés" data-birsag="340000" data-borton="50"><td>80. §</td><td></td><td>Kényszerítés</td><td>340 000 Ft</td><td>50 nap</td><td>KNSZ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="81. §  Bántalmazás hivatalos eljárásban" data-birsag="2000000" data-borton="30"><td>81. §</td><td></td><td>Bántalmazás hivatalos eljárásban</td><td>2 000 000 Ft</td><td>30 nap</td><td>BHE</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="82. §  Hivatali visszaélés" data-birsag="2500000" data-borton="30"><td>82. §</td><td></td><td>Hivatali visszaélés</td><td>2 500 000 Ft</td><td>30 nap</td><td>HV</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="83. §  Minősített adattal való visszaélés" data-birsag="1350000" data-borton="45"><td>83. §</td><td></td><td>Minősített adattal való visszaélés</td><td>1 350 000 Ft</td><td>45 nap</td><td>MAVV</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="84. §  Ügyvédi visszaélés" data-birsag="1450000" data-borton="50"><td>84. §</td><td></td><td>Ügyvédi visszaélés</td><td>1 450 000 Ft</td><td>50 nap</td><td>ÜVSZ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="85. §  Fogolyszökés" data-birsag="1500000" data-borton="30"><td>85. §</td><td></td><td>Fogolyszökés</td><td>1 500 000 Ft</td><td>30 nap</td><td>FSZ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="86. §  Fogolyszöktetés" data-birsag="1650000" data-borton="55"><td>86. §</td><td></td><td>Fogolyszöktetés</td><td>1 650 000 Ft</td><td>55 nap</td><td>FSZK</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="87. §  Fogolyzendülés" data-birsag="1310000" data-borton="30"><td>87. §</td><td></td><td>Fogolyzendülés</td><td>1 310 000 Ft</td><td>30 nap</td><td>FZ</td><td>BÍRÓSÁG</td></tr>
 <tr><td>88. §</td><td></td><td>Terrorcselekmény</td><td>Nincs</td><td>HALÁLBÜNTETÉS</td><td>—</td><td>BÍRÓSÁG</td></tr>
 </tbody></table>
   <div class="desc-block"><p class="desc-block-title">Törvényi szövegek (eredeti PDF sorrendben — párosítsd a fenti táblázat soraihoz)</p><ul><li>Aki a közúti közlekedés szabályainak megszegésével közúton vagy közforgalom elől el nem zárt magánúton más vagy mások életét/testi épségét közvetlen veszélynek teszi ki; illetve aki a közutat/közúti jelzést megrongálja, beszennyezi, vagy a közlekedés biztonságát hátrányosan befolyásoló tárgyat juttat a közútra. Gondatlan vezetéssel együtt nem osztható. (46. §)</li><li>Aki olyan lőfegyverhez tartozó töltényt birtokol, melynek tartása illegális, vagy olyan maroklőfegyverhez tartozó töltényt, melyet legálisan lehet tartani, de a birtokolt mennyiség meghaladja az előírt darabszámot (50 db). (47. §)</li><li>Aki olyan lőfegyverhez tartozó töltényt árusít, melynek tartása illegális vagy engedélyköteles. (48. §)</li><li>Aki olyan fegyvert birtokol, melynek tartása illegális vagy engedélyhez kötött. (49. §)</li><li>Aki olyan fegyvert árul, melynek tartása illegális vagy engedélyhez kötött. (50. §)</li><li>Aki olyan fegyver-alkotóelemet birtokol vagy kínál árusításra, melynek tartása illegális vagy engedélyhez kötött. (51. §)</li><li>Aki olyan fegyvert vagy anyagot gyárt (pl. kábítószer, gyógyszer), melynek tartása illegális, vagy gyártása engedélyhez kötött. Büntetendő az is, aki a termesztéshez épületet, személyeket vagy más vagyontárgyat bocsát rendelkezésre. (52. §)</li><li>Aki olyan kábító, bódító, tudatmódosító szert birtokol, melynek tartása illegális vagy engedélyhez kötött. (53. §)</li><li>Aki engedély nélkül olyan növényt termeszt, melyből kábító, bódító vagy tudatmódosító szer készíthető. Büntetendő az is, aki a termesztéshez épületet, személyeket vagy más vagyontárgyat bocsát rendelkezésre. (54–55. §)</li><li>Aki olyan illegális alkotóelemet birtokol vagy bocsát árusításra, mely kábító, bódító vagy tudatmódosító szer előállításához szükséges. (56. §)</li><li>Aki mást személyi szabadságától erőszakkal, élet vagy testi épség elleni közvetlen fenyegetéssel, vagy védekezésre/akaratnyilvánításra képtelen állapotot kihasználva megfoszt. (57. §)</li><li>Aki idegen dolgot jogtalan eltulajdonítás végett úgy vesz el mástól, hogy evégből valaki ellen erőszakot, illetve az élet vagy testi épség ellen közvetlen fenyegetést alkalmaz. (58. §)</li><li>Aki jogtalan haszonszerzés végett mást erőszakkal vagy fenyegetéssel arra kényszerít, hogy valamit tegyen, ne tegyen vagy eltűrjön, és ezzel vagyoni hátrányt okoz. (59. §)</li><li>Aki a határon direkt iratok nélkül, vagy lejárt/hamisított iratokkal kel vagy próbál átkelni. (60. §)</li><li>Aki a Kormány, Rendvédelem vagy Honvédelem által elrendelt határzár alatt jogosulatlanul kel vagy próbál átkelni, vagy aki a fennálló határzárat megrongálja, megsemmisíti vagy jogosulatlanul feloldja. (61. §)</li><li>Aki bármilyen előny vagy indok érdekében hivatalos személyként azonosítja vagy állítja magát annak. (62. §)</li><li>Aki olyan iratot készít vagy használ bármilyen indokból vagy előnyszerzés céljából, mely nem felel meg a valós adatoknak. (Okirathamisításnak minősül, ha a bőrszín nem egyezik és a név sem egyezik, illetve önmagában akkor is, ha csak a bőrszín nem egyezik. Ha a bőrszín egyezik és csak a név nem, az nem minden esetben büntethető.) (63. §)</li><li>Aki a hivatali személy részére bármilyen előnyt vagy vagyontárgyat felkínál annak érdekében, hogy valamit tegyen, ne tegyen, vagy eltűrjön. Az a hivatali személy, aki elfogadja a vesztegetést, a Korrupció vádpont alapján ítélendő el. (64. §)</li><li>Szexuális erőszakot követ el, aki a szexuális kényszerítést erőszakkal, illetve az élet vagy testi épség elleni közvetlen fenyegetéssel követi el, és/vagy más védekezésre/akaratnyilvánításra képtelen állapotát szexuális cselekményre használja fel. (65. §)</li><li>Aki haszonszerzés vagy előny céljából szexuális cselekményt végez, vagy mást erre rábír; illetve aki épületet, személyeket vagy más vagyontárgyat ezek céljára rendelkezésre bocsát. (66. §)</li><li>Az a hivatalos személy, aki bármilyen vesztegetésért cserébe valamit tesz, nem tesz vagy eltűr. (68. §)</li><li>Az az állami alkalmazott, aki kötelezettségének nem tesz eleget. Ha vesztegetésért cserébe nem tesz vagy eltűr valamit, a büntetés KÉTSZERESE alkalmazandó. (69. §)</li><li>Az a személy, aki jogosulatlanul pénz- vagy fegyverszállítót eltulajdonít. Büntetendő az is, aki ezt elősegíti, vagy az előkészületben részt vesz, és nem jelzi a hatóságoknak. Max. büntetés: életfogytiglan. (70. §)</li><li>Az a személy, aki bankautomatát megrongál, és a benne lévő pénzkazettákat eltulajdonítja. Büntetendő az is, aki elősegíti, vagy az előkészületben részt vesz, és nem jelzi a hatóságoknak. (71. §)</li><li>Az a személy, aki a Los Santos Pacific Standard Deposit Bank aranyraktárban bármilyen módszerrel jogosulatlanul, haszonszerzés vagy más indokból aranyszállítást végez. Büntetendő az is, aki elősegíti, vagy az előkészületben részt vesz, és nem jelzi a hatóságoknak. (73. §(5) kapcsán, „Pénzszállító konvoj megtámadása”)</li><li>Amikor a gyanúsított a tevékenységével bekapcsolja a bank riasztóberendezését, de nem megy be lezárt területre. (73. §(7), „Jogosulatlan behatolás kísérlete”)</li><li>Aki nagy nyilvánosság előtt, a köznyugalom megzavarására alkalmas módon hatóság rendelkezése ellen általános engedetlenségre uszít. (74. §)</li><li>Az a tanú, aki figyelmeztetés után is jogosulatlanul megtagadja a vallomástételt. Önmagával és családjával szemben nem kötelezhető vallomástételre. (77. §)</li><li>Aki mást erőszakkal vagy fenyegetéssel arra kényszerít, hogy valamit tegyen, ne tegyen vagy eltűrjön. (80. §)</li><li>Az a hivatalos személy, aki azért, hogy jogtalan hátrányt okozzon vagy jogtalan előnyt szerezzen, hivatali kötelességét megszegi, túllépi, vagy helyzetével egyébként visszaél. (82. §)</li><li>Aki minősített adatot jogosulatlanul megszerez vagy felhasznál, jogosulatlan személy részére hozzáférhetővé, vagy jogosult személy részére hozzáférhetetlenné tesz. Titkos minősítésű adatnál a pénzbírság 80 000 Ft; szigorúan titkos minősítésű adatnál 120 000 Ft és 300 nap börtön. (83. §)</li><li>Az a fogvatartott, aki a büntetés letöltését megelőzően jogosulatlanul elhagyja a Büntetés-végrehajtási Intézetet vagy fogdát. (85. §)</li><li>Az a személy vagy hivatalos személy, aki jogosulatlanul lehetővé teszi egy fogvatartott számára, hogy a büntetés letöltését megelőzően elhagyja a Büntetés-végrehajtási Intézetet vagy fogdát. (86. §)</li><li>Az a fogvatartott, aki a Büntetés-végrehajtási Intézeten belül vagy a fogdában nem hajlandó együttműködni az őrökkel, illetve ellenük erőszakosan lép fel, vagy erre buzdítja a többi elítéltet. (87. §)</li><li>Aki abból a célból, hogy állami szervet vagy nemzetközi szervezetet kényszerítsen valamire, a lakosságot megfélemlítse, vagy az állam társadalmi/gazdasági rendjét megváltoztassa/megzavarja, cselekszik. Büntetendő az is, aki a terrorcselekményt bármilyen anyagi javakkal, tulajdonnal vagy személyekkel finanszírozza. Bűnrészes itt a teljes büntetést megkapja. (Az emberrablásnál kért váltságdíj miatt nem tartozik ide.) (88. §)</li></ul></div>
@@ -453,74 +453,92 @@
   <h2><span class="sec-num">89–100. §</span> Adócsalás <span class="gov-tag">GOV hatáskör</span></h2>
   <p class="section-note">Ugyanaz a helyzet, mint a Bűncselekményeknél — a leírások külön blokkban.</p>
   <table><thead><tr><th>§</th><th>Alpont</th><th>Megnevezés</th><th>Bírság</th><th>Börtön</th><th>Rövidítés</th><th>Fórum</th></tr></thead><tbody><tr><td>90. §</td><td></td><td>Illegális rendezvény</td><td>—</td><td>—</td><td>IR</td><td>BÍRÓSÁG</td></tr>
-<tr><td>90. §</td><td>(1)</td><td>Illegális rendezvény szervezése</td><td>280 000 Ft</td><td>30 nap</td><td>IRSZ</td><td>BÍRÓSÁG</td></tr>
-<tr><td>90. §</td><td>(2)</td><td>Illegális rendezvényen való részvétel</td><td>250 000 Ft</td><td>20 nap</td><td>IRVR</td><td></td></tr>
-<tr><td>91. §</td><td></td><td>ÁFÁ-s számla kiállításának elmulasztása</td><td>850 000 Ft</td><td>0</td><td>SZKE</td><td></td></tr>
-<tr><td>92. §</td><td></td><td>Bejegyzetlen cég működtetése</td><td>1 000 000 Ft</td><td>40 nap</td><td>BCM</td><td>BÍRÓSÁG</td></tr>
-<tr><td>93. §</td><td></td><td>Illegális munkavállalás</td><td>540 000 Ft</td><td>20 nap</td><td>IMV</td><td>BÍRÓSÁG</td></tr>
-<tr><td>94. §</td><td></td><td>Árréstörvény megsértése</td><td>325 000 Ft</td><td>35 nap</td><td>ÁTS</td><td></td></tr>
-<tr><td>95. §</td><td></td><td>Sikkasztás</td><td>350 000 Ft</td><td>50 nap</td><td>SK</td><td>BÍRÓSÁG</td></tr>
-<tr><td>96. §</td><td></td><td>Gazdasági csalás</td><td>600 000 Ft</td><td>30 nap</td><td>GCS</td><td>BÍRÓSÁG</td></tr>
-<tr><td>97. §</td><td></td><td>Költségvetési csalás</td><td>750 000 Ft</td><td>20 nap</td><td>KCS</td><td>BÍRÓSÁG</td></tr>
-<tr><td>98. §</td><td></td><td>Pénzmosás</td><td>1 200 000 Ft</td><td>40 nap</td><td>PZM</td><td>BÍRÓSÁG</td></tr>
-<tr><td>99. §</td><td></td><td>Érvénytelen forgalmi engedély kiállítása</td><td>450 000 Ft</td><td>30 nap</td><td>ÉFEK</td><td>BÍRÓSÁG</td></tr>
-<tr><td>100. §</td><td></td><td>Egyedi azonosító jellel visszaélés</td><td>670 000 Ft</td><td>30 nap</td><td>EJV</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="90. § (1) Illegális rendezvény szervezése" data-birsag="280000" data-borton="30"><td>90. §</td><td>(1)</td><td>Illegális rendezvény szervezése</td><td>280 000 Ft</td><td>30 nap</td><td>IRSZ</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="90. § (2) Illegális rendezvényen való részvétel" data-birsag="250000" data-borton="20"><td>90. §</td><td>(2)</td><td>Illegális rendezvényen való részvétel</td><td>250 000 Ft</td><td>20 nap</td><td>IRVR</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="91. §  ÁFÁ-s számla kiállításának elmulasztása" data-birsag="850000" data-borton="0"><td>91. §</td><td></td><td>ÁFÁ-s számla kiállításának elmulasztása</td><td>850 000 Ft</td><td>0</td><td>SZKE</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="92. §  Bejegyzetlen cég működtetése" data-birsag="1000000" data-borton="40"><td>92. §</td><td></td><td>Bejegyzetlen cég működtetése</td><td>1 000 000 Ft</td><td>40 nap</td><td>BCM</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="93. §  Illegális munkavállalás" data-birsag="540000" data-borton="20"><td>93. §</td><td></td><td>Illegális munkavállalás</td><td>540 000 Ft</td><td>20 nap</td><td>IMV</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="94. §  Árréstörvény megsértése" data-birsag="325000" data-borton="35"><td>94. §</td><td></td><td>Árréstörvény megsértése</td><td>325 000 Ft</td><td>35 nap</td><td>ÁTS</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="95. §  Sikkasztás" data-birsag="350000" data-borton="50"><td>95. §</td><td></td><td>Sikkasztás</td><td>350 000 Ft</td><td>50 nap</td><td>SK</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="96. §  Gazdasági csalás" data-birsag="600000" data-borton="30"><td>96. §</td><td></td><td>Gazdasági csalás</td><td>600 000 Ft</td><td>30 nap</td><td>GCS</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="97. §  Költségvetési csalás" data-birsag="750000" data-borton="20"><td>97. §</td><td></td><td>Költségvetési csalás</td><td>750 000 Ft</td><td>20 nap</td><td>KCS</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="98. §  Pénzmosás" data-birsag="1200000" data-borton="40"><td>98. §</td><td></td><td>Pénzmosás</td><td>1 200 000 Ft</td><td>40 nap</td><td>PZM</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="99. §  Érvénytelen forgalmi engedély kiállítása" data-birsag="450000" data-borton="30"><td>99. §</td><td></td><td>Érvénytelen forgalmi engedély kiállítása</td><td>450 000 Ft</td><td>30 nap</td><td>ÉFEK</td><td>BÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="100. §  Egyedi azonosító jellel visszaélés" data-birsag="670000" data-borton="30"><td>100. §</td><td></td><td>Egyedi azonosító jellel visszaélés</td><td>670 000 Ft</td><td>30 nap</td><td>EJV</td><td>BÍRÓSÁG</td></tr>
 </tbody></table>
   <div class="desc-block"><p class="desc-block-title">Törvényi szövegek (eredeti PDF sorrendben — párosítsd a fenti táblázat soraihoz)</p><ul><li>Büntetendő bármely olyan gyülekezésen való részvétel, ahol a közrend súlyosan sérül, vagy bűncselekmény történik, és a résztvevő ennek ellenére/tudatában sem távozik hatósági felszólításra. (90. §)</li><li>Nulla forintról nem kell számlát kiállítani. (91. §)</li><li>Az a személy, aki olyan céget/társaságot működtet, melyet nem jelent be, vagy olyan tevékenységet végez, amelyből adóköteles hasznot szerez. (92. §)</li><li>Az a személy, aki olyan cégnél/társaságnál vállal haszonszerzés érdekében munkát, ahol tudja, hogy a foglalkoztatását vagy bérének egy részét/egészét nem jelentik be az adóhatóság felé. (93. §)</li><li>Az a személy vagy cég, aki a törvényben előírt minimális vagy maximális árrésen alul vagy felül értékesíti cikkeit. Jelenlegi minimális árrés: 129%. Jelenlegi maximális árrés: 301%. (94. §)</li><li>Aki a rábízott idegen dolgot jogtalanul eltulajdonítja, vagy azzal sajátjaként rendelkezik. (95. §)</li><li>Aki jogtalan haszonszerzés végett színlelt gazdasági tevékenységet végez, és ezzel vagyoni hátrányt okoz. (96. §)</li><li>Aki a költségvetésbe történő befizetési kötelezettséggel vagy a költségvetésből származó pénzeszközökkel kapcsolatban mást tévedésbe ejt, tévedésben tart, valótlan nyilatkozatot tesz, vagy a valós tényt elhallgatja; jogtalanul kedvezményt vesz igénybe, vagy a pénzeszközöket a jóváhagyott céltól eltérően használja fel, és ezzel vagyoni hátrányt okoz. Büntetendő az is, aki a költségvetési csalást elmulasztja bejelenteni az adóhatóságnak. (97. §)</li><li>Aki a büntetendő cselekményből származó vagyon eredetét, a vagyonon fennálló jogot, a vagyon helyét vagy ezek változását elfedi vagy elleplezi. Büntetendő az is, aki a pénzmosást elmulasztja bejelenteni az adóhatóságnak. (98. §)</li><li>Az a műszaki vizsgabázison dolgozó alkalmazott, aki olyan gépjárműre állít ki hatósági engedélyt, amely nem felel meg a közúti közlekedés előírásainak (fényszóró, műszaki állapot, obszcén/sértő/megtévesztő vagy védett prefixű rendszám). Védett prefixek (csak a szervezet vezetőjének írásos engedélyével állíthatók ki): LSPD: RA-, RB- | IRS: IRS- | FBI: FBI- | LSSD: LSSD- | USMC/USA/USAF/USSF/USCG: ARMY-, USMC-, USAF-, USSF-, USCG- | SADCR: SADCR- | EMS: EMS- | LSFD: LSFD- | San Andreas állam: GOV-, A-. Fenntartott, nem kiállítható prefixek: pótkocsi TR-, munkajármű MUNKA-, bérelt jármű RENT-. NAV engedéllyel kiállítható vámjárművekre: Z-. Kormány/RSZSZ Igazgatóság engedéllyel diplomata testületekre: DT-, CC-, CD-, CK-. (99. §)</li><li>Aki egyedi azonosító jelet (pl. rendszámtábla) eltávolít, olvashatatlanná tesz, meghamisít, jogosulatlanul használ (pl. védett prefixű rendszám), vagy olyan járművel rendelkezik, amelynek egyedi azonosító jele hamis, hamisított, vagy eltávolították. (100. §)</li></ul></div>
 </section>
 
 <section id="mellekbuntetesek">
   <h2><span class="sec-num">M</span> Mellékbüntetések</h2>
-  <table><thead><tr><th>Kód</th><th>Megnevezés</th><th>Bírság</th><th>Leírás / feltétel</th><th>Rövidítés</th></tr></thead><tbody><tr><td>M2</td><td>Vezetői engedéllyel való visszaélés</td><td>1 000 000 Ft</td><td>Amennyiben egy járműnek köze volt egy elkövetett bűncselekményhez vagy súlyosabb vétséghez, a vezetői engedély bevonható. (Pl. ittasan vezetett, rendőr elől menekült, ATM-et rabolt egy járművel, fegyvert csempészett egy járművel, határon szöktetett át valakit járművel stb.)</td><td>VEVV</td></tr>
-<tr><td>M3</td><td>Vadászengedéllyel való visszaélés</td><td>1 450 000 Ft</td><td>Amennyiben egy vadászati fegyvernek vagy vadászati fegyverengedélynek köze volt egy elkövetett bűncselekményhez, a vadászengedély bevonható. (Pl. rálőtt valakire, fenyegetésre használta, illegális fegyvert/alkatrészt birtokolt.)</td><td>VAEVV</td></tr>
+  <table><thead><tr><th>Kód</th><th>Megnevezés</th><th>Bírság</th><th>Leírás / feltétel</th><th>Rövidítés</th></tr></thead><tbody><tr class="calc-clickable" data-calc="1" data-label="M2 Vezetői engedéllyel való visszaélés" data-birsag="1000000" data-borton=""><td>M2</td><td>Vezetői engedéllyel való visszaélés</td><td>1 000 000 Ft</td><td>Amennyiben egy járműnek köze volt egy elkövetett bűncselekményhez vagy súlyosabb vétséghez, a vezetői engedély bevonható. (Pl. ittasan vezetett, rendőr elől menekült, ATM-et rabolt egy járművel, fegyvert csempészett egy járművel, határon szöktetett át valakit járművel stb.)</td><td>VEVV</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="M3 Vadászengedéllyel való visszaélés" data-birsag="1450000" data-borton=""><td>M3</td><td>Vadászengedéllyel való visszaélés</td><td>1 450 000 Ft</td><td>Amennyiben egy vadászati fegyvernek vagy vadászati fegyverengedélynek köze volt egy elkövetett bűncselekményhez, a vadászengedély bevonható. (Pl. rálőtt valakire, fenyegetésre használta, illegális fegyvert/alkatrészt birtokolt.)</td><td>VAEVV</td></tr>
 </tbody></table>
 </section>
 
 <section id="katonai">
   <h2><span class="sec-num">101–106/C. §</span> Katonai bűncselekmények <span class="gov-tag">Hadbírósági ügyek</span></h2>
   <p class="section-note">Érvényesség: RENDŐR, NAV, TŰZOLTÓ, KATONA, OMSZ állományra vonatkozik. Automatikus egyoldalú szerződésbontással jár. Az alap törvény a Honvédekre vonatkozik, kiegészítve: „A” – Rendvédelem (ORFK, KR, NAV, Titkosszolgálat), „B” – Katasztrófavédelem és Tűzoltó, „C” – Országos Mentőszolgálat (OMSZ). A leírások itt is külön blokkban, a fenti okból.</p>
-  <table><thead><tr><th>§</th><th>Alpont</th><th>Megnevezés</th><th>Bírság</th><th>Börtön/Elzárás</th><th>Fórum</th></tr></thead><tbody><tr><td>101. §</td><td>(1)</td><td>Végleges kivonás a katonai szolgálat alól</td><td>—</td><td>15 nap</td><td>HADBÍRÓSÁG</td></tr>
-<tr><td>101. §</td><td>(2)</td><td>Súlyosabb eset</td><td>—</td><td>10–30 nap</td><td>HADBÍRÓSÁG</td></tr>
-<tr><td>101. §</td><td>(3)</td><td>Háború idején / (2) a), b), e) pont</td><td>—</td><td>35 nap</td><td>HADBÍRÓSÁG</td></tr>
+  <table><thead><tr><th>§</th><th>Alpont</th><th>Megnevezés</th><th>Bírság</th><th>Börtön/Elzárás</th><th>Fórum</th></tr></thead><tbody><tr class="calc-clickable" data-calc="1" data-label="101. § (1) Végleges kivonás a katonai szolgálat alól" data-birsag="" data-borton="15"><td>101. §</td><td>(1)</td><td>Végleges kivonás a katonai szolgálat alól</td><td>—</td><td>15 nap</td><td>HADBÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="101. § (2) Súlyosabb eset" data-birsag="" data-borton="30"><td>101. §</td><td>(2)</td><td>Súlyosabb eset</td><td>—</td><td>10–30 nap</td><td>HADBÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="101. § (3) Háború idején / (2) a), b), e) pont" data-birsag="" data-borton="35"><td>101. §</td><td>(3)</td><td>Háború idején / (2) a), b), e) pont</td><td>—</td><td>35 nap</td><td>HADBÍRÓSÁG</td></tr>
 <tr><td>101. §</td><td>(4)</td><td>Előkészület / (3) bekezdés szerinti elkövetés</td><td>—</td><td>—</td><td>HADBÍRÓSÁG</td></tr>
 <tr><td>101. §</td><td>(5)</td><td>Enyhítés</td><td>—</td><td>—</td><td>HADBÍRÓSÁG</td></tr>
 <tr><td>102. §</td><td></td><td>Önkényes eltávozás</td><td>—</td><td>—</td><td>HADBÍRÓSÁG</td></tr>
-<tr><td>102. §</td><td>(1)</td><td>2 napnál hosszabb távollét</td><td>—</td><td>15 nap</td><td>HADBÍRÓSÁG</td></tr>
-<tr><td>102. §</td><td>(2)</td><td>9 napnál hosszabb távollét</td><td>—</td><td>20 nap</td><td>HADBÍRÓSÁG</td></tr>
-<tr><td>102. §</td><td>(3)</td><td>Háborúban / külföldi hadművelet/békefenntartás közben</td><td>—</td><td>35 nap</td><td>HADBÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="102. § (1) 2 napnál hosszabb távollét" data-birsag="" data-borton="15"><td>102. §</td><td>(1)</td><td>2 napnál hosszabb távollét</td><td>—</td><td>15 nap</td><td>HADBÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="102. § (2) 9 napnál hosszabb távollét" data-birsag="" data-borton="20"><td>102. §</td><td>(2)</td><td>9 napnál hosszabb távollét</td><td>—</td><td>20 nap</td><td>HADBÍRÓSÁG</td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="102. § (3) Háborúban / külföldi hadművelet/békefenntartás közben" data-birsag="" data-borton="35"><td>102. §</td><td>(3)</td><td>Háborúban / külföldi hadművelet/békefenntartás közben</td><td>—</td><td>35 nap</td><td>HADBÍRÓSÁG</td></tr>
 <tr><td>103. §</td><td></td><td>Kibúvás szolgálat alól</td><td>—</td><td>—</td><td>HADBÍRÓSÁG</td></tr>
-<tr><td>103. §</td><td>(1)</td><td>Végleges kibúvás (öncsonkítás, egészségkárosítás, megtévesztés)</td><td>—</td><td>25 nap</td><td></td></tr>
-<tr><td>103. §</td><td>(2)</td><td>Ideiglenes kibúvás</td><td>2 500 000 Ft</td><td>30 nap</td><td></td></tr>
-<tr><td>103. §</td><td>(3)</td><td>Ideiglenes kibúvás 6 napnál hosszabb ideig</td><td>3 000 000 Ft</td><td>30 nap</td><td></td></tr>
-<tr><td>103. §</td><td>(4)</td><td>Háború idején</td><td>—</td><td>40 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="103. § (1) Végleges kibúvás (öncsonkítás, egészségkárosítás, megtévesztés)" data-birsag="" data-borton="25"><td>103. §</td><td>(1)</td><td>Végleges kibúvás (öncsonkítás, egészségkárosítás, megtévesztés)</td><td>—</td><td>25 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="103. § (2) Ideiglenes kibúvás" data-birsag="2500000" data-borton="30"><td>103. §</td><td>(2)</td><td>Ideiglenes kibúvás</td><td>2 500 000 Ft</td><td>30 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="103. § (3) Ideiglenes kibúvás 6 napnál hosszabb ideig" data-birsag="3000000" data-borton="30"><td>103. §</td><td>(3)</td><td>Ideiglenes kibúvás 6 napnál hosszabb ideig</td><td>3 000 000 Ft</td><td>30 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="103. § (4) Háború idején" data-birsag="" data-borton="40"><td>103. §</td><td>(4)</td><td>Háború idején</td><td>—</td><td>40 nap</td><td></td></tr>
 <tr><td>104. §</td><td></td><td>A szolgálat megtagadása</td><td>—</td><td>—</td><td>HADBÍRÓSÁG</td></tr>
-<tr><td>104. §</td><td>(1)</td><td>A katonai szolgálat kifejezett megtagadása</td><td>—</td><td>10 nap</td><td></td></tr>
-<tr><td>104. §</td><td>(2)</td><td>Honvédelmi válsághelyzet idején</td><td>—</td><td>15 nap</td><td></td></tr>
-<tr><td>104. §</td><td>(3)</td><td>Háború idején</td><td>—</td><td>20 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="104. § (1) A katonai szolgálat kifejezett megtagadása" data-birsag="" data-borton="10"><td>104. §</td><td>(1)</td><td>A katonai szolgálat kifejezett megtagadása</td><td>—</td><td>10 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="104. § (2) Honvédelmi válsághelyzet idején" data-birsag="" data-borton="15"><td>104. §</td><td>(2)</td><td>Honvédelmi válsághelyzet idején</td><td>—</td><td>15 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="104. § (3) Háború idején" data-birsag="" data-borton="20"><td>104. §</td><td>(3)</td><td>Háború idején</td><td>—</td><td>20 nap</td><td></td></tr>
 <tr><td>105. §</td><td></td><td>Kötelességszegés szolgálatban</td><td>—</td><td>—</td><td>HADBÍRÓSÁG</td></tr>
 <tr><td>105/A. §</td><td></td><td>Rendvédelmi és Honvédelmi</td><td>—</td><td>—</td><td>HADBÍRÓSÁG</td></tr>
-<tr><td>105/A. §</td><td>(1)</td><td>Alapeset</td><td>5 000 000 Ft</td><td>25 nap</td><td></td></tr>
-<tr><td>105/A. §</td><td>(2)</td><td>Súlyosabb eset (jelentős hátrány veszélye)</td><td>6 000 000 Ft</td><td>30 nap</td><td></td></tr>
-<tr><td>105/A. §</td><td>(3)</td><td>Legsúlyosabb eset (harchelyzet / válsághelyzet)</td><td>—</td><td>35 nap</td><td></td></tr>
-<tr><td>105/A. §</td><td>(4)</td><td>Gondatlanságból elkövetve</td><td>—</td><td>20 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="105/A. § (1) Alapeset" data-birsag="5000000" data-borton="25"><td>105/A. §</td><td>(1)</td><td>Alapeset</td><td>5 000 000 Ft</td><td>25 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="105/A. § (2) Súlyosabb eset (jelentős hátrány veszélye)" data-birsag="6000000" data-borton="30"><td>105/A. §</td><td>(2)</td><td>Súlyosabb eset (jelentős hátrány veszélye)</td><td>6 000 000 Ft</td><td>30 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="105/A. § (3) Legsúlyosabb eset (harchelyzet / válsághelyzet)" data-birsag="" data-borton="35"><td>105/A. §</td><td>(3)</td><td>Legsúlyosabb eset (harchelyzet / válsághelyzet)</td><td>—</td><td>35 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="105/A. § (4) Gondatlanságból elkövetve" data-birsag="" data-borton="20"><td>105/A. §</td><td>(4)</td><td>Gondatlanságból elkövetve</td><td>—</td><td>20 nap</td><td></td></tr>
 <tr><td>105/B. §</td><td></td><td>Katasztrófavédelem</td><td>—</td><td>—</td><td>HADBÍRÓSÁG</td></tr>
-<tr><td>105/B. §</td><td>(1)</td><td>Alapeset</td><td>3 500 000 Ft</td><td>20 nap</td><td></td></tr>
-<tr><td>105/B. §</td><td>(2)</td><td>Súlyosabb eset (jelentős hátrány veszélye)</td><td>3 000 000 Ft</td><td>30 nap</td><td></td></tr>
-<tr><td>105/B. §</td><td>(3)</td><td>Katasztrófa- vagy veszélyhelyzet idején</td><td>—</td><td>40 nap</td><td></td></tr>
-<tr><td>105/B. §</td><td>(4)</td><td>Gondatlanságból elkövetve</td><td>—</td><td>25 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="105/B. § (1) Alapeset" data-birsag="3500000" data-borton="20"><td>105/B. §</td><td>(1)</td><td>Alapeset</td><td>3 500 000 Ft</td><td>20 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="105/B. § (2) Súlyosabb eset (jelentős hátrány veszélye)" data-birsag="3000000" data-borton="30"><td>105/B. §</td><td>(2)</td><td>Súlyosabb eset (jelentős hátrány veszélye)</td><td>3 000 000 Ft</td><td>30 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="105/B. § (3) Katasztrófa- vagy veszélyhelyzet idején" data-birsag="" data-borton="40"><td>105/B. §</td><td>(3)</td><td>Katasztrófa- vagy veszélyhelyzet idején</td><td>—</td><td>40 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="105/B. § (4) Gondatlanságból elkövetve" data-birsag="" data-borton="25"><td>105/B. §</td><td>(4)</td><td>Gondatlanságból elkövetve</td><td>—</td><td>25 nap</td><td></td></tr>
 <tr><td>105/C. §</td><td></td><td>Országos Mentőszolgálat</td><td>—</td><td>—</td><td>HADBÍRÓSÁG</td></tr>
-<tr><td>105/C. §</td><td>(1)</td><td>Alapeset</td><td>3 500 000 Ft</td><td>20 nap</td><td></td></tr>
-<tr><td>105/C. §</td><td>(2)</td><td>Súlyosabb eset (jelentős hátrány veszélye)</td><td>3 000 000 Ft</td><td>30 nap</td><td></td></tr>
-<tr><td>105/C. §</td><td>(3)</td><td>Kiemelt járványügyi/egészségügyi veszélyhelyzet idején</td><td>—</td><td>40 nap</td><td></td></tr>
-<tr><td>105/C. §</td><td>(4)</td><td>Gondatlanságból elkövetve</td><td>—</td><td>25 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="105/C. § (1) Alapeset" data-birsag="3500000" data-borton="20"><td>105/C. §</td><td>(1)</td><td>Alapeset</td><td>3 500 000 Ft</td><td>20 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="105/C. § (2) Súlyosabb eset (jelentős hátrány veszélye)" data-birsag="3000000" data-borton="30"><td>105/C. §</td><td>(2)</td><td>Súlyosabb eset (jelentős hátrány veszélye)</td><td>3 000 000 Ft</td><td>30 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="105/C. § (3) Kiemelt járványügyi/egészségügyi veszélyhelyzet idején" data-birsag="" data-borton="40"><td>105/C. §</td><td>(3)</td><td>Kiemelt járványügyi/egészségügyi veszélyhelyzet idején</td><td>—</td><td>40 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="105/C. § (4) Gondatlanságból elkövetve" data-birsag="" data-borton="25"><td>105/C. §</td><td>(4)</td><td>Gondatlanságból elkövetve</td><td>—</td><td>25 nap</td><td></td></tr>
 <tr><td>106. §</td><td></td><td>Szolgálati feladat alóli kibúvás</td><td>—</td><td>—</td><td>HADBÍRÓSÁG</td></tr>
-<tr><td>106/C. §</td><td>(1)</td><td>Fontos szolgálati feladat alóli kivonás</td><td>2 500 000 Ft</td><td>10 nap</td><td></td></tr>
-<tr><td>106/C. §</td><td>(2)</td><td>Jelentős hátrány veszélye / külföldi hadműveleti-humanitárius-békefenntartó szolgálat</td><td>—</td><td>15 nap</td><td></td></tr>
-<tr><td>106/C. §</td><td>(3)</td><td>Háború idején</td><td>—</td><td>20 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="106/C. § (1) Fontos szolgálati feladat alóli kivonás" data-birsag="2500000" data-borton="10"><td>106/C. §</td><td>(1)</td><td>Fontos szolgálati feladat alóli kivonás</td><td>2 500 000 Ft</td><td>10 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="106/C. § (2) Jelentős hátrány veszélye / külföldi hadműveleti-humanitárius-békefenntartó szolgálat" data-birsag="" data-borton="15"><td>106/C. §</td><td>(2)</td><td>Jelentős hátrány veszélye / külföldi hadműveleti-humanitárius-békefenntartó szolgálat</td><td>—</td><td>15 nap</td><td></td></tr>
+<tr class="calc-clickable" data-calc="1" data-label="106/C. § (3) Háború idején" data-birsag="" data-borton="20"><td>106/C. §</td><td>(3)</td><td>Háború idején</td><td>—</td><td>20 nap</td><td></td></tr>
 </tbody></table>
   <div class="desc-block"><p class="desc-block-title">Törvényi szövegek (eredeti PDF sorrendben — párosítsd a fenti táblázat soraihoz)</p><ul><li>Aki abból a célból, hogy katonai szolgálatának teljesítése alól végleg kivonja magát, szolgálati helyét önkényesen elhagyja vagy attól távol marad — bűntett. (101. §(1))</li><li>a) fegyveresen, b) csoportosan, c) fontos szolgálat közben, d) erőszakkal, e) külföldre történő elkövetés. (101. §(2))</li><li>Aki a (2) bekezdés a)–c) pontja szerint külföldre szökik, illetve aki a szökést háború idején követi el. (101. §(3))</li><li>A (2) bekezdés szerinti szökésre irányuló előkészület vétség; a (3) bekezdés szerinti eset bűntett. Büntetése: 15 nap (vétség) / 25 nap (bűntett). (101. §(4))</li><li>Korlátlanul enyhíthető az elkövető büntetése, ha a hatóságnál 30 napon belül önként jelentkezik. A határidőbe a szökés napja nem számít bele. (101. §(5))</li><li>Aki szolgálati helyéről önkényesen eltávozik vagy attól távol marad, és távolléte a 2 napot meghaladja — vétség. (102. §(1))</li><li>Ha az önkényes távollét tartama meghaladja a 9 napot — bűntett. (102. §(2))</li><li>Ha az önkényes eltávozást háború idején, külföldi hadműveleti területen végzett humanitárius tevékenység vagy békefenntartás során követik el: a) az (1) bek. esetén bűntett miatt felfüggesztett vagy szabadságvesztés, b) a (2) bek. esetén szabadságvesztés. (102. §(3))</li><li>Aki abból a célból, hogy a katonai szolgálat teljesítése alól végleg kivonja magát, testét megcsonkítja, egészségét károsítja, vagy megtévesztő magatartást tanúsít — bűntett. (103. §(1))</li><li>Aki az (1) bekezdés szerinti cselekményt azért követi el, hogy a szolgálat alól ideiglenesen vonja ki magát — vétség. (103. §(2))</li><li>Ha az ideiglenes kivonás tartama meghaladja a 6 napot. (103. §(3))</li><li>a) az (1) bek. esetén szabadságvesztés, b) a (2) bek. esetén bűntett esetén pénzbüntetés és szabadságvesztés, c) a (3) bek. esetén felfüggesztett vagy szabadságvesztés. (103. §(4))</li><li>Aki a katonai szolgálat teljesítését kifejezetten megtagadja — bűntett. (104. §(1)–(3))</li><li>Aki rendőr, NAV-, büntetés-végrehajtási vagy más rendvédelmi szerv tagjaként szolgálatban — a szolgálati intézkedés rendelkezéseit megszegve — elalszik, szeszes italt, kábítószert vagy bódító hatású anyagot fogyaszt, szolgálati helyét engedély nélkül elhagyja, vagy a szolgálati kötelezettséget más módon súlyosan megszegi — vétség. (105/A. §)</li><li>Ha a cselekmény a szolgálatra jelentős hátrány veszélyével jár — bűntett. (105/A. §(2))</li><li>Aki tűzoltói, polgári védelmi vagy más katasztrófavédelmi szolgálatban — a szolgálati előírásokat megszegve — elalszik, ittas/bódult állapotban teljesít szolgálatot, szolgálati helyét engedély nélkül elhagyja, vagy kötelezettségét más módon súlyosan megszegi — vétség. Bűntett miatt pénzbüntetés, felfüggesztés, elbocsátás hivatali úton, vagy szabadságvesztés. (105/B. §)</li><li>Aki egészségügyi/mentési szolgálatban — az előírásokat megszegve — elalszik, szeszes italt, kábítószert vagy bódító hatású szert fogyaszt, szolgálati helyét engedély nélkül elhagyja, vagy más módon súlyosan megszegi mentési kötelezettségét — vétség. Bűntett miatt pénzbüntetés, felfüggesztés, elbocsátás hivatali úton, vagy szabadságvesztés. (105/C. §)</li><li>Aki fontos szolgálati feladat alól megtévesztéssel vagy távolmaradással kivonja magát, vagy annak teljesítésére képtelenné teszi magát — vétség. (106/C. §(1))</li><li>Ha a cselekmény a szolgálatra jelentős hátrány veszélyével jár, vagy külföldi hadműveleti területen végzett humanitárius/békefenntartó tevékenység során követik el — bűntett. (106/C. §(2))</li></ul></div>
 </section>
 
+</div>
+
+<div class="calc-widget" id="calcWidget">
+  <div class="calc-widget-header" id="calcWidgetToggle">
+    <span class="t">Halmazati számológép</span>
+    <span class="c" id="calcWidgetCount">0 tétel</span>
+  </div>
+  <div class="calc-widget-body" id="calcWidgetBody" style="display:none;">
+    <p class="calc-widget-hint">
+      Btk. 81. § szerinti logika: a legsúlyosabb tétel max. 1,5×-ösére emelhető, de nem érheti el
+      az összes tétel együttes összegét, és nem lépheti át a szerver plafonját (50 000 000 Ft / 60 nap).
+      Életfogytiglant/halálbüntetést tartalmazó tételeknél a napalapú számítás nem alkalmazható.
+    </p>
+    <div id="calcSelected"></div>
+    <div id="calcEmpty" style="color:var(--ink-muted);font-size:12.5px;">Még nincs kiválasztott tétel - kattints egy táblázatsorra.</div>
+    <div id="calcResult" class="calc-result" style="display:none;"></div>
+    <button class="calc-clear-btn" id="calcClearBtn" style="display:none;">Összes törlése</button>
+  </div>
 </div>
 
 <footer>
@@ -542,61 +560,50 @@
   });
 
   // ============== HALMAZATI BÜNTETÉS-SZÁMOLÓGÉP ==============
-  const calcItems = [["2. §  Állami szervezet tulajdonának megrongálása", 2000000, null], ["3. §  Bukósisak nélküli motorvezetés", 450000, null], ["4. §  Kanyarodási szabályok megszegése", 450000, null], ["5. §  Fényszóró használatának elmulasztása RLVK/SU", 350000, null], ["6. §  Közlekedési jelzőlámpa tilos jelzésén való áthaladás", 200000, null], ["7. § (1) Behajtási tilalom megsértése", 500000, null], ["7. § (2) Kötelező haladási irány megsértése", 500000, null], ["8. §  STOP tábla figyelmen kívül hagyása", 500000, null], ["9. §  Tilosban parkolás", 85000, null], ["10. § (1) Neoncső", 55000, null], ["10. § (2) Színes tompított fényszóró", 75000, null], ["11. § (1) 80 km/h", 60000, 0], ["11. § (2) 90 km/h", 75000, 0], ["11. § (3) 110 km/h", 80000, 0], ["11. § (4) 150 km/h+", 95000, 0], ["12. § (1) 110 km/h", 95000, 0], ["12. § (2) 120 km/h", 100000, 0], ["12. § (3) 140 km/h", 130000, 0], ["12. § (4) 180 km/h+", 160000, 0], ["13. § (1) 150 km/h", 100000, 0], ["13. § (2) 160 km/h", 120000, 0], ["13. § (3) 180 km/h", 150000, 0], ["13. § (4) 220 km/h+", 170000, 0], ["15. §  Közrend megzavarása", 800000, 0], ["16. §  Rendőrrel szembeni tiszteletlenség", 150000, 0], ["17. §  Közvagyon megrongálása", 750000, 15], ["18. § (1) Magánszemély részéről", 100000, 0], ["18. § (2) Cég részéről", 500000, 0], ["19. § 2. Lejárt forgalmi engedély", 500000, 0], ["20. § (1) Személyi sérülés nélkül", 500000, 0], ["20. § (2) Személyi sérülés esetén", 800000, 10], ["20. § (3) Haláleset esetén", 1250000, 25], ["20. § (4) Több haláleset esetén", 1500000, 35], ["21. § (1) Személyi sérülés nélkül", 800000, 0], ["21. § (2) Személyi sérülés esetén", 1250000, 10], ["21. § (3) Súlyos testi sértés esetén", 1500000, 25], ["21. § (4) Haláleset esetén", 2000000, 35], ["21. § (5) Több haláleset esetén", 3000000, 45], ["22. § (1) Magányosan", 500000, 10], ["22. § (2) Csoportosan", 800000, 20], ["22. § (4) Fegyveresen", 1000000, 25], ["22. § (5) Felfegyverkezve", 1500000, 40], ["22. § (6) Nyilvános rendezvényen", 2000000, 45], ["23. § (1) Személyi sérülés nélkül", 200000, null], ["23. § (2) Személyi sérüléssel", 500000, 30], ["23. § (3) Haláleset esetén", 1000000, 40], ["24. §  Hatóság félrevezetése", 1200000, 60], ["25. § (1) Gyalogosan", 250000, 20], ["25. § (2) Járművel", 500000, 35], ["26. §  Rendőri utasítás megszegése", 500000, 35], ["27. § (1) Magányosan", 1000000, 30], ["27. § (2) Csoportosan", 1500000, 40], ["27. § (3) Fegyveresen", 2000000, 50], ["27. § (4) Felfegyverkezve", 2500000, 55], ["27. § (5) Súlyos testi sértés esetén", 3000000, 60], ["28. § (1) Kis érték (20 000 Ft-ig)", 100000, 20], ["28. § (2) Nagy érték (20 000 Ft felett)", 200000, 30], ["28. § (3) Jelentős érték (60 000 Ft felett)", 250000, 35], ["28. § (4) Különösen nagy érték (500 000 Ft felett)", 300000, 40], ["28. § (5) Különösen jelentős érték (1 000 000 Ft felett)", 350000, 50], ["29. § (1) Kisebb kárt okoz (20 000 Ft-ig)", 100000, 10], ["29. § (2) Nagyobb kárt okoz (20 000 Ft felett)", 150000, 20], ["29. § (3) Jelentős kárt okoz (60 000 Ft felett)", 200000, 30], ["29. § (4) Különösen nagy kárt okoz (500 000 Ft felett)", 250000, 40], ["29. § (5) Különösen jelentős kárt okoz (1 000 000 Ft felett)", 300000, 50], ["29. § (6) Üzletszerűen", 350000, 60], ["29. § (7) Jótékony célú adománygyűjtést színlelve", 400000, 50], ["30. § (1) Magányosan", 100000, 20], ["30. § (2) Fegyveresen", 150000, 25], ["30. § (3) Felfegyverkezve", 350000, 35], ["30. § (4) Csoportosan", 400000, 45], ["31. § (1) Enyhe", 100000, 20], ["31. § (2) Súlyos", 200000, 45], ["32. § (1) Állami területre", 750000, 45], ["32. § (2) Rendvédelmi területre", 1250000, 60], ["33. §  Pirotechnikai eszköz forgalmazása / jogosulatlan felhasználása", 600000, 40], ["34. § (1) Súlyosabb bűncselekmény nem következik be", 450000, 25], ["34. § (2) Hozzátartozó fenyegetésével", 500000, 35], ["34. § (3) Más ember sérelmét színlelve", 510000, 45], ["34. § (4) Házastárs/élettárs sérelmére", 530000, 50], ["34. § (5) Hatalmi/befolyási helyzettel visszaélve", 550000, 55], ["35. § (1) Magányosan", 500, 20], ["35. § (2) Aljas célból", 750, 35], ["35. § (3) Nagy nyilvánosság előtt", 1000, 45], ["35. § (4) Jelentős érdeksérelmet okozva", 1500, 60], ["36. § (1) Gondatlanságból", 150000, 25], ["36. § (2) Ha büntetőeljárás indul a sértett ellen", 200000, 35], ["36. § (3) Ha elítélik a sértettet", 300000, 40], ["36. § (4) Ha a sértettet bűncselekményért ítélik el", 500000, 50], ["37. §  Hatósági eljárás megzavarása", 400000, 45], ["38. §  Hamis ügyvédkedés", 1000000, 50], ["39. §  Segítségnyújtás elmulasztása", 1500000, 25], ["40. § (1) Magányosan", 500000, 20], ["40. § (2) Csoportosan", 750000, 25], ["40. § (3) Fegyveresen", 1000000, 30], ["40. § (4) Felfegyverkezve vagy különös visszaesőként", 1300000, 40], ["41. § (1) Kisebb kárt okoz (20 000 Ft-ig)", 50000, 20], ["41. § (2) Nagyobb kárt okoz (20 000 Ft felett)", 100000, 30], ["41. § (3) Jelentős kárt okoz (60 000 Ft felett)", 200000, 40], ["41. § (4) Különösen nagy kárt okoz (500 000 Ft felett)", 250000, 50], ["41. § (5) Különösen jelentős kárt okoz (1 000 000 Ft felett)", 450000, 55], ["41. § (6) Képi, grafikus vagy szöveges felületbevonat (falfirka)", 1000000, 50], ["42. §  Illegális anyagok gyártásának előkészülete", 450000, 45], ["43. §  Kiszolgáltatott személy megalázása", 1500000, 30], ["44. §  Okirattal visszaélés", 500000, 45], ["46. § (1) Személyi sérülés nélkül", 400000, 0], ["46. § (2) Személyi sérülés esetén", 800000, 10], ["46. § (3) Súlyos testi sértés esetén", 850000, 25], ["46. § (4) Haláleset esetén", 900000, 50], ["47. § (1) 9 mm-es töltény esetében", 250000, 10], ["47. § (2) Egyéb töltény esetében", 500000, 10], ["48. § (1) 9 mm-es töltény esetében", 1000000, 15], ["48. § (2) Egyéb töltény esetében", 1500000, 15], ["49. § (1) Kiskaliber pisztoly esetében", 1000000, 15], ["49. § (2) Egyéb fegyver esetében (engedély nélkül)", 1500000, 20], ["50. § (1) Kiskaliber pisztoly esetében", 1650000, 20], ["50. § (2) Egyéb fegyver esetében (nagykaliber)", 2000000, 25], ["51. § (1) Birtoklása", 350000, 20], ["51. § (2) Árusítása", 500000, 25], ["52. § (1) Illegális fegyvergyártás", 750000, 30], ["52. § (2) Illegális kábítószer-gyártás", 850000, 30], ["53. § (1) Kis tétel (5 g-ig)", 600000, 20], ["53. § (2) Nagy tétel (5 g felett)", 700000, 25], ["54. §  Kábítószer árusítás", null, 40], ["55. §  Kábítószer termesztés", 2000000, 40], ["56. § (1) Birtoklása", 250000, 30], ["56. § (2) Árusítása", 500000, 40], ["57. § (1) Magányosan", 100000, 20], ["57. § (2) Szervezetben", 150000, 30], ["57. § (3) Fegyveresen", 200000, 40], ["57. § (4) Felfegyverkezve", 300000, 40], ["57. § (5) Hivatalos személyt érintően", 400000, 40], ["57. § (6) Személyi sérülés esetén", 230000, 45], ["57. § (7) Súlyos testi sértés esetén", 390000, 55], ["57. § (8) Előkészülete", 50000, 20], ["57. § (9) Feljelentésének elmulasztása", 30000, 25], ["58. § (1) Magányosan", 1000000, 20], ["58. § (2) Csoportosan", 1250000, 25], ["58. § (3) Bűnszövetségben", 1500000, 35], ["58. § (4) Jelentős értékre (100 000 Ft felett)", 250000, 40], ["58. § (5) Különösen nagy értékre (500 000 Ft felett)", 550000, 45], ["58. § (6) Különösen jelentős értékre (1 000 000 Ft felett)", 1100000, 60], ["58. § (7) Hivatalos/közfeladatot ellátó személy sérelmére", 1300000, 60], ["59. § (1) Magányosan", 600000, 20], ["59. § (2) Bűnszövetségben", 700000, 45], ["59. § (3) Élet vagy testi épség elleni súlyos fenyegetéssel", 720000, 45], ["59. § (4) Hivatalos megbízás/minőség színlelésével", 750000, 50], ["59. § (5) Hivatalos személyként", 1000000, 60], ["60. § (1) Magányosan", 200000, 20], ["60. § (2) Csoportosan", 500000, 30], ["60. § (3) Fegyveresen", 750000, 35], ["60. § (4) Felfegyverkezve", 850000, 40], ["61. § (1) Határzár megsértése", 100000, 30], ["61. § (2) Határzár megrongálása / jogosulatlan feloldása", 200000, 30], ["62. § (1) Jogtalan előnyt kér", 520000, 55], ["62. § (2) Jogtalan előnyt ad", 600000, 45], ["62. § (3) Azt a látszatot kelti, hogy hivatalos személyt veszteget", 750000, 30], ["62. § (4) Üzletszerűen", 900000, 40], ["63. §  Okirathamisítás", 500000, 50], ["64. §  Hivatali személy megvesztegetése", 600000, 50], ["65. §  Szexuális erőszak", 400000, 40], ["66. § (1) Magányosan", 100000, 30], ["66. § (2) Mást prostitúcióra rábír", 150000, 30], ["66. § (3) Kényszerítése", 250000, 30], ["66. § (4) Épületet/helyet prostitúció céljából rendelkezésre bocsát", 260000, 40], ["66. § (5) Bordélyház fenntartása vagy abban való részvétel, vezetés", 270000, 50], ["67. § (1) Emberölési kísérlet", 1000000, 45], ["67. § (2) Emberölési kísérlet hivatalos személlyel szemben", 3000000, null], ["67. § (3) Gyilkosság", 1250000, null], ["67. § (4) Hivatalos személy meggyilkolása", 3500000, null], ["68. § (1) Magányosan", 10000000, 35], ["68. § (2) Korrupció feljelentésének elmulasztása", 5000000, 40], ["69. §  Kötelezettségmulasztás", 500000, 45], ["70. §  Pénz-/fegyverszállító eltulajdonítása", 500000, 60], ["71. §  ATM kifosztása", 750000, 25], ["72. § (1) Magányosan", 600000, 30], ["72. § (2) Szervezetben", 750000, 40], ["72. § (3) Fegyveresen", 800000, 45], ["72. § (4) Felfegyverkezve", 810000, 50], ["73. § (1) Magányosan", 900000, 40], ["73. § (2) Szervezetben", 950000, 50], ["73. § (3) Fegyveresen", 1000000, 60], ["73. § (4) Felfegyverkezve", 1100000, 60], ["73. § (5) Pénzszállító konvoj megtámadása", 1600000, 60], ["73. § (6) Jogosulatlan behatolás", 1650000, 40], ["73. § (7) Jogosulatlan behatolás kísérlete", 1150000, 40], ["74. §  Hatósági rendelkezés elleni uszítás", 725000, 40], ["75. §  Tiltott szerencsejáték szervezése", 420000, 40], ["76. §  Bűnszövetkezetben való részvétel", 780000, 30], ["77. §  Tanúvallomás jogosulatlan megtagadása", 450000, 30], ["78. §  Nyomozás hátráltatása / akadályoztatása", 720000, 45], ["79. §  Öngyilkosságban közreműködés", 345000, 35], ["80. §  Kényszerítés", 340000, 50], ["81. §  Bántalmazás hivatalos eljárásban", 2000000, 30], ["82. §  Hivatali visszaélés", 2500000, 30], ["83. §  Minősített adattal való visszaélés", 1350000, 45], ["84. §  Ügyvédi visszaélés", 1450000, 50], ["85. §  Fogolyszökés", 1500000, 30], ["86. §  Fogolyszöktetés", 1650000, 55], ["87. §  Fogolyzendülés", 1310000, 30], ["90. § (1) Illegális rendezvény szervezése", 280000, 30], ["90. § (2) Illegális rendezvényen való részvétel", 250000, 20], ["91. §  ÁFÁ-s számla kiállításának elmulasztása", 850000, 0], ["92. §  Bejegyzetlen cég működtetése", 1000000, 40], ["93. §  Illegális munkavállalás", 540000, 20], ["94. §  Árréstörvény megsértése", 325000, 35], ["95. §  Sikkasztás", 350000, 50], ["96. §  Gazdasági csalás", 600000, 30], ["97. §  Költségvetési csalás", 750000, 20], ["98. §  Pénzmosás", 1200000, 40], ["99. §  Érvénytelen forgalmi engedély kiállítása", 450000, 30], ["100. §  Egyedi azonosító jellel visszaélés", 670000, 30], ["101. § (1) Végleges kivonás a katonai szolgálat alól", null, 15], ["101. § (2) Súlyosabb eset", null, 30], ["101. § (3) Háború idején / (2) a), b), e) pont", null, 35], ["102. § (1) 2 napnál hosszabb távollét", null, 15], ["102. § (2) 9 napnál hosszabb távollét", null, 20], ["102. § (3) Háborúban / külföldi hadművelet/békefenntartás közben", null, 35], ["103. § (1) Végleges kibúvás (öncsonkítás, egészségkárosítás, megtévesztés)", null, 25], ["103. § (2) Ideiglenes kibúvás", 2500000, 30], ["103. § (3) Ideiglenes kibúvás 6 napnál hosszabb ideig", 3000000, 30], ["103. § (4) Háború idején", null, 40], ["104. § (1) A katonai szolgálat kifejezett megtagadása", null, 10], ["104. § (2) Honvédelmi válsághelyzet idején", null, 15], ["104. § (3) Háború idején", null, 20], ["105/A. § (1) Alapeset", 5000000, 25], ["105/A. § (2) Súlyosabb eset (jelentős hátrány veszélye)", 6000000, 30], ["105/A. § (3) Legsúlyosabb eset (harchelyzet / válsághelyzet)", null, 35], ["105/A. § (4) Gondatlanságból elkövetve", null, 20], ["105/B. § (1) Alapeset", 3500000, 20], ["105/B. § (2) Súlyosabb eset (jelentős hátrány veszélye)", 3000000, 30], ["105/B. § (3) Katasztrófa- vagy veszélyhelyzet idején", null, 40], ["105/B. § (4) Gondatlanságból elkövetve", null, 25], ["105/C. § (1) Alapeset", 3500000, 20], ["105/C. § (2) Súlyosabb eset (jelentős hátrány veszélye)", 3000000, 30], ["105/C. § (3) Kiemelt járványügyi/egészségügyi veszélyhelyzet idején", null, 40], ["105/C. § (4) Gondatlanságból elkövetve", null, 25], ["106/C. § (1) Fontos szolgálati feladat alóli kivonás", 2500000, 10], ["106/C. § (2) Jelentős hátrány veszélye / külföldi hadműveleti-humanitárius-békefenntartó szolgálat", null, 15], ["106/C. § (3) Háború idején", null, 20], ["M2 Vezetői engedéllyel való visszaélés", 1000000, null], ["M3 Vadászengedéllyel való visszaélés", 1450000, null]]; // [[label, birsag_ft|null, borton_nap|null], ...]
+  // Bármelyik táblázatsorra kattintva hozzáadható - az adatokat maga a sor hordozza
+  // (data-label / data-birsag / data-borton attribútumokban).
   const PLAFON_FT = 50000000;
   const PLAFON_NAP = 60;
 
-  let selected = []; // indexek a calcItems tömbből
+  let selected = []; // { label, birsag, borton, rowEl }
 
-  const calcListEl = document.getElementById('calcList');
-  const calcSearchEl = document.getElementById('calcSearch');
-  const calcCountEl = document.getElementById('calcCount');
-  const calcSelectedWrapEl = document.getElementById('calcSelectedWrap');
+  const widgetEl = document.getElementById('calcWidget');
+  const widgetToggleEl = document.getElementById('calcWidgetToggle');
+  const widgetBodyEl = document.getElementById('calcWidgetBody');
+  const widgetCountEl = document.getElementById('calcWidgetCount');
   const calcSelectedEl = document.getElementById('calcSelected');
+  const calcEmptyEl = document.getElementById('calcEmpty');
   const calcResultEl = document.getElementById('calcResult');
+  const calcClearBtnEl = document.getElementById('calcClearBtn');
 
   function fmtFt(n){
-    return n === null ? '—' : n.toLocaleString('hu-HU') + ' Ft';
+    return (n === null || n === undefined) ? '—' : n.toLocaleString('hu-HU') + ' Ft';
   }
   function fmtNap(n){
-    return n === null ? '—' : n + ' nap';
+    return (n === null || n === undefined) ? '—' : n + ' nap';
   }
 
-  function renderList(){
-    const q = calcSearchEl.value.trim().toLowerCase();
-    let matches = calcItems
-      .map(function(item, idx){ return { item: item, idx: idx }; })
-      .filter(function(o){ return !q || o.item[0].toLowerCase().includes(q); });
+  widgetToggleEl.addEventListener('click', function(){
+    const isOpen = widgetBodyEl.style.display !== 'none';
+    widgetBodyEl.style.display = isOpen ? 'none' : 'block';
+  });
 
-    const totalCount = calcItems.length;
-    const matchCount = matches.length;
-    calcCountEl.textContent = q
-      ? matchCount + ' találat (' + totalCount + ' tételből)'
-      : 'Összesen ' + totalCount + ' tétel — kezdj el gépelni a szűkítéshez, vagy görgess a listában';
-
-    let items = matches;
-
-    calcListEl.innerHTML = '';
-    items.forEach(function(o){
-      const isAdded = selected.includes(o.idx);
-      const row = document.createElement('div');
-      row.className = 'calc-item' + (isAdded ? ' added' : '');
-      row.innerHTML =
-        '<span>' + o.item[0] + '</span>' +
-        '<span class="vals">' + fmtFt(o.item[1]) + ' · ' + fmtNap(o.item[2]) + '</span>';
-      if (!isAdded) {
-        row.addEventListener('click', function(){
-          selected.push(o.idx);
-          renderAll();
-        });
+  document.querySelectorAll('tr[data-calc="1"]').forEach(function(tr){
+    tr.addEventListener('click', function(){
+      const already = selected.find(function(s){ return s.rowEl === tr; });
+      if (already) {
+        selected = selected.filter(function(s){ return s.rowEl !== tr; });
+        tr.classList.remove('calc-selected');
+      } else {
+        const birsag = tr.dataset.birsag !== '' ? parseInt(tr.dataset.birsag, 10) : null;
+        const borton = tr.dataset.borton !== '' ? parseInt(tr.dataset.borton, 10) : null;
+        selected.push({ label: tr.dataset.label, birsag: birsag, borton: borton, rowEl: tr });
+        tr.classList.add('calc-selected');
+        widgetBodyEl.style.display = 'block';
       }
-      calcListEl.appendChild(row);
+      renderWidget();
     });
-
-    if (items.length === 0) {
-      calcListEl.innerHTML = '<div class="calc-item" style="cursor:default;">Nincs találat.</div>';
-    }
-  }
+  });
 
   function combine(vals, absoluteCap){
     if (vals.length === 0) return null;
@@ -610,73 +617,82 @@
     return Math.round(combined);
   }
 
-  function renderSelected(){
-    if (selected.length === 0) {
-      calcSelectedWrapEl.style.display = 'none';
-      calcResultEl.style.display = 'none';
-      return;
-    }
-    calcSelectedWrapEl.style.display = 'block';
+  function renderWidget(){
+    widgetCountEl.textContent = selected.length + ' tétel';
     calcSelectedEl.innerHTML = '';
 
-    selected.forEach(function(idx){
-      const item = calcItems[idx];
+    if (selected.length === 0) {
+      calcEmptyEl.style.display = 'block';
+      calcResultEl.style.display = 'none';
+      calcClearBtnEl.style.display = 'none';
+      return;
+    }
+
+    calcEmptyEl.style.display = 'none';
+    calcClearBtnEl.style.display = 'block';
+
+    selected.forEach(function(s){
       const row = document.createElement('div');
       row.className = 'calc-selected-item';
       row.innerHTML =
-        '<span>' + item[0] + ' <span style="color:var(--ink-muted);font-family:\'IBM Plex Mono\',monospace;font-size:11.5px;">(' + fmtFt(item[1]) + ' · ' + fmtNap(item[2]) + ')</span></span>' +
-        '<button data-idx="' + idx + '">Eltávolítás</button>';
-      row.querySelector('button').addEventListener('click', function(){
-        selected = selected.filter(function(i){ return i !== idx; });
-        renderAll();
+        '<span>' + s.label + '<br><span class="vals">' + fmtFt(s.birsag) + ' · ' + fmtNap(s.borton) + '</span></span>' +
+        '<button>Ki</button>';
+      row.querySelector('button').addEventListener('click', function(e){
+        e.stopPropagation();
+        selected = selected.filter(function(x){ return x !== s; });
+        s.rowEl.classList.remove('calc-selected');
+        renderWidget();
       });
       calcSelectedEl.appendChild(row);
     });
 
-    const birsagVals = selected.map(function(i){ return calcItems[i][1]; }).filter(function(v){ return v !== null; });
-    const bortonVals = selected.map(function(i){ return calcItems[i][2]; }).filter(function(v){ return v !== null; });
+    const birsagVals = selected.map(function(s){ return s.birsag; }).filter(function(v){ return v !== null; });
+    const bortonVals = selected.map(function(s){ return s.borton; }).filter(function(v){ return v !== null; });
 
     const birsagCombined = combine(birsagVals, PLAFON_FT);
     const bortonCombined = combine(bortonVals, PLAFON_NAP);
 
-    let html = '<h3>Halmazati eredmény</h3>';
+    let html = '';
 
     if (birsagVals.length > 0) {
       const maxB = Math.max.apply(null, birsagVals);
       const sumB = birsagVals.reduce(function(a,b){ return a+b; }, 0);
-      html += '<div class="calc-row"><span class="label">Legsúlyosabb bírságtétel</span><span>' + fmtFt(maxB) + '</span></div>';
+      html += '<h3>Halmazati bírság</h3>';
+      html += '<div class="calc-row"><span class="label">Legsúlyosabb tétel</span><span>' + fmtFt(maxB) + '</span></div>';
       if (birsagVals.length > 1) {
         html += '<div class="calc-row"><span class="label">1,5×-ösre emelve</span><span>' + fmtFt(Math.round(maxB*1.5)) + '</span></div>';
-        html += '<div class="calc-row"><span class="label">Összes tétel együtt (ezt nem érheti el)</span><span>' + fmtFt(sumB) + '</span></div>';
+        html += '<div class="calc-row"><span class="label">Összesen (ezt nem érheti el)</span><span>' + fmtFt(sumB) + '</span></div>';
       }
-      html += '<div class="calc-row"><span class="label">Szerver plafon</span><span>' + fmtFt(PLAFON_FT) + '</span></div>';
-      html += '<div class="calc-row final"><span class="label">Kiszabható halmazati bírság</span><span class="value">' + fmtFt(birsagCombined) + '</span></div>';
+      html += '<div class="calc-row final"><span class="label">Kiszabható bírság</span><span class="value">' + fmtFt(birsagCombined) + '</span></div>';
     }
 
     if (bortonVals.length > 0) {
       const maxD = Math.max.apply(null, bortonVals);
       const sumD = bortonVals.reduce(function(a,b){ return a+b; }, 0);
-      html += '<h3 style="margin-top:22px;">Halmazati börtönidő</h3>';
-      html += '<div class="calc-row"><span class="label">Legsúlyosabb börtöntétel</span><span>' + fmtNap(maxD) + '</span></div>';
+      html += '<h3 style="margin-top:14px;">Halmazati börtönidő</h3>';
+      html += '<div class="calc-row"><span class="label">Legsúlyosabb tétel</span><span>' + fmtNap(maxD) + '</span></div>';
       if (bortonVals.length > 1) {
         html += '<div class="calc-row"><span class="label">1,5×-ösre emelve</span><span>' + fmtNap(Math.round(maxD*1.5)) + '</span></div>';
-        html += '<div class="calc-row"><span class="label">Összes tétel együtt (ezt nem érheti el)</span><span>' + fmtNap(sumD) + '</span></div>';
+        html += '<div class="calc-row"><span class="label">Összesen (ezt nem érheti el)</span><span>' + fmtNap(sumD) + '</span></div>';
       }
-      html += '<div class="calc-row"><span class="label">Szerver plafon</span><span>' + fmtNap(PLAFON_NAP) + '</span></div>';
-      html += '<div class="calc-row final"><span class="label">Kiszabható halmazati börtönidő</span><span class="value">' + fmtNap(bortonCombined) + '</span></div>';
+      html += '<div class="calc-row final"><span class="label">Kiszabható börtönidő</span><span class="value">' + fmtNap(bortonCombined) + '</span></div>';
     }
 
-    calcResultEl.innerHTML = html;
-    calcResultEl.style.display = 'block';
+    if (html) {
+      calcResultEl.innerHTML = html;
+      calcResultEl.style.display = 'block';
+    } else {
+      calcResultEl.style.display = 'none';
+    }
   }
 
-  function renderAll(){
-    renderList();
-    renderSelected();
-  }
+  calcClearBtnEl.addEventListener('click', function(){
+    selected.forEach(function(s){ s.rowEl.classList.remove('calc-selected'); });
+    selected = [];
+    renderWidget();
+  });
 
-  calcSearchEl.addEventListener('input', renderList);
-  renderAll();
+  renderWidget();
 </script>
 
 </body>
