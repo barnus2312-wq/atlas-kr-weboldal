@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motozási jegyzőkönyv - Atlas Roleplay KR</title>
+<link rel="stylesheet" href="style.css">
+<style>
+
+
+  .site-header-wrap{background:var(--bg-0);}
+  @media print{ .site-header-wrap, .site-footer-wrap { display:none !important; } }
+
+  /* Képernyőn a site sötét témáját használjuk */
+  :root{
+    --paper:#171F29;
+    --ink:#E8E5DC;
+    --ink-soft:#B7BEC7;
+    --line:#283442;
+    --line-strong:#3A4855;
+    --red:#B4303F;
+    --gold:#D4AF6A;
+    --field-bg:#1E2833;
+    --muted:#7C8794;
+  }
+  /* Nyomtatáskor / PDF-mentéskor visszaáll a fehér papír-nézet */
+  @media print{
+    :root{
+      --paper:#F7F5F0;
+      --ink:#1B2A44;
+      --ink-soft:#3E4C63;
+      --line:#C9C3B4;
+      --line-strong:#8B8471;
+      --red:#8C1F28;
+      --gold:#8C7A4B;
+      --field-bg:#FFFFFF;
+      --muted:#6B6F76;
+    }
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg-0);
+    font-family:'Source Serif 4','Georgia',serif;
+    color:var(--ink);
+    padding:32px 16px 64px;
+  }
+  @media print{
+    body{background:#fff;padding:0;}
+    .no-print{display:none !important;}
+    .sheet{box-shadow:none !important;margin:0 !important;}
+  }
+  .toolbar{
+    max-width:900px;
+    margin:0 auto 20px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+    font-family:'IBM Plex Sans','Segoe UI',sans-serif;
+  }
+  .tab{
+    padding:9px 16px;
+    border:1px solid var(--line-strong);
+    background:var(--field-bg);
+    color:var(--ink-soft);
+    font-size:13px;
+    letter-spacing:.02em;
+    cursor:pointer;
+    border-radius:2px;
+  }
+  .tab.active{
+    background:var(--gold);
+    color:var(--bg-0);
+    border-color:var(--gold);
+  }
+  .spacer{flex:1;}
+  .printbtn{
+    padding:9px 18px;
+    border:1px solid var(--red);
+    background:var(--red);
+    color:#fff;
+    font-size:13px;
+    cursor:pointer;
+    border-radius:2px;
+  }
+  .sheet{
+    max-width:900px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    border:1px solid var(--line-strong);
+    box-shadow:0 4px 18px rgba(27,42,68,.12);
+    padding:0;
+    display:none;
+  }
+  .sheet.active{display:block;}
+  .masthead{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:26px 36px 20px;
+    border-bottom:2px solid var(--ink);
+  }
+  .seal{
+    width:56px;height:56px;flex:none;
+    border:2px solid var(--gold);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+  }
+  .seal::before{
+    content:"";
+    position:absolute;inset:5px;
+    border:1px solid var(--gold);
+    border-radius:50%;
+  }
+  .seal span{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:9px;
+    letter-spacing:.05em;
+    color:var(--gold);
+    text-align:center;
+    line-height:1.2;
+  }
+  .mast-text .kicker{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--red);
+    margin:0 0 4px;
+  }
+  .mast-text h1{
+    font-size:22px;
+    font-weight:600;
+    margin:0 0 4px;
+    letter-spacing:.01em;
+  }
+  .mast-text .sub{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .ugyszam{
+    margin-left:auto;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    text-align:right;
+  }
+  .ugyszam input{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    width:150px;
+    text-align:right;
+  }
+  .body-pad{padding:26px 36px 36px;}
+  fieldset{
+    border:none;
+    border-top:1px solid var(--line);
+    margin:0 0 22px;
+    padding:16px 0 0;
+  }
+  legend{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--red);
+    padding:0 2px 0 0;
+    margin-left:-2px;
+  }
+  .row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-bottom:12px;
+  }
+  .row.three{grid-template-columns:1fr 1fr 1fr;}
+  .field label{
+    display:block;
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:11.5px;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  input[type=text],input[type=date],input[type=time],textarea,select{
+    width:100%;
+    background:var(--field-bg);
+    border:1px solid var(--line-strong);
+    border-radius:2px;
+    padding:8px 10px;
+    font-family:'Source Serif 4',serif;
+    font-size:14px;
+    color:var(--ink);
+  }
+  textarea{resize:vertical;min-height:70px;font-family:'Source Serif 4',serif;line-height:1.55;}
+  .legal-text{
+    font-size:14px;
+    line-height:1.7;
+    color:var(--ink-soft);
+    background:rgba(140,122,75,.06);
+    border-left:2px solid var(--gold);
+    padding:14px 18px;
+    margin:0 0 16px;
+  }
+  .legal-text p{margin:0 0 10px;}
+  .legal-text p:last-child{margin-bottom:0;}
+  .checks{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:13px;
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+  }
+  .checks label{
+    display:flex;align-items:flex-start;gap:8px;
+    color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .checks input{margin-top:2px;}
+  .sig-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin-top:28px;
+  }
+  .sig-block{
+    border-top:1px solid var(--ink);
+    padding-top:6px;
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:11.5px;
+    color:var(--muted);
+  }
+  .note{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:11.5px;
+    color:var(--muted);
+    margin-top:2px;
+  }
+  .timer-line{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--red);
+    background:rgba(140,31,40,.06);
+    border:1px dashed var(--red);
+    padding:8px 12px;
+    margin-bottom:18px;
+    display:inline-block;
+  }
+
+  .letterhead-top{
+    display:flex;justify-content:space-between;gap:24px;
+    padding:14px 36px;background:rgba(140,122,75,.08);
+    border-bottom:1px solid var(--line);
+    font-family:'IBM Plex Sans',sans-serif;font-size:12.5px;
+  }
+  .ll-field{display:flex;align-items:baseline;gap:8px;flex:1;}
+  .ll-label{color:var(--muted);white-space:nowrap;}
+  .ll-input{
+    border:none;border-bottom:1px dotted var(--line-strong);
+    background:transparent;font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;color:var(--ink);flex:1;padding:2px 4px;
+  }
+  .ll-input:focus{outline:none;border-bottom-color:var(--gold);}
+  .formal-close{
+    margin-top:32px;padding-top:22px;border-top:1px solid var(--line);
+    font-family:'IBM Plex Sans',sans-serif;
+  }
+  .formal-close p{font-size:13px;color:var(--ink-soft);margin:0 0 20px;}
+  .inline-input{
+    border:none;border-bottom:1px dotted var(--line-strong);
+    background:transparent;font-family:'Source Serif 4',serif;
+    font-size:14px;color:var(--ink);padding:1px 3px;
+  }
+  .inline-input.small{width:36px;text-align:center;}
+  .sig-block-official{max-width:280px;text-align:center;margin-top:8px;}
+  .sig-block-official input{
+    width:100%;text-align:center;border:none;border-bottom:1px solid var(--ink);
+    background:transparent;font-family:'Source Serif 4',serif;font-size:14.5px;
+    color:var(--ink);padding:4px 0 6px;
+  }
+  .role-line{
+    font-family:'IBM Plex Sans',sans-serif;font-size:11px;color:var(--muted);
+    letter-spacing:.04em;text-transform:uppercase;margin-top:6px;
+  }
+  .letter-footer-bar{
+    border-top:1px solid var(--line);padding:14px 36px;
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);
+    text-align:center;letter-spacing:.02em;
+  }
+
+
+</style>
+</head>
+<body>
+
+<header class="site-header-wrap">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <div class="crest"><span>ARP<br>KR</span></div>
+      <div class="brand-text">
+        <div class="name">Készenléti Rendőrség</div>
+        <div class="unit">Atlas Roleplay</div>
+      </div>
+    </a>
+    <nav class="links">
+      <a href="index.html">Kezdőlap</a>
+      <a href="rolunk.html">Rólunk</a>
+      <a href="ranglista.html">Ranglista</a>
+      <a href="allomany.html">Állomány</a>
+      <a href="btk.html">BTK</a>
+      <a href="dokumentumok.html" class="active">Dokumentumok</a>
+      <a href="hirek.html">Hírek</a>
+    </nav>
+    <a href="jelentkezes.html" class="nav-cta">Jelentkezés</a>
+  </div>
+</header>
+
+<div class="toolbar no-print">
+  <div class="spacer"></div>
+  <button class="printbtn" onclick="window.print()">Nyomtatás / mentés PDF-ként</button>
+</div>
+
+<div class="sheet active" id="sheet-single">
+
+  <div class="letterhead-top">
+    <div class="ll-field"><span class="ll-label">Szám:</span> <input class="ll-input" type="text" placeholder="___-___/2026."></div>
+    <div class="ll-field" style="flex:2;"><span class="ll-label">Tárgy:</span> <input class="ll-input" type="text" value="motozás foganatosítása"></div>
+  </div>
+
+  <div class="masthead">
+    <div class="seal"><span>ARP<br>KR</span></div>
+    <div class="mast-text">
+      <p class="kicker">Készenléti Rendőrség</p>
+      <h1>Motozási jegyzőkönyv</h1>
+      <p class="sub">Be. - kényszerintézkedések, motozás</p>
+    </div>
+  </div>
+
+  <div class="body-pad">
+
+    <p style="font-size:11.5px;color:var(--muted);font-family:'IBM Plex Sans',sans-serif;margin-bottom:20px;line-height:1.6;">A motozás a bizonyítási eszköz, illetve az elkobozható vagy vagyonelkobzás alá eső dolog megtalálása céljából a motozás alá vont személy ruházatának és testének átvizsgálása. A felszólítás önkéntes teljesítésének megtagadása esetén alkalmazható (Be. - kényszerintézkedések, vö. Be. 312. §). A pontos alszakaszt az eredeti törvényszöveggel érdemes egyeztetni, mielőtt élesben hivatkoznátok rá.</p>
+
+
+    <fieldset>
+      <legend>Motozott személy adatai</legend>
+      <div class="row three">
+        <div class="field"><label>Név</label><input type="text"></div>
+        <div class="field"><label>Születési hely, idő</label><input type="text"></div>
+        <div class="field"><label>Lakcím</label><input type="text"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>A motozás körülményei</legend>
+      <div class="row">
+        <div class="field"><label>Elrendelő</label>
+          <select>
+            <option>Intézkedő rendőr (helyszíni, halaszthatatlan)</option>
+            <option>Nyomozó hatóság</option>
+            <option>Ügyészség</option>
+          </select>
+        </div>
+        <div class="field"><label>Motozást végző neme</label>
+          <select>
+            <option>Azonos nemű a motozott személlyel</option>
+            <option>Eltérő nemű - halasztást nem tűrő ok miatt</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>A motozás oka / célja</label><textarea placeholder="Bizonyítási eszköz, elkobozható vagy vagyonelkobzás alá eső dolog felkutatása; a kényszerítő ok megjelölése..."></textarea></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Jogi tájékoztatás szövege</legend>
+      <div class="legal-text">
+        <p>Tájékoztatom, hogy Önt a fenti okból, a Be. vonatkozó rendelkezései alapján megmotozzuk. A motozás a ruházat és a nálam lévő tárgyak átvizsgálására terjed ki. A motozást lehetőség szerint az Önnel azonos nemű személy hajtja végre.</p>
+        <p>Amennyiben a felszólításra a keresett dolog hollétét önként felfedi, a motozás mellőzhető vagy egyszerűsíthető. A motozás eredményéről és a talált tárgyakról jegyzőkönyv készül.</p>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Talált tárgyak</legend>
+      <table>
+        <thead><tr><th>#</th><th>Megnevezés</th><th>Mennyiség</th><th>Intézkedés (lefoglalva / visszaadva / megsemmisítve)</th></tr></thead>
+        <tbody>
+          <tr><td>1.</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+          <tr><td>2.</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+          <tr><td>3.</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+        </tbody>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>Jelenlévők, megjegyzés</legend>
+      <div class="row">
+        <div class="field"><label>Jelen lévő tanú (ha volt)</label><input type="text"></div>
+        <div class="field"><label>Motozást végző rendőr</label><input type="text"></div>
+      </div>
+      <div class="field" style="margin-top:12px;"><label>Megjegyzés</label><textarea placeholder="Ellenállás ténye, sérülés, egyéb körülmény..."></textarea></div>
+    </fieldset>
+
+    <div class="sig-row">
+      <div class="sig-block">Motozott személy aláírása</div>
+      <div class="sig-block">Motozást végző rendőr aláírása, azonosító</div>
+    </div>
+
+
+    <div class="formal-close">
+      <p>Kelt: <input class="inline-input" style="width:160px;" type="text" placeholder="Atlas City"> , 2026. <input class="inline-input small" type="text" placeholder="__"> hó <input class="inline-input small" type="text" placeholder="__"> napján.</p>
+      <div class="sig-block-official">
+        <input type="text" placeholder="rendfokozat, név">
+        <p class="role-line">motozást elrendelő / végrehajtó rendőr</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="letter-footer-bar">KÉSZENLÉTI RENDŐRSÉG · ATLAS ROLEPLAY · discord.gg/atlasroleplay</div>
+
+<footer class="site-footer-wrap">
+  <div class="wrap foot-inner">
+    <p>Atlas Roleplay - Készenléti Rendőrség. Fiktív szerepjáték-tartalom, nem valós hatósági szerv.</p>
+    <p>Discord: discord.gg/atlasroleplay</p>
+  </div>
+</footer>
+
+</body>
+</html>
