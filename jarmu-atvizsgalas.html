@@ -3,294 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gépjármű átvizsgálási jegyzőkönyv - Atlas Roleplay KR</title>
+<title>Jegyzőkönyv - Atlas Roleplay KR</title>
 <link rel="stylesheet" href="style.css">
 <style>
 
-
-  .site-header-wrap{background:var(--bg-0);}
-  @media print{ .site-header-wrap, .site-footer-wrap { display:none !important; } }
-
-  /* Képernyőn a site sötét témáját használjuk */
-  :root{
-    --paper:#171F29;
-    --ink:#E8E5DC;
-    --ink-soft:#B7BEC7;
-    --line:#283442;
-    --line-strong:#3A4855;
-    --red:#B4303F;
-    --gold:#D4AF6A;
-    --field-bg:#1E2833;
-    --muted:#7C8794;
-  }
-  /* Nyomtatáskor / PDF-mentéskor visszaáll a fehér papír-nézet */
-  @media print{
-    :root{
-      --paper:#F7F5F0;
-      --ink:#1B2A44;
-      --ink-soft:#3E4C63;
-      --line:#C9C3B4;
-      --line-strong:#8B8471;
-      --red:#8C1F28;
-      --gold:#8C7A4B;
-      --field-bg:#FFFFFF;
-      --muted:#6B6F76;
-    }
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--bg-0);
+  body{ margin:0; background:var(--bg-0); }
+  .paper-wrap{ padding:56px 20px 100px; }
+  .paper-sheet{
+    max-width:820px;margin:0 auto;background:#F7F5F0;color:#181614;
     font-family:'Source Serif 4','Georgia',serif;
-    color:var(--ink);
-    padding:32px 16px 64px;
+    padding:56px 64px 60px;
+    box-shadow:0 10px 40px rgba(0,0,0,.45);
+    line-height:1.7;
+    font-size:14.5px;
   }
   @media print{
-    body{background:#fff;padding:0;}
-    .no-print{display:none !important;}
-    .sheet{box-shadow:none !important;margin:0 !important;}
+    body{background:#fff;}
+    .no-print, header, footer{display:none !important;}
+    .paper-wrap{padding:0;background:#fff;}
+    .paper-sheet{box-shadow:none;max-width:100%;padding:24px 30px;}
   }
-  .toolbar{
-    max-width:900px;
-    margin:0 auto 20px;
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    align-items:center;
-    font-family:'IBM Plex Sans','Segoe UI',sans-serif;
+  .paper-org{text-align:left;margin-bottom:2px;}
+  .paper-org b{display:block;font-size:14.5px;letter-spacing:.02em;}
+  .paper-org i{font-size:12.5px;color:#333;}
+  .paper-ugyszam{margin:16px 0 30px;font-size:13.5px;}
+  .paper-targy{font-size:13.5px;margin-top:4px;}
+  .paper-title{text-align:center;margin:26px 0 6px;}
+  .paper-title h1{font-size:21px;font-weight:700;letter-spacing:.03em;margin:0;text-transform:uppercase;}
+  .paper-subtitle{text-align:center;font-style:italic;font-size:13.5px;color:#333;margin-bottom:28px;}
+  .p-field{margin:13px 0;}
+  .p-field b{font-weight:700;}
+  .p-blank{
+    border:none;border-bottom:1px solid #111;background:transparent;
+    font-family:inherit;font-size:inherit;color:#111;padding:1px 4px;
   }
-  .tab{
-    padding:9px 16px;
-    border:1px solid var(--line-strong);
-    background:var(--field-bg);
-    color:var(--ink-soft);
-    font-size:13px;
-    letter-spacing:.02em;
-    cursor:pointer;
-    border-radius:2px;
+  .p-blank.tiny{width:38px;text-align:center;}
+  .p-blank.small{width:110px;}
+  .p-blank.med{width:220px;}
+  .p-blank.wide{width:100%;}
+  .p-row-2{display:flex;gap:26px;flex-wrap:wrap;margin:13px 0;}
+  .p-row-2 > div{flex:1;min-width:200px;}
+  .p-row-3{display:flex;gap:20px;flex-wrap:wrap;margin:13px 0;}
+  .p-row-3 > div{flex:1;min-width:150px;}
+  .p-sig-table{width:100%;border-collapse:collapse;margin-top:44px;}
+  .p-sig-table td{width:50%;text-align:center;vertical-align:bottom;padding:0 20px;font-size:12.5px;}
+  .p-sig-line{border-bottom:1px solid #111;margin-bottom:6px;height:34px;}
+  .p-section-title{font-weight:700;margin-top:26px;margin-bottom:10px;font-size:14.5px;}
+  .p-note{font-size:12px;font-style:italic;color:#444;margin-top:8px;}
+  .p-footer-note{margin-top:46px;font-size:11.5px;font-style:italic;color:#555;border-top:1px solid #ccc;padding-top:14px;}
+  .p-closing{margin-top:34px;font-size:14px;}
+  .p-warning{margin-top:22px;padding:12px 16px;border-left:3px solid #900;font-size:12.5px;font-style:italic;background:rgba(150,0,0,.05);}
+  .p-numbered{margin:6px 0;padding-left:0;}
+  .p-numbered .num{font-weight:700;margin-right:6px;}
+  .p-dash-list{margin:8px 0 8px 18px;}
+  .toolbar-paper{
+    display:flex;justify-content:flex-end;max-width:820px;margin:0 auto 14px;padding:0 4px;
   }
-  .tab.active{
-    background:var(--gold);
-    color:var(--bg-0);
-    border-color:var(--gold);
+  .printbtn2{
+    padding:9px 18px;border:1px solid var(--red);background:var(--red);color:#fff;
+    font-family:'Oswald',sans-serif;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;
+    border-radius:2px;cursor:pointer;
   }
-  .spacer{flex:1;}
-  .printbtn{
-    padding:9px 18px;
-    border:1px solid var(--red);
-    background:var(--red);
-    color:#fff;
-    font-size:13px;
-    cursor:pointer;
-    border-radius:2px;
-  }
-  .sheet{
-    max-width:900px;
-    margin:0 auto 40px;
-    background:var(--paper);
-    border:1px solid var(--line-strong);
-    box-shadow:0 4px 18px rgba(27,42,68,.12);
-    padding:0;
-    display:none;
-  }
-  .sheet.active{display:block;}
-  .masthead{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    padding:26px 36px 20px;
-    border-bottom:2px solid var(--ink);
-  }
-  .seal{
-    width:56px;height:56px;flex:none;
-    border:2px solid var(--gold);
-    border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    position:relative;
-  }
-  .seal::before{
-    content:"";
-    position:absolute;inset:5px;
-    border:1px solid var(--gold);
-    border-radius:50%;
-  }
-  .seal span{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:9px;
-    letter-spacing:.05em;
-    color:var(--gold);
-    text-align:center;
-    line-height:1.2;
-  }
-  .mast-text .kicker{
-    font-family:'IBM Plex Sans',sans-serif;
-    font-size:11px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--red);
-    margin:0 0 4px;
-  }
-  .mast-text h1{
-    font-size:22px;
-    font-weight:600;
-    margin:0 0 4px;
-    letter-spacing:.01em;
-  }
-  .mast-text .sub{
-    font-family:'IBM Plex Sans',sans-serif;
-    font-size:12.5px;
-    color:var(--ink-soft);
-    margin:0;
-  }
-  .ugyszam{
-    margin-left:auto;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px;
-    color:var(--ink-soft);
-    text-align:right;
-  }
-  .ugyszam input{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:13px;
-    width:150px;
-    text-align:right;
-  }
-  .body-pad{padding:26px 36px 36px;}
-  fieldset{
-    border:none;
-    border-top:1px solid var(--line);
-    margin:0 0 22px;
-    padding:16px 0 0;
-  }
-  legend{
-    font-family:'IBM Plex Sans',sans-serif;
-    font-size:11px;
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    color:var(--red);
-    padding:0 2px 0 0;
-    margin-left:-2px;
-  }
-  .row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
-    margin-bottom:12px;
-  }
-  .row.three{grid-template-columns:1fr 1fr 1fr;}
-  .field label{
-    display:block;
-    font-family:'IBM Plex Sans',sans-serif;
-    font-size:11.5px;
-    color:var(--muted);
-    margin-bottom:4px;
-  }
-  input[type=text],input[type=date],input[type=time],textarea,select{
-    width:100%;
-    background:var(--field-bg);
-    border:1px solid var(--line-strong);
-    border-radius:2px;
-    padding:8px 10px;
-    font-family:'Source Serif 4',serif;
-    font-size:14px;
-    color:var(--ink);
-  }
-  textarea{resize:vertical;min-height:70px;font-family:'Source Serif 4',serif;line-height:1.55;}
-  .legal-text{
-    font-size:14px;
-    line-height:1.7;
-    color:var(--ink-soft);
-    background:rgba(140,122,75,.06);
-    border-left:2px solid var(--gold);
-    padding:14px 18px;
-    margin:0 0 16px;
-  }
-  .legal-text p{margin:0 0 10px;}
-  .legal-text p:last-child{margin-bottom:0;}
-  .checks{
-    font-family:'IBM Plex Sans',sans-serif;
-    font-size:13px;
-    display:flex;
-    flex-direction:column;
-    gap:9px;
-  }
-  .checks label{
-    display:flex;align-items:flex-start;gap:8px;
-    color:var(--ink-soft);
-    cursor:pointer;
-  }
-  .checks input{margin-top:2px;}
-  .sig-row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:24px;
-    margin-top:28px;
-  }
-  .sig-block{
-    border-top:1px solid var(--ink);
-    padding-top:6px;
-    font-family:'IBM Plex Sans',sans-serif;
-    font-size:11.5px;
-    color:var(--muted);
-  }
-  .note{
-    font-family:'IBM Plex Sans',sans-serif;
-    font-size:11.5px;
-    color:var(--muted);
-    margin-top:2px;
-  }
-  .timer-line{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12.5px;
-    color:var(--red);
-    background:rgba(140,31,40,.06);
-    border:1px dashed var(--red);
-    padding:8px 12px;
-    margin-bottom:18px;
-    display:inline-block;
-  }
-
-  .letterhead-top{
-    display:flex;justify-content:space-between;gap:24px;
-    padding:14px 36px;background:rgba(140,122,75,.08);
-    border-bottom:1px solid var(--line);
-    font-family:'IBM Plex Sans',sans-serif;font-size:12.5px;
-  }
-  .ll-field{display:flex;align-items:baseline;gap:8px;flex:1;}
-  .ll-label{color:var(--muted);white-space:nowrap;}
-  .ll-input{
-    border:none;border-bottom:1px dotted var(--line-strong);
-    background:transparent;font-family:'IBM Plex Mono',monospace;
-    font-size:12.5px;color:var(--ink);flex:1;padding:2px 4px;
-  }
-  .ll-input:focus{outline:none;border-bottom-color:var(--gold);}
-  .formal-close{
-    margin-top:32px;padding-top:22px;border-top:1px solid var(--line);
-    font-family:'IBM Plex Sans',sans-serif;
-  }
-  .formal-close p{font-size:13px;color:var(--ink-soft);margin:0 0 20px;}
-  .inline-input{
-    border:none;border-bottom:1px dotted var(--line-strong);
-    background:transparent;font-family:'Source Serif 4',serif;
-    font-size:14px;color:var(--ink);padding:1px 3px;
-  }
-  .inline-input.small{width:36px;text-align:center;}
-  .sig-block-official{max-width:280px;text-align:center;margin-top:8px;}
-  .sig-block-official input{
-    width:100%;text-align:center;border:none;border-bottom:1px solid var(--ink);
-    background:transparent;font-family:'Source Serif 4',serif;font-size:14.5px;
-    color:var(--ink);padding:4px 0 6px;
-  }
-  .role-line{
-    font-family:'IBM Plex Sans',sans-serif;font-size:11px;color:var(--muted);
-    letter-spacing:.04em;text-transform:uppercase;margin-top:6px;
-  }
-  .letter-footer-bar{
-    border-top:1px solid var(--line);padding:14px 36px;
-    font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);
-    text-align:center;letter-spacing:.02em;
-  }
-
 
 </style>
 </head>
@@ -318,112 +91,77 @@
   </div>
 </header>
 
-<div class="toolbar no-print">
-  <div class="spacer"></div>
-  <button class="printbtn" onclick="window.print()">Nyomtatás / mentés PDF-ként</button>
-</div>
-
-<div class="sheet active" id="sheet-single">
-
-  <div class="letterhead-top">
-    <div class="ll-field"><span class="ll-label">Szám:</span> <input class="ll-input" type="text" placeholder="___-___/2026."></div>
-    <div class="ll-field" style="flex:2;"><span class="ll-label">Tárgy:</span> <input class="ll-input" type="text" value="gépjármű átvizsgálásának foganatosítása"></div>
+<div class="paper-wrap">
+  <div class="toolbar-paper no-print">
+    <button class="printbtn2" onclick="window.print()">Nyomtatás / mentés PDF-ként</button>
   </div>
 
-  <div class="masthead">
-    <div class="seal"><span>ARP<br>KR</span></div>
-    <div class="mast-text">
-      <p class="kicker">Készenléti Rendőrség</p>
-      <h1>Gépjármű átvizsgálási jegyzőkönyv</h1>
-      <p class="sub">Rtv. - jármű átvizsgálása</p>
+  <div class="paper-sheet">
+    <div class="paper-org">
+      <b>KÉSZENLÉTI RENDŐRSÉG</b>
+      <b>ATLAS ROLEPLAY</b>
+      <i>Bűnügyi Osztály – Bűnüldözési Alosztály</i>
     </div>
-  </div>
-
-  <div class="body-pad">
-
-    <p style="font-size:11.5px;color:var(--muted);font-family:'IBM Plex Sans',sans-serif;margin-bottom:20px;line-height:1.6;">A rendőr közbiztonsági vagy bűnüldözési célból, jogszabályban meghatározott feltételek fennállása esetén jogosult a közúti járművet átvizsgálni. Az átvizsgálás megkezdése előtt és után rögzíteni kell a jármű állapotát, hogy az esetleges vitás kérdések (pl. sérülés keletkezése) tisztázhatók legyenek.</p>
-
-
-    <fieldset>
-      <legend>Jármű adatai</legend>
-      <div class="row three">
-        <div class="field"><label>Rendszám</label><input type="text"></div>
-        <div class="field"><label>Típus, márka</label><input type="text"></div>
-        <div class="field"><label>Szín</label><input type="text"></div>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Vezető / tulajdonos adatai</legend>
-      <div class="row three">
-        <div class="field"><label>Vezető neve</label><input type="text"></div>
-        <div class="field"><label>Vezetői engedély száma</label><input type="text"></div>
-        <div class="field"><label>Tulajdonos (ha eltér)</label><input type="text"></div>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Az átvizsgálás körülményei</legend>
-      <div class="row">
-        <div class="field"><label>Az átvizsgálás oka</label>
-          <select>
-            <option>Bűncselekmény gyanúja</option>
-            <option>Rtv. szerinti közbiztonsági intézkedés</option>
-            <option>A jármű vezetőjének hozzájárulása</option>
-            <option>Egyéb</option>
-          </select>
-        </div>
-        <div class="field"><label>Átvizsgálás helye</label><input type="text"></div>
-      </div>
-      <div class="field"><label>Az átvizsgálás oka - részletesen</label><textarea></textarea></div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Jogi tájékoztatás szövege</legend>
-      <div class="legal-text">
-        <p>Tájékoztatom, hogy a jármű átvizsgálására közbiztonsági, illetve bűnüldözési okból, jogszabályban meghatározott feltételek fennállása esetén kerül sor. Az átvizsgálás a jármű utasterére, csomagterére és a jogszabály által meghatározott egyéb részeire terjedhet ki.</p>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>A jármű állapota</legend>
-      <div class="row">
-        <div class="field"><label>Állapot átvizsgálás előtt</label><textarea placeholder="Sérülések, hiányosságok rögzítése az átvizsgálás megkezdése előtt"></textarea></div>
-        <div class="field"><label>Állapot átvizsgálás után</label><textarea placeholder="Az átvizsgálás során keletkezett esetleges változás rögzítése"></textarea></div>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Talált tárgyak</legend>
-      <table>
-        <thead><tr><th>#</th><th>Megnevezés</th><th>Találás helye a járműben</th><th>Intézkedés</th></tr></thead>
-        <tbody>
-          <tr><td>1.</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-          <tr><td>2.</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-        </tbody>
-      </table>
-    </fieldset>
-
-    <div class="sig-row">
-      <div class="sig-block">Jármű vezetőjének aláírása</div>
-      <div class="sig-block">Átvizsgálást végző rendőr aláírása, azonosító</div>
+    <div class="paper-ugyszam">
+      <b>Ügyszám:</b> 01060–<input class="p-blank small" type="text" placeholder="______">/<input class="p-blank tiny" type="text" placeholder="____">. sz.
+      
     </div>
 
+    
 
-    <div class="formal-close">
-      <p>Kelt: <input class="inline-input" style="width:160px;" type="text" placeholder="Atlas City"> , 2026. <input class="inline-input small" type="text" placeholder="__"> hó <input class="inline-input small" type="text" placeholder="__"> napján.</p>
-      <div class="sig-block-official">
-        <input type="text" placeholder="rendfokozat, név">
-        <p class="role-line">átvizsgálást végző rendőr</p>
-      </div>
+    <div class="paper-title"><h1>JEGYZŐKÖNYV</h1></div>
+    <div class="paper-subtitle">gépjármű átvizsgálásáról</div>
+
+    
+    <div class="p-field">
+      Készült <input class="p-blank med" type="text"> (helyszín), 20<input class="p-blank tiny" type="text">.
+      év <input class="p-blank small" type="text"> hó <input class="p-blank tiny" type="text"> nap
+      <input class="p-blank tiny" type="text"> óra <input class="p-blank tiny" type="text"> perckor
+      megtartott gépjármű-átvizsgálásról.
     </div>
 
+    <p class="p-section-title">Jármű adatai</p>
+    <div class="p-row-3">
+      <div><b>Rendszám:</b> <input class="p-blank wide" type="text"></div>
+      <div><b>Típus, márka:</b> <input class="p-blank wide" type="text"></div>
+      <div><b>Szín:</b> <input class="p-blank wide" type="text"></div>
+    </div>
+
+    <p class="p-section-title">Vezető / tulajdonos adatai</p>
+    <div class="p-field"><b>Vezető neve:</b> <input class="p-blank wide" type="text"></div>
+    <div class="p-row-2">
+      <div><b>Vezetői engedély száma:</b> <input class="p-blank wide" type="text"></div>
+      <div><b>Tulajdonos (ha eltér):</b> <input class="p-blank wide" type="text"></div>
+    </div>
+
+    <p class="p-section-title">Az átvizsgálás körülményei</p>
+    <div class="p-field">Az átvizsgálás oka: <u>bűncselekmény gyanúja</u>* / <u>Rtv. szerinti közbiztonsági intézkedés</u>* / <u>a vezető hozzájárulása</u>* / <u>egyéb</u>*</div>
+    <p class="p-note">*a megfelelő rész aláhúzandó</p>
+    <div class="p-field"><b>Az átvizsgálás oka - részletesen:</b> <input class="p-blank wide" type="text"></div>
+
+    <p class="p-section-title">A jármű állapota</p>
+    <div class="p-row-2">
+      <div><b>Állapot átvizsgálás előtt:</b><textarea class="p-blank wide" style="min-height:55px;border:1px solid #999;padding:8px;margin-top:6px;"></textarea></div>
+      <div><b>Állapot átvizsgálás után:</b><textarea class="p-blank wide" style="min-height:55px;border:1px solid #999;padding:8px;margin-top:6px;"></textarea></div>
+    </div>
+
+    <p class="p-section-title">Talált tárgyak</p>
+    <div class="p-field p-numbered"><span class="num">1.</span><input class="p-blank wide" type="text"></div>
+    <div class="p-field p-numbered"><span class="num">2.</span><input class="p-blank wide" type="text"></div>
+
+
+    <table class="p-sig-table">
+      <tr>
+        <td><div class="p-sig-line"></div>átvizsgálást végző rendőr</td>
+        <td><div class="p-sig-line"></div>jármű vezetője</td>
+      </tr>
+    </table>
+
+    <div class="p-footer-note">Sablon – Atlas Roleplay Készenléti Rendőrség belső használatra. A dokumentum kizárólag szerepjáték célt szolgál.</div>
   </div>
 </div>
 
-<div class="letter-footer-bar">KÉSZENLÉTI RENDŐRSÉG · ATLAS ROLEPLAY · discord.gg/atlasroleplay</div>
-
-<footer class="site-footer-wrap">
+<footer>
   <div class="wrap foot-inner">
     <p>Atlas Roleplay - Készenléti Rendőrség. Fiktív szerepjáték-tartalom, nem valós hatósági szerv.</p>
     <p>Discord: discord.gg/atlasroleplay</p>
